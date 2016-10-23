@@ -9,10 +9,10 @@ public class Player {
   private int streetCred;
   private int workCred;
   private int health;
-  private int fishingSkillLevel;
-  private int rangerSkillLevel;
+  private int fishingSkill;
+  private int rangerSkill;
   private int numTickTests;
-  private int numAnitbiotics;
+  private int numAntibiotics;
   private int numCheapMeds;
   private double streetCredGainRate; // streetCred gained per second
   private int numTicks;
@@ -22,10 +22,18 @@ public class Player {
   public Player() {
     streetCred = 0;
     workCred = 0;
-    fishingSkillLevel = 0;
-    rangerSkillLevel = 0;
+    health = 100;
+    fishingSkill = 0;
+    rangerSkill = 0;
+    
     numTickTests = 0;
-    infectionStage = InfectionStage.HEALTHY;
+    numAntibiotics = 0;
+    numCheapMeds = 0;
+    numTicks = 0;
+    
+    infectionStage = HEALTHY;
+    streetCredGainRate = 1.0;
+    
     infoString = ""; // Insert appropriate info string here
   }
   
@@ -38,17 +46,17 @@ public class Player {
   public int getHealth() {
     return health;
   }
-  public int getFishingSkillLevel() {
-    return fishingSkillLevel;
+  public int getFishingSkill() {
+    return fishingSkill;
   }
-  public int getRangerSkillLevel() {
-    return rangerSkillLevel;
+  public int getRangerSkill() {
+    return rangerSkill;
   }
   public int getNumTickTests() {
     return numTickTests;
   }
-  public int getNumAnitbiotics() {
-    return numAnitbiotics;
+  public int getNumAntibiotics() {
+    return numAntibiotics;
   }
   public int getNumCheapMeds() {
     return numCheapMeds;
@@ -59,7 +67,7 @@ public class Player {
   public int getNumTicks() {
     return numTicks;
   }
-  public InfectionStage getInfectionStage() {
+  public int getInfectionStage() {
     return infectionStage;
   }
   public String getInfoString() {
