@@ -145,6 +145,10 @@ public class SimpleViewer extends JFrame implements IView{
       JPanel p = new JPanel(new FlowLayout());
       p.setBorder(BorderFactory.createTitledBorder("Items Owned: "));
       
+      JPanel tickTestPanel = new JPanel(new FlowLayout());
+      tickTestPanel.add(new JLabel("Number of tick tests: "));
+      
+      
       JLabel tickTestsLabel = new JLabel("Number of tick tests: "+numberOfTickTests);
       p.add(tickTestsLabel);
       
@@ -208,23 +212,38 @@ public class SimpleViewer extends JFrame implements IView{
     
     public void updateStreetCred(int streetCredValue) {
       this.streetCredValue = streetCredValue;
+      
     }
     public void updateWorkCred(int workCredValue) {
       this.workCredValue = workCredValue;
     }
-    public void updateHealth(int healthValue) {;
+    public void updateHealth(int healthValue) {
       this.healthValue = healthValue;
     }
-    /* Add update methods for these.
-    protected String       infectionStageString;
-    protected int          remainingQuestTime;
-    protected int          numberOfTickTests;
-    protected int          numberOfCheapMeds;
-    protected int          numberOfAntibiotics;
-    protected String       rangerGear; // MAYBE REPLACE THIS WITH AN ENUM???
-    protected String       fishingRod;
-   */
-
+    public void updateInfectionStageString(String newInfectionStage) {
+      this.infectionStageString = newInfectionStage;
+    }
+    
+    public void updateRemainingQuestTime(int timeRemaining) {
+      remainingQuestTime = timeRemaining;
+    }
+    
+    public void updateNumberOfTickTests(int numTickTests) {
+      numberOfTickTests = numTickTests;
+    }
+    
+    public void updateNumberofCheapMeds(int numCheapMeds) {
+      numberOfCheapMeds = numCheapMeds;
+    }
+    
+    public void updateRangerGear(String newRangerGear) {
+      rangerGear = newRangerGear;
+    }
+    
+    public void updateFishingGear(String newFishingRod) {
+      fishingRod = newFishingRod;
+    }
+    
     public void showMessage(String s) {
       myMessage.setText(s);
     }
