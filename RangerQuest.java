@@ -12,6 +12,7 @@ public class RangerQuest extends Quest{
 	public RangerQuest(){
 		super();
 	}
+	
 	public void generateRandomEvents(int skillLevel){
 		resetQuest();
 		int multiplier = Math.round((1.0F*timeToComplete)/MIN_TASK_TIME);
