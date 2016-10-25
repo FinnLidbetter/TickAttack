@@ -1,21 +1,75 @@
-
+/**
+ * Properties a Quest must contain pertaining to costs and payoffs.
+ *
+ */
 public interface QuestProperties {
-	
-public void generateRandomEvents(int skillLevel);
 
-boolean canPerformQuest(int currentWorkCred);
+	/**
+	 * Some sort of function that randomizes properties of the quest, generally
+	 * the payoffs, in accordance with the user's skillLevel.
+	 * 
+	 * @param skillLevel
+	 *            Some sort of parameter which should increase the payoffs to
+	 *            some extent if it is higher.
+	 */
+	public void generateRandomEvents(int skillLevel);
 
-public String getInfoString(); 
+	/**
+	 * Returns true if player has enough workCred to perform this quest.
+	 * 
+	 * @param currentWorkCred
+	 *            is the player's current workCred.
+	 * @return true if the quest can be performed.
+	 */
+	boolean canPerformQuest(int currentWorkCred);
 
-public long getStreetCredGain();
+	/**
+	 * ASCII representation of this quest.
+	 * 
+	 * @return
+	 */
+	public String getInfoString();
 
-public int getWorkCredCost(); 
+	/**
+	 * StreetCred gained by performing this quest.
+	 * 
+	 * @return
+	 */
+	public long getStreetCredGain();
 
-public int getWorkCredGain();
+	/**
+	 * WorkCred cost to perform this quest.
+	 * 
+	 * @return
+	 */
+	public int getWorkCredCost();
 
-public int getHealthCost();
+	/**
+	 * WorkCred gained by performing this quest.
+	 * 
+	 * @return
+	 */
+	public int getWorkCredGain();
 
-public int getHealthGain();
+	/**
+	 * Health lost by performing this quest.
+	 * 
+	 * @return
+	 */
+	public int getHealthCost();
 
-public boolean hasTick();
+	/**
+	 * Health gained by performing this quest.
+	 * 
+	 * @return
+	 */
+	public int getHealthGain();
+
+	/**
+	 * Indicates if the user gets a ticked latched on to him by doing this
+	 * quest.
+	 * 
+	 * @return True if the quest has a tick.
+	 */
+	public boolean hasTick();
 }

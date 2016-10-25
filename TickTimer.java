@@ -1,5 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collection;
 
 import javax.swing.Timer;
 
@@ -23,11 +24,20 @@ public class TickTimer {
 	private void update(){
 		player.incrementPerSecondStreetCred();
 		player.incrementPerSecondHealth();
-		for (Tick tick: player.getTicks())
-			tick.suckBlood();
+		for (Tick tick: player.getTicks()){
+			if (tick.suckBlood()){
+				Collection ticks = player.getTicks();
+				ticks.remove(tick);
+				player.adjustHealth(-10);
+				if (tick.hasLymeDisease())
+					player.incrementInfectionStage();
+			}
+		}
 		controller.updateStreetCred();
 		controller.updateHealth();
 		controller.updateInfectionState();
+		if (!player.isAlive())
+			controller.endGame();
 	}
 	
 	public void startTimer(){

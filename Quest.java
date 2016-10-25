@@ -1,5 +1,11 @@
 import java.util.Random;
 
+/**
+ * Contains all methods any quest should contain, except the 
+ * generateRandomEvents() method, which is quest specific.
+ * @author mbl80_000
+ *
+ */
 public abstract class Quest implements QuestProperties, Task{
 
 	public static final int TASK_TIME_RANGE = 100;
@@ -18,6 +24,11 @@ public abstract class Quest implements QuestProperties, Task{
 	protected int timeToComplete;
 	private boolean hasTick;
 	
+	/**
+	 * Resets the payoffs and the length of time the quest takes to 
+	 * complete.  Allows reseting and reusing a quest instead of 
+	 * creating new objects.
+	 */
 	protected void resetQuest(){
 		streetCredGain = 0L;
 		workCredGain = 0;
@@ -29,6 +40,10 @@ public abstract class Quest implements QuestProperties, Task{
 		if (random.nextDouble() <= TICK_CHANCE)
 			hasTick = true;
 	}
+	
+	/**
+	 * Constructor.
+	 */
 	public Quest(){
 		resetQuest();
 		generateRandomEvents(1);

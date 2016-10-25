@@ -1,23 +1,21 @@
+import java.util.ArrayList;
 
 public class Player {
-
-  public static final int HEALTHY = 0;
-  public static final int FIRST_STAGE_INFECTION = 1;
-  public static final int SECOND_STAGE_INFECTION = 2;
-  public static final int THIRD_STAGE_INFECTION = 3;
   
+  public static final double INFECTIONSTAGE_INCREMENT = 0.002;
   private int streetCred;
   private int workCred;
-  private int health;
+  private double health;
   private int fishingSkill;
   private int rangerSkill;
   private int numTickTests;
   private int numAntibiotics;
   private int numCheapMeds;
   private double streetCredGainRate; // streetCred gained per second
-  private int numTicks;
-  private int infectionStage;
+  private ArrayList<Tick> ticks;
+  private double infectionStage;
   private String infoString;
+  private boolean isAlive;
   
   public Player() {
     streetCred = 0;
@@ -29,12 +27,12 @@ public class Player {
     numTickTests = 0;
     numAntibiotics = 0;
     numCheapMeds = 0;
-    numTicks = 0;
-    
-    infectionStage = HEALTHY;
+    infectionStage = 0;
     streetCredGainRate = 1.0;
     
     infoString = ""; // Insert appropriate info string here
+    
+    isAlive = true;
   }
   
   public int getStreetCred() {
@@ -43,7 +41,7 @@ public class Player {
   public int getWorkCred() {
     return workCred;
   }
-  public int getHealth() {
+  public double getHealth() {
     return health;
   }
   public int getFishingSkill() {
@@ -64,10 +62,8 @@ public class Player {
   public double getStreetCredGainRate() {
     return streetCredGainRate;
   }
-  public int getNumTicks() {
-    return numTicks;
-  }
-  public int getInfectionStage() {
+
+  public double getInfectionStage() {
     return infectionStage;
   }
   public String getInfoString() {
@@ -76,16 +72,20 @@ public class Player {
   public void setInfoString(String newInfoString) {
     infoString = newInfoString; 
   }
+  
   public void incrementInfectionStage() {
-    if (infectionStage!=THIRD_STAGE_INFECTION)
-      infectionStage++;
+    if (infectionStage != 0)
+    	infectionStage += INFECTIONSTAGE_INCREMENT;
   }
   
-  public void incrementNumTicks() {
-    numTicks++;
+  public void updateInfectionStage(double amount){
+	  infectionStage += amount;
+	  if (infectionStage < 0)
+		  infectionStage = 0;
   }
-  public void decrementNumTicks(int numTicksRemoved) {
-    numTicks -= numTicksRemoved;
+  
+  public ArrayList<Tick> getTicks() {
+    return ticks;
   }
   
   public void incrementRangerSkill(int rangerSkillIncrease) {
@@ -134,5 +134,23 @@ public class Player {
   
   public void adjustHealth(int healthChange) {
     health += healthChange; 
+    if (health > 100)
+    	health = 100;
+    if (health <= 0)
+    	isAlive = false;
+  }
+  
+  public void incrementPerSecondHealth(){
+	health -= infectionStage;
+	if (health <= 0)
+      isAlive = false;
+  }
+
+  public boolean isAlive() {
+	return isAlive;
+  }
+
+  public void setAlive(boolean isAlive) {
+	this.isAlive = isAlive;
   }
 }
