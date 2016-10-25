@@ -26,18 +26,34 @@ public class TickTimer {
 		player.incrementPerSecondHealth();
 		for (Tick tick: player.getTicks()){
 			if (tick.suckBlood()){
-				Collection ticks = player.getTicks();
+				Collection<Tick> ticks = player.getTicks();
 				ticks.remove(tick);
 				player.adjustHealth(-10);
 				if (tick.hasLymeDisease())
 					player.incrementInfectionStage();
 			}
 		}
-		controller.updateStreetCred();
-		controller.updateHealth();
-		controller.updateInfectionState();
+	
 		if (!player.isAlive())
 			controller.endGame();
+		
+		Task task = player.decrementTimeToCompleteTask();
+		if (task != null){
+			if (task instanceof TickSearch){
+				TickSearch action = (TickSearch)task;
+				action.attemptRemovingTicks(player.getTicks(), player.useTickTest());
+			}
+			else{
+				Quest action = (Quest)task;
+				player.updateStreetCred(action.getStreetCredGain());
+				player.updateWorkCred(action.getWorkCredGain());
+				player.adjustHealth(action.getHealthCost()+action.getHealthGain());
+				if(action.hasTick())
+					player.addTick();
+			}
+		}
+		
+		controller.update();
 	}
 	
 	public void startTimer(){

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Player {
   
   public static final double INFECTIONSTAGE_INCREMENT = 0.002;
-  private int streetCred;
+  private long streetCred;
   private int workCred;
   private double health;
   private int fishingSkill;
@@ -16,6 +16,8 @@ public class Player {
   private double infectionStage;
   private String infoString;
   private boolean isAlive;
+  private Task currentTask;
+  private int timeToCompleteTask;
   
   public Player() {
     streetCred = 0;
@@ -33,9 +35,11 @@ public class Player {
     infoString = ""; // Insert appropriate info string here
     
     isAlive = true;
+    currentTask = null;
+    timeToCompleteTask = 0;
   }
   
-  public int getStreetCred() {
+  public long getStreetCred() {
     return streetCred;
   }
   public int getWorkCred() {
@@ -52,6 +56,12 @@ public class Player {
   }
   public int getNumTickTests() {
     return numTickTests;
+  }
+  public boolean useTickTest(){
+	  if (numTickTests == 0)
+		  return false;
+	  numTickTests--;
+	  return true;
   }
   public int getNumAntibiotics() {
     return numAntibiotics;
@@ -88,6 +98,10 @@ public class Player {
     return ticks;
   }
   
+  public void addTick(){
+	  ticks.add(new Tick());
+  }
+  
   public void incrementRangerSkill(int rangerSkillIncrease) {
     rangerSkill += rangerSkillIncrease;
   }
@@ -120,12 +134,12 @@ public class Player {
     workCred += workCredGained; 
   }
   
-  public void spendStreetCred(int streetCredSpent) {
-    streetCred -= streetCredSpent;
+  public void updateStreetCred(long streetCredChange) {
+    streetCred += streetCredChange;
   }
   
-  public void spendWorkCred(int workCredSpent) {
-    workCred -= workCredSpent; 
+  public void updateWorkCred(int workCredChange) {
+    workCred -= workCredChange; 
   }
   
   public void multiplyStreetCredGainRate(double multiplier) {
@@ -152,5 +166,32 @@ public class Player {
 
   public void setAlive(boolean isAlive) {
 	this.isAlive = isAlive;
+  }
+
+  public Task getCurrentTask() {
+	return currentTask;
+  }
+
+  public void setCurrentTask(Task currentTask) {
+	this.currentTask = currentTask;
+  }
+
+  public int getTimeToCompleteTask() {
+	return timeToCompleteTask;
+  }
+
+  public void setTimeToCompleteTask(int timeToCompleteTask) {
+	this.timeToCompleteTask = timeToCompleteTask;
+  }
+  
+  public Task decrementTimeToCompleteTask(){
+	  if (currentTask != null){
+		  if (--timeToCompleteTask == 0){
+			  Task completedTask = currentTask;
+			  currentTask = null;
+			  return completedTask;
+		  }
+	  }
+	  return null;
   }
 }
