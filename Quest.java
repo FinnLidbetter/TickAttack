@@ -1,7 +1,7 @@
 import java.util.Random;
 
 /**
- * Contains all methods any quest should contain, except the 
+ * Contains all methods any quest should contain, except the
  * generateRandomEvents() method, which is quest specific.
  * @author mbl80_000
  *
@@ -10,12 +10,12 @@ public abstract class Quest implements QuestProperties, Task{
 
 	public static final int TASK_TIME_RANGE = 100;
 	public static final double TICK_CHANCE = 0.3;
-	
+
 	protected static Random random;
-	
+
 	protected String questName;
 	protected String infoString;
-	
+
 	protected long streetCredGain;
 	protected int workCredCost;
 	protected int workCredGain;
@@ -23,10 +23,10 @@ public abstract class Quest implements QuestProperties, Task{
 	protected int healthGain;
 	protected int timeToComplete;
 	private boolean hasTick;
-	
+
 	/**
-	 * Resets the payoffs and the length of time the quest takes to 
-	 * complete.  Allows reseting and reusing a quest instead of 
+	 * Resets the payoffs and the length of time the quest takes to
+	 * complete.  Allows reseting and reusing a quest instead of
 	 * creating new objects.
 	 */
 	protected void resetQuest(){
@@ -40,19 +40,19 @@ public abstract class Quest implements QuestProperties, Task{
 		if (random.nextDouble() <= TICK_CHANCE)
 			hasTick = true;
 	}
-	
+
 	/**
 	 * Constructor.
 	 */
-	public Quest(){
+	public Quest(int skillLevel) {
 		resetQuest();
-		generateRandomEvents(1);
+		generateRandomEvents(skillLevel);
 	}
-	
+
 	public String getInfoString() {
 		return infoString;
 	}
-	
+
 	public long getStreetCredGain() {
 		return streetCredGain;
 	}

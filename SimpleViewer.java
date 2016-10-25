@@ -12,7 +12,7 @@ import java.io.FileNotFoundException;
 /**
  * Finn Lidbetter
  * This class handles the GUI for this program. This code was not
- * written by me. 
+ * written by me.
  */
 
 public class SimpleViewer extends JFrame implements IView{
@@ -26,12 +26,12 @@ public class SimpleViewer extends JFrame implements IView{
     protected JLabel       numberOfAntibioticsLabel;
     protected JLabel       rangerGearLabel;
     protected JLabel       fishingRodLabel;
-    
+
     protected JTextArea    myOutput;
     protected IController  myController;
     protected String       myTitle;
     protected String       myLabelString;
-    
+
     protected JComboBox<String> questChoice;
     protected JComboBox<String> storeChoice;
     protected JComboBox<String> itemChoice;
@@ -39,27 +39,27 @@ public class SimpleViewer extends JFrame implements IView{
     protected JButton storeButton;
     protected JButton useItemButton;
     protected JButton tickSearchButton;
-    
-    
+
+
     protected JTextField   myMessage;
-    
-    
+
+
     public SimpleViewer(String title, String prompt){
       setDefaultCloseOperation(EXIT_ON_CLOSE);
-    
+
       JPanel panel = (JPanel) getContentPane();
       panel.setLayout(new BorderLayout());
       setTitle(title);
       myTitle = title;
       myLabelString = prompt;
-  
+
       panel.add(makeVariableTracker(), BorderLayout.NORTH);
       panel.add(makeOutput(), BorderLayout.CENTER);
       panel.add(makeMessage(), BorderLayout.SOUTH);
       panel.add(makeItemTracker(), BorderLayout.SOUTH);
       panel.add(makeButtons(), BorderLayout.EAST);
       connectEvents();
-  
+
       pack();
       setSize(800,400);
       setVisible(true);
@@ -77,10 +77,10 @@ public class SimpleViewer extends JFrame implements IView{
       p.add(myMessage, BorderLayout.CENTER);
       return p;
     }
-    
+
     protected JPanel makeButtons() {
       JPanel p = new JPanel(new GridLayout(3,1));
-      
+
       p.add(makeQuestButton());
       p.add(makeStoreButton());
       p.add(makeUseItemButton());
@@ -94,7 +94,7 @@ public class SimpleViewer extends JFrame implements IView{
     private JPanel makeQuestButton() {
       JPanel p = new JPanel(new GridLayout(2,1));
       p.setBorder(BorderFactory.createTitledBorder("Quest: "));
-      String[] questNames = {"Ranger quest", "Fishing quest"};
+      String[] questNames = {"Ranger Quest", "Fishing Quest"};
       questChoice = new JComboBox<>(questNames);
       p.add(questChoice);
       questButton = new JButton("Perform quest");
@@ -114,7 +114,7 @@ public class SimpleViewer extends JFrame implements IView{
     private JPanel makeUseItemButton() {
       JPanel p = new JPanel(new GridLayout(2,1));
       p.setBorder(BorderFactory.createTitledBorder("Item: "));
-      String[] itemNames = {"Cheap meds", "Antibiotics"};
+      String[] itemNames = {"Cheap Meds", "Antibiotics"};
       itemChoice = new JComboBox<>(itemNames);
       p.add(itemChoice);
       useItemButton = new JButton("Consume item");
@@ -143,7 +143,7 @@ public class SimpleViewer extends JFrame implements IView{
       p.add(makeRemainingQuestTimeLabel());
       return p;
     }
-    
+
     private JPanel makeStreetCredLabel() {
       JPanel p = new JPanel(new GridLayout(1,2));
       p.add(new JLabel("   Street Cred: "));
@@ -151,7 +151,7 @@ public class SimpleViewer extends JFrame implements IView{
       p.add(streetCredLabel);
       return p;
     }
-    
+
     private JPanel makeWorkCredLabel() {
       JPanel p = new JPanel(new GridLayout(1,2));
       p.add(new JLabel("   Work Cred: "));
@@ -159,7 +159,7 @@ public class SimpleViewer extends JFrame implements IView{
       p.add(workCredLabel);
       return p;
     }
-    
+
     private JPanel makeHealthLabel() {
       JPanel p = new JPanel(new GridLayout(1,2));
       p.add(new JLabel("   Health: "));
@@ -167,7 +167,7 @@ public class SimpleViewer extends JFrame implements IView{
       p.add(healthLabel);
       return p;
     }
-    
+
     private JPanel makeInfectionStageLabel() {
       JPanel p = new JPanel(new GridLayout(1,2));
       p.add(new JLabel("   Infection Stage: "));
@@ -175,7 +175,7 @@ public class SimpleViewer extends JFrame implements IView{
       p.add(infectionStageLabel);
       return p;
     }
-    
+
     private JPanel makeRemainingQuestTimeLabel() {
       JPanel p = new JPanel(new GridLayout(1,2));
       p.add(new JLabel("   Remaining Quest Time: "));
@@ -183,7 +183,7 @@ public class SimpleViewer extends JFrame implements IView{
       p.add(remainingQuestTimeLabel);
       return p;
     }
-    
+
     protected JPanel makeItemTracker() {
       JPanel p = new JPanel(new FlowLayout());
       p.setBorder(BorderFactory.createTitledBorder("Items Owned: "));
@@ -194,7 +194,7 @@ public class SimpleViewer extends JFrame implements IView{
       p.add(makeFishingRodLabel());
       return p;
     }
-     
+
     private JPanel makeNumberOfTickTestsLabel() {
       JPanel p = new JPanel(new FlowLayout());
       p.add(new JLabel("Number of Tick Tests: "));
@@ -202,7 +202,7 @@ public class SimpleViewer extends JFrame implements IView{
       p.add(numberOfTickTestsLabel);
       return p;
     }
-    
+
     private JPanel makeNumberOfCheapMedsLabel() {
       JPanel p = new JPanel(new FlowLayout());
       p.add(new JLabel("   Number of Cheap Meds: "));
@@ -218,7 +218,7 @@ public class SimpleViewer extends JFrame implements IView{
       p.add(numberOfAntibioticsLabel);
       return p;
     }
-    
+
     private JPanel makeRangerGearLabel() {
       JPanel p = new JPanel(new FlowLayout());
       p.add(new JLabel("   Ranger Gear: "));
@@ -226,7 +226,7 @@ public class SimpleViewer extends JFrame implements IView{
       p.add(rangerGearLabel);
       return p;
     }
-    
+
     private JPanel makeFishingRodLabel() {
       JPanel p = new JPanel(new FlowLayout());
       p.add(new JLabel("   Fishing Rod: "));
@@ -234,15 +234,15 @@ public class SimpleViewer extends JFrame implements IView{
       p.add(fishingRodLabel);
       return p;
     }
-    
-    
+
+
     protected void connectEvents(){
       connectQuestEvent();
       connectStoreEvent();
       connectItemEvent();
       connectTickSearchEvent();
     }
-    
+
     protected void connectQuestEvent(){
       questButton.addActionListener(new ActionListener(){
         public void actionPerformed(ActionEvent ev) {
@@ -258,7 +258,7 @@ public class SimpleViewer extends JFrame implements IView{
         }
       });
     }
-   
+
     protected void connectItemEvent(){
       useItemButton.addActionListener(new ActionListener(){
         public void actionPerformed(ActionEvent ev) {
@@ -266,22 +266,22 @@ public class SimpleViewer extends JFrame implements IView{
         }
       });
     }
-    
+
     protected void connectTickSearchEvent(){
       tickSearchButton.addActionListener(new ActionListener(){
         public void actionPerformed(ActionEvent ev) {
-          myController.process("Tick search");
+          myController.process("Tick Search");
         }
       });
     }
-    
+
     public void update(String infoString){
       myOutput.setText(infoString);
     }
-    
+
     public void updateStreetCred(int streetCredValue) {
       streetCredLabel.setText(""+streetCredValue);
-      
+
     }
     public void updateWorkCred(int workCredValue) {
       workCredLabel.setText(""+workCredValue);
@@ -307,31 +307,31 @@ public class SimpleViewer extends JFrame implements IView{
       }
       infectionStageLabel.setText(infectionStageString);
     }
-    
+
     public void updateRemainingQuestTime(int timeRemaining) {
       remainingQuestTimeLabel.setText(""+timeRemaining);
     }
-    
+
     public void updateNumberOfTickTests(int numTickTests) {
       numberOfTickTestsLabel.setText(""+numTickTests);
     }
-    
+
     public void updateNumberofCheapMeds(int numCheapMeds) {
       numberOfCheapMedsLabel.setText(""+numCheapMeds);
     }
-    
+
     public void updateRangerGear(String newRangerGear) {
       rangerGearLabel.setText(newRangerGear);
     }
-    
+
     public void updateFishingRod(String newFishingRod) {
       fishingRodLabel.setText(newFishingRod);
     }
-    
+
     public void showMessage(String s) {
       myMessage.setText(s);
     }
-  
+
     public void showError(String s){
       JOptionPane.showMessageDialog(this,s,"Controller Error",
             JOptionPane.ERROR_MESSAGE);

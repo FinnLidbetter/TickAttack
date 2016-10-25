@@ -8,19 +8,19 @@ public class TickTimer {
 
 	private static final int MILLISECONDS_BETWEEN_ACTIONS = 1000;
 	private Timer timer;
-	private IController controller;
+	private Controller controller;
 	private Player player;
-	
-	public TickTimer(IController controller, Player player){
+
+	public TickTimer(Controller controller){
 		this.controller = controller;
-		this.player = player;
+		this.player = controller.getPlayer();
 		this.timer = new Timer(MILLISECONDS_BETWEEN_ACTIONS, new ActionListener() {
 			public void actionPerformed(ActionEvent evt){
 				update();
 			}
 		});
 	}
-	
+
 	private void update(){
 		player.incrementPerSecondStreetCred();
 		player.incrementPerSecondHealth();
@@ -33,10 +33,10 @@ public class TickTimer {
 					player.incrementInfectionStage();
 			}
 		}
-	
+
 		if (!player.isAlive())
 			controller.endGame();
-		
+
 		Task task = player.decrementTimeToCompleteTask();
 		if (task != null){
 			if (task instanceof TickSearch){
@@ -52,10 +52,10 @@ public class TickTimer {
 					player.addTick();
 			}
 		}
-		
+
 		controller.update();
 	}
-	
+
 	public void startTimer(){
 		this.timer.start();
 	}

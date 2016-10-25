@@ -14,7 +14,7 @@ public class FishingQuest extends Quest {
 	 */
 	public FishingQuest() {
 		super();
-		workCredCost = WORKCRED_COST;
+		super.workCredCost = WORKCRED_COST;
 	}
 
 	public void generateRandomEvents(int skillLevel) {
@@ -31,7 +31,7 @@ public class FishingQuest extends Quest {
 	 * caught. Number of fish caught is partially random, but increases if the
 	 * multiplier increases. Payoffs are partially random, but increase if more
 	 * fish are caught and if the player has a higher skill level.
-	 * 
+	 *
 	 * @param skillLevel
 	 *            player's skill level.
 	 * @param multiplier
@@ -71,7 +71,7 @@ public class FishingQuest extends Quest {
 	 * Loch Ness Monster.  The payoff is partially random but also increases with
 	 * the user's skillLevel.  The chance to catch Nessy is random, but increases
 	 * with the multiplier.
-	 * 
+	 *
 	 * @param skillLevel
 	 *            player's skill level.
 	 * @param multiplier
