@@ -100,7 +100,7 @@ public class TaskTester {
 		FishingQuest f = new FishingQuest();
 		long streetCredMultiplier2 = 0;
 		long streetCredMultiplier4 = 0;
-		for (int i = 0; i < 20000; i++){
+		for (int i = 0; i < 100000; i++){
 			f.resetQuest();
 			f.fish(1,2);
 			streetCredMultiplier2 += f.getStreetCredGain();
@@ -117,7 +117,7 @@ public class TaskTester {
 		RangerQuest quest = new RangerQuest();
 		int healthLostMultiplier2 = 0;
 		int healthLostMultiplier4 = 0;
-		for (int i = 0; i < 20000; i++){
+		for (int i = 0; i < 100000; i++){
 			quest.resetQuest();
 			quest.foundBear(2);
 			healthLostMultiplier2 += quest.getHealthCost();
@@ -134,7 +134,7 @@ public class TaskTester {
 		RangerQuest quest = new RangerQuest();
 		int healthGainMultiplier2 = 0;
 		int healthGainMultiplier4 = 0;
-		for (int i = 0; i < 20000; i++){
+		for (int i = 0; i < 100000; i++){
 			quest.resetQuest();
 			quest.foundMedicinalHerbs(2);
 			healthGainMultiplier2 += quest.getHealthGain();
