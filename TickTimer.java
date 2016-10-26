@@ -9,10 +9,10 @@ public class TickTimer {
 
 	private static final int MILLISECONDS_BETWEEN_ACTIONS = 1000;
 	private Timer timer;
-	private IController controller;
+	private Controller controller;
 	private Player player;
 	
-	public TickTimer(IController controller){
+	public TickTimer(Controller controller){
 		this.controller = controller;
 		this.player = controller.getPlayer();
 		this.timer = new Timer(MILLISECONDS_BETWEEN_ACTIONS, new ActionListener() {
