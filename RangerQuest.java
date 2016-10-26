@@ -11,16 +11,13 @@ public class RangerQuest extends Quest {
 	/**
 	 * Constructor. Generates a quest with assumed skill level of 1.
 	 */
-	public RangerQuest(int rangerSkillLevel) {
-		super(rangerSkillLevel);
-	}
 
 	public void generateRandomEvents(int skillLevel) {
 		resetQuest();
 		int multiplier = Math.round((1.0F * timeToComplete) / MIN_TASK_TIME);
 		infoString = "Performing Ranger Quest! \n";
-		workCredGain = Math.abs(random.nextInt(skillLevel * MAX_WORKCRED_MULTIPLIER
-				* multiplier));
+		workCredGain = random.nextInt(skillLevel * MAX_WORKCRED_MULTIPLIER
+				* multiplier) + 1;
 		foundHiker(multiplier);
 		foundMedicinalHerbs(multiplier);
 		foundBear(multiplier);
@@ -30,12 +27,12 @@ public class RangerQuest extends Quest {
 	 * Has a chance of finding a bear. The chance of finding a bear increases
 	 * with the multiplier, and the damage taken is between 0 and
 	 * BEAR_MAX_DAMAGE.
-	 *
+	 * 
 	 * @param multiplier
 	 *            increases chances of event happening.
 	 */
-	private void foundBear(int multiplier) {
-		if (random.nextDouble() <= multiplier * BEAR_CHANCE) {
+	protected void foundBear(int multiplier) {
+		if (random.nextDouble() <= 1 - Math.pow(1-BEAR_CHANCE, multiplier)) {
 			int damageTaken = random.nextInt(BEAR_MAX_DAMAGE);
 			healthCost = damageTaken;
 			infoString += "Found a bear! Lost " + damageTaken
@@ -47,12 +44,12 @@ public class RangerQuest extends Quest {
 	 * Has a chance of finding medicinal herbs. The chance of finding them
 	 * increases with the multiplier, and the health healed is between 0 and
 	 * MEDICINAL_HERBS_MAX_HEAL.
-	 *
+	 * 
 	 * @param multiplier
 	 *            increases chances of event happening.
 	 */
-	private void foundMedicinalHerbs(int multiplier) {
-		if (random.nextDouble() <= multiplier * MEDICINAL_HERBS_CHANCE) {
+	protected void foundMedicinalHerbs(int multiplier) {
+		if (random.nextDouble() <= 1 - Math.pow(1-MEDICINAL_HERBS_CHANCE, multiplier)) {
 			int healthHealed = random.nextInt(MEDICINAL_HERB_MAX_HEAL);
 			healthGain = healthHealed;
 			infoString += "Found some medicinal herbs! Recovered "
@@ -65,13 +62,13 @@ public class RangerQuest extends Quest {
 	 * hiker increases with the multiplier. The user's payoff for this quest is
 	 * increased by a percentage between 0 and RESCUE_HIKERS_MAX_WORKCRED_BONUS
 	 * if a hiker is rescued.
-	 *
+	 * 
 	 * @param multiplier
 	 */
-	private void foundHiker(int multiplier) {
-		if (random.nextDouble() <= multiplier * RESCUE_HIKERS_CHANCE) {
+	protected void foundHiker(int multiplier) {
+		if (random.nextDouble() <= 1 - Math.pow(1-RESCUE_HIKERS_CHANCE, multiplier)) {
 			int extraWorkCred = random
-					.nextInt((int) (workCredGain * RESCUE_HIKERS_MAX_WORKCRED_BONUS));
+					.nextInt((int)Math.max(1,(Math.round(workCredGain * RESCUE_HIKERS_MAX_WORKCRED_BONUS))));
 			workCredGain += extraWorkCred;
 			infoString += "Found and rescued a hiker! Bonus of "
 					+ extraWorkCred + " workCred!";

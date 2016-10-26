@@ -1,4 +1,4 @@
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -6,20 +6,20 @@ import java.util.Random;
  *
  */
 public class TickSearch implements Task{
-
-	private static Random random;
+	
+	private static Random random = new Random();
 
 	private int timeToComplete;
-	private static final double BASE_REMOVE_TICK_CHANCE = 0.3;
-	private static final double TICK_TEST_EXTRA_REMOVAL_CHANCE = 0.4;
-
+	protected static final double BASE_REMOVE_TICK_CHANCE = 0.3;
+	protected static final double TICK_TEST_EXTRA_REMOVAL_CHANCE = 0.4;
+	
 	/**
 	 * Constructor.
 	 */
 	public TickSearch(){
 		timeToComplete = MIN_TASK_TIME;
 	}
-
+	
 	public int getTimeToComplete() {
 		return timeToComplete;
 	}
@@ -30,19 +30,19 @@ public class TickSearch implements Task{
 	 * @param ticks
 	 * @param usingTickTest
 	 */
-	public void attemptRemovingTicks(Collection<Tick> ticks, boolean usingTickTest){
-		for (Tick tick: ticks){
+	public void attemptRemovingTicks(ArrayList<Tick> ticks, boolean usingTickTest){
+		Tick tick;
+		for (int i = 0; i < ticks.size(); i++){
+			tick = ticks.get(i);
 			double removalChance = tick.engorgedSize() + BASE_REMOVE_TICK_CHANCE;
 			if (usingTickTest){
 				tick.makeVisible();
 				removalChance += TICK_TEST_EXTRA_REMOVAL_CHANCE;
 			}
-			if (random.nextDouble() <= removalChance)
-				ticks.remove(tick);
+			if (random.nextDouble() <= removalChance){
+				ticks.remove(i);
+				i--;
+			}
 		}
-	}
-
-	public String getInfoString() {
-		return "Searching for Ticks";
 	}
 }
