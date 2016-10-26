@@ -8,19 +8,19 @@ public class TickTimer {
 
 	private static final int MILLISECONDS_BETWEEN_ACTIONS = 100;
 	private Timer timer;
-	private IController controller;
+	private Controller controller;
 	private Player player;
-	
-	public TickTimer(IController controller, Player player){
+
+	public TickTimer(Controller controller){
 		this.controller = controller;
-		this.player = player;
+		this.player = controller.getPlayer();
 		this.timer = new Timer(MILLISECONDS_BETWEEN_ACTIONS, new ActionListener() {
 			public void actionPerformed(ActionEvent evt){
 				update();
 			}
 		});
 	}
-	
+
 	private void update(){
 		player.incrementPerSecondStreetCred();
 		player.incrementPerSecondHealth();
@@ -33,10 +33,10 @@ public class TickTimer {
 					player.incrementInfectionStage();
 			}
 		}
-	
+
 		if (!player.isAlive())
 			controller.endGame();
-		
+
 		Task task = player.decrementTimeToCompleteTask();
 		if (task != null){
 			if (task instanceof TickSearch){
@@ -44,26 +44,20 @@ public class TickTimer {
 				action.attemptRemovingTicks(player.getTicks(), player.useTickTest());
 			}
 			else {
-			//else if (player.getTimeToCompleteTask()==0){
 				Quest action = (Quest)task;
 				player.updateStreetCred(action.getStreetCredGain());
 				player.updateWorkCred(action.getWorkCredGain());
 				player.adjustHealth(action.getHealthCost()+action.getHealthGain());
 				if(action.hasTick())
 					player.addTick();
-			//}
 			}
 			controller.update(task.getInfoString());
 		}
 		else {
 			controller.update(controller.getCurrentInfoString());
 		}
-<<<<<<< HEAD
-=======
-		
->>>>>>> 7b1fc7ee5b20abc126740daa1d2c9dcc972ceaf0
 	}
-	
+
 	public void startTimer(){
 		this.timer.start();
 	}
