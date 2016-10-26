@@ -1,16 +1,17 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.swing.Timer;
 
 public class TickTimer {
 
-	private static final int MILLISECONDS_BETWEEN_ACTIONS = 100;
+	private static final int MILLISECONDS_BETWEEN_ACTIONS = 1000;
 	private Timer timer;
 	private Controller controller;
 	private Player player;
-
+	
 	public TickTimer(Controller controller){
 		this.controller = controller;
 		this.player = controller.getPlayer();
@@ -20,32 +21,31 @@ public class TickTimer {
 			}
 		});
 	}
-
+	
 	private void update(){
 		player.incrementPerSecondStreetCred();
 		player.incrementPerSecondHealth();
 		ArrayList<Tick> ticks = player.getTicks();
-		for (int i=0; i<ticks.size(); i++){
-			if (ticks.get(i).suckBlood()) {
-				if (ticks.get(i).hasLymeDisease()) {
+		for (int i = 0; i < ticks.size(); i++){
+			if (ticks.get(i).suckBlood()){
+				if (ticks.get(i).hasLymeDisease())
 					player.incrementInfectionStage();
-				}
 				ticks.remove(i);
 				i--;
 				player.adjustHealth(-10);
 			}
 		}
-
+	
 		if (!player.isAlive())
 			controller.endGame();
-
+		
 		Task task = player.decrementTimeToCompleteTask();
 		if (task != null){
 			if (task instanceof TickSearch){
 				TickSearch action = (TickSearch)task;
 				action.attemptRemovingTicks(player.getTicks(), player.useTickTest());
 			}
-			else {
+			else{
 				Quest action = (Quest)task;
 				player.updateStreetCred(action.getStreetCredGain());
 				player.updateWorkCred(action.getWorkCredGain());
@@ -53,13 +53,11 @@ public class TickTimer {
 				if(action.hasTick())
 					player.addTick();
 			}
-			controller.update(task.getInfoString());
 		}
-		else {
-			controller.update(controller.getCurrentInfoString());
-		}
+		
+		controller.update();
 	}
-
+	
 	public void startTimer(){
 		this.timer.start();
 	}

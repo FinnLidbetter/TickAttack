@@ -11,26 +11,27 @@ import java.io.FileNotFoundException;
 
 /**
  * Finn Lidbetter
- * This class handles the GUI for this program.
+ * This class handles the GUI for this program. This code was not
+ * written by me. 
  */
 
 public class SimpleViewer extends JFrame implements IView{
-    protected JLabel       streetCredLabel;
-    protected JLabel       workCredLabel;
-    protected JLabel       healthLabel;
-    protected JLabel       infectionStageLabel;
-    protected JLabel       timeToCompleteTaskLabel;
-    protected JLabel       numberOfTickTestsLabel;
-    protected JLabel       numberOfCheapMedsLabel;
-    protected JLabel       numberOfAntibioticsLabel;
-    protected JLabel       rangerGearLabel;
-    protected JLabel       fishingRodLabel;
-
+    protected int          streetCredValue;
+    protected int          workCredValue;
+    protected int          healthValue;
+    protected String       infectionStageString;
+    protected int          remainingQuestTime;
+    protected int          numberOfTickTests;
+    protected int          numberOfCheapMeds;
+    protected int          numberOfAntibiotics;
+    protected String       rangerGear; // MAYBE REPLACE THIS WITH AN ENUM???
+    protected String       fishingRod;
+    
     protected JTextArea    myOutput;
     protected IController  myController;
     protected String       myTitle;
     protected String       myLabelString;
-
+    
     protected JComboBox<String> questChoice;
     protected JComboBox<String> storeChoice;
     protected JComboBox<String> itemChoice;
@@ -38,27 +39,27 @@ public class SimpleViewer extends JFrame implements IView{
     protected JButton storeButton;
     protected JButton useItemButton;
     protected JButton tickSearchButton;
-
-
+    
+    
     protected JTextField   myMessage;
-
-
+    
+    
     public SimpleViewer(String title, String prompt){
       setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+		
       JPanel panel = (JPanel) getContentPane();
       panel.setLayout(new BorderLayout());
       setTitle(title);
       myTitle = title;
       myLabelString = prompt;
-
+  
       panel.add(makeVariableTracker(), BorderLayout.NORTH);
       panel.add(makeOutput(), BorderLayout.CENTER);
       panel.add(makeMessage(), BorderLayout.SOUTH);
       panel.add(makeItemTracker(), BorderLayout.SOUTH);
       panel.add(makeButtons(), BorderLayout.EAST);
       connectEvents();
-
+  
       pack();
       setSize(800,400);
       setVisible(true);
@@ -70,55 +71,47 @@ public class SimpleViewer extends JFrame implements IView{
     }
 
     protected JPanel makeMessage(){
-      JPanel p = new JPanel(new BorderLayout());
-      myMessage = new JTextField(30);
-      p.setBorder(BorderFactory.createTitledBorder("message"));
-      p.add(myMessage, BorderLayout.CENTER);
-      return p;
+    	JPanel p = new JPanel(new BorderLayout());
+    	myMessage = new JTextField(30);
+    	p.setBorder(BorderFactory.createTitledBorder("message"));
+    	p.add(myMessage, BorderLayout.CENTER);
+    	return p;
     }
-
+    
     protected JPanel makeButtons() {
       JPanel p = new JPanel(new GridLayout(3,1));
-
-      p.add(makeQuestButton());
-      p.add(makeStoreButton());
-      p.add(makeUseItemButton());
-
+      JPanel p1 = new JPanel(new GridLayout(2,1));
+      p1.setBorder(BorderFactory.createTitledBorder("Quest: "));
+      String[] questNames = {"Ranger quest", "Fishing quest"};
+      questChoice = new JComboBox<>(questNames);
+      p1.add(questChoice);
+      questButton = new JButton("Perform quest");
+      p1.add(questButton);
+      p.add(p1);
+      
+      JPanel p2 = new JPanel(new GridLayout(2,1));
+      p2.setBorder(BorderFactory.createTitledBorder("Store: "));
+      String[] storeNames = {"Cheap Local Store","Big Expensive Foreign Store"};
+      storeChoice = new JComboBox<>(storeNames);
+      p2.add(storeChoice);
+      storeButton = new JButton("Go to store");
+      p2.add(storeButton);
+      p.add(p2);
+      
+      JPanel p3 = new JPanel(new GridLayout(2,1));
+      p3.setBorder(BorderFactory.createTitledBorder("Item: "));
+      String[] itemNames = {"Cheap meds", "Antibiotics"};
+      itemChoice = new JComboBox<>(itemNames);
+      p3.add(itemChoice);
+      useItemButton = new JButton("Consume item");
+      p3.add(useItemButton);
+      p.add(p3);
+      
       JPanel outerPanel = new JPanel(new BorderLayout());
       outerPanel.add(p, BorderLayout.CENTER);
       tickSearchButton = new JButton("Perform a tick search");
       outerPanel.add(tickSearchButton, BorderLayout.SOUTH);
       return outerPanel;
-    }
-    private JPanel makeQuestButton() {
-      JPanel p = new JPanel(new GridLayout(2,1));
-      p.setBorder(BorderFactory.createTitledBorder("Quest: "));
-      String[] questNames = {"Ranger Quest", "Fishing Quest"};
-      questChoice = new JComboBox<>(questNames);
-      p.add(questChoice);
-      questButton = new JButton("Perform quest");
-      p.add(questButton);
-      return p;
-    }
-    private JPanel makeStoreButton() {
-      JPanel p = new JPanel(new GridLayout(2,1));
-      p.setBorder(BorderFactory.createTitledBorder("Store: "));
-      String[] storeNames = {"Cheap Local Store","Big Expensive Foreign Store"};
-      storeChoice = new JComboBox<>(storeNames);
-      p.add(storeChoice);
-      storeButton = new JButton("Go to store");
-      p.add(storeButton);
-      return p;
-    }
-    private JPanel makeUseItemButton() {
-      JPanel p = new JPanel(new GridLayout(2,1));
-      p.setBorder(BorderFactory.createTitledBorder("Item: "));
-      String[] itemNames = {"Cheap Meds", "Antibiotics"};
-      itemChoice = new JComboBox<>(itemNames);
-      p.add(itemChoice);
-      useItemButton = new JButton("Consume item");
-      p.add(useItemButton);
-      return p;
     }
 
     protected JPanel makeOutput(){
@@ -135,105 +128,44 @@ public class SimpleViewer extends JFrame implements IView{
 
     protected JPanel makeVariableTracker() {
       JPanel p = new JPanel(new GridLayout(5,0));
-      p.add(makeStreetCredLabel());
-      p.add(makeWorkCredLabel());
-      p.add(makeHealthLabel());
-      p.add(makeInfectionStageLabel());
-      p.add(makeTimeToCompleteTaskLabel());
-      return p;
-    }
-
-    private JPanel makeStreetCredLabel() {
-      JPanel p = new JPanel(new GridLayout(1,2));
-      p.add(new JLabel("   Street Cred: "));
-      streetCredLabel = new JLabel("");
+      JLabel streetCredLabel = new JLabel("   Street cred: " + streetCredValue);
+      JLabel workCredLabel = new JLabel("   Work cred: " + workCredValue);
+      JLabel healthLabel = new JLabel("   Health: " + healthValue);
+      JLabel infectionStageLabel = new JLabel("   Infection stage: " + infectionStageString);
+      JLabel questTimeLabel = new JLabel("   Quest time remaining: " + remainingQuestTime);
       p.add(streetCredLabel);
-      return p;
-    }
-
-    private JPanel makeWorkCredLabel() {
-      JPanel p = new JPanel(new GridLayout(1,2));
-      p.add(new JLabel("   Work Cred: "));
-      workCredLabel = new JLabel("");
       p.add(workCredLabel);
-      return p;
-    }
-
-    private JPanel makeHealthLabel() {
-      JPanel p = new JPanel(new GridLayout(1,2));
-      p.add(new JLabel("   Health: "));
-      healthLabel = new JLabel("");
       p.add(healthLabel);
-      return p;
-    }
-
-    private JPanel makeInfectionStageLabel() {
-      JPanel p = new JPanel(new GridLayout(1,2));
-      p.add(new JLabel("   Infection Stage: "));
-      infectionStageLabel = new JLabel("");
       p.add(infectionStageLabel);
+      p.add(questTimeLabel);
       return p;
     }
-
-    private JPanel makeTimeToCompleteTaskLabel() {
-      JPanel p = new JPanel(new GridLayout(1,2));
-      p.add(new JLabel("   Time Remaining to Complete Task: "));
-      timeToCompleteTaskLabel = new JLabel("");
-      p.add(timeToCompleteTaskLabel);
-      return p;
-    }
-
+    
     protected JPanel makeItemTracker() {
       JPanel p = new JPanel(new FlowLayout());
       p.setBorder(BorderFactory.createTitledBorder("Items Owned: "));
-      p.add(makeNumberOfTickTestsLabel());
-      p.add(makeNumberOfCheapMedsLabel());
-      p.add(makeNumberOfAntibioticsLabel());
-      p.add(makeRangerGearLabel());
-      p.add(makeFishingRodLabel());
-      return p;
-    }
-
-    private JPanel makeNumberOfTickTestsLabel() {
-      JPanel p = new JPanel(new FlowLayout());
-      p.add(new JLabel("Number of Tick Tests: "));
-      numberOfTickTestsLabel = new JLabel("");
-      p.add(numberOfTickTestsLabel);
-      return p;
-    }
-
-    private JPanel makeNumberOfCheapMedsLabel() {
-      JPanel p = new JPanel(new FlowLayout());
-      p.add(new JLabel("   Number of Cheap Meds: "));
-      numberOfCheapMedsLabel = new JLabel("");
-      p.add(numberOfCheapMedsLabel);
-      return p;
-    }
-
-    private JPanel makeNumberOfAntibioticsLabel() {
-      JPanel p = new JPanel(new FlowLayout());
-      p.add(new JLabel("   Number of Antibiotics: "));
-      numberOfAntibioticsLabel = new JLabel("");
-      p.add(numberOfAntibioticsLabel);
-      return p;
-    }
-
-    private JPanel makeRangerGearLabel() {
-      JPanel p = new JPanel(new FlowLayout());
-      p.add(new JLabel("   Ranger Gear: "));
-      rangerGearLabel = new JLabel("");
+      
+      JPanel tickTestPanel = new JPanel(new FlowLayout());
+      tickTestPanel.add(new JLabel("Number of tick tests: "));
+      
+      
+      JLabel tickTestsLabel = new JLabel("Number of tick tests: "+numberOfTickTests);
+      p.add(tickTestsLabel);
+      
+      JLabel cheapMedsLabel = new JLabel("    Number of cheap meds: "+numberOfCheapMeds);
+      p.add(cheapMedsLabel);
+      
+      JLabel antibioticsLabel = new JLabel("    Number of antibiotics: "+numberOfAntibiotics);
+      p.add(antibioticsLabel);
+      
+      JLabel rangerGearLabel = new JLabel("    Ranger gear: "+rangerGear);
       p.add(rangerGearLabel);
-      return p;
-    }
-
-    private JPanel makeFishingRodLabel() {
-      JPanel p = new JPanel(new FlowLayout());
-      p.add(new JLabel("   Fishing Rod: "));
-      fishingRodLabel = new JLabel("");
+      
+      JLabel fishingRodLabel = new JLabel("    Fishing rod: "+fishingRod);
       p.add(fishingRodLabel);
+      
       return p;
     }
-
 
     protected void connectEvents(){
       connectQuestEvent();
@@ -241,7 +173,7 @@ public class SimpleViewer extends JFrame implements IView{
       connectItemEvent();
       connectTickSearchEvent();
     }
-
+    
     protected void connectQuestEvent(){
       questButton.addActionListener(new ActionListener(){
         public void actionPerformed(ActionEvent ev) {
@@ -257,94 +189,68 @@ public class SimpleViewer extends JFrame implements IView{
         }
       });
     }
-
+   
     protected void connectItemEvent(){
-      useItemButton.addActionListener(new ActionListener(){
+      questButton.addActionListener(new ActionListener(){
         public void actionPerformed(ActionEvent ev) {
           myController.process((String)itemChoice.getSelectedItem());
         }
       });
     }
-
+    
     protected void connectTickSearchEvent(){
       tickSearchButton.addActionListener(new ActionListener(){
         public void actionPerformed(ActionEvent ev) {
-          myController.process("Tick Search");
+          myController.process("Tick search");
         }
       });
     }
-
-    public void update(Player playerInfo, String infoString){
-      updateStreetCred(playerInfo.getStreetCred());
-      updateWorkCred(playerInfo.getWorkCred());
-      updateHealth(playerInfo.getHealth());
-      updateInfectionStage(playerInfo.getInfectionStage());
-      updateTimeToCompleteTask(playerInfo.getTimeToCompleteTask());
-      updateNumberOfTickTests(playerInfo.getNumTickTests());
-      updateNumberofCheapMeds(playerInfo.getNumCheapMeds());
-      updateNumberOfAntibiotics(playerInfo.getNumAntibiotics());
+    
+    public void update(String infoString){
       myOutput.setText(infoString);
     }
-
-    public void updateStreetCred(long streetCredValue) {
-      streetCredLabel.setText(""+streetCredValue);
-
+    
+    public void updateStreetCred(int streetCredValue) {
+      this.streetCredValue = streetCredValue;
+      
     }
-    public void updateWorkCred(long workCredValue) {
-      workCredLabel.setText(""+workCredValue);
+    public void updateWorkCred(int workCredValue) {
+      this.workCredValue = workCredValue;
     }
-    public void updateHealth(double healthValue) {
-      healthLabel.setText(""+healthValue);
+    public void updateHealth(int healthValue) {
+      this.healthValue = healthValue;
     }
-    public void updateInfectionStage(double infectionStage) {
-      String infectionStageString = "";
-      switch((int)infectionStage) {
-        case 0:
-          infectionStageString = "Feeling fine";
-          break;
-        case 1:
-          infectionStageString = "Early Stages";
-          break;
-        case 2:
-          infectionStageString = "Middle Stages";
-          break;
-        case 3:
-          infectionStageString = "Late Stages";
-          break;
-      }
-      infectionStageLabel.setText(infectionStageString);
+    public void updateInfectionStageString(String newInfectionStage) {
+      this.infectionStageString = newInfectionStage;
     }
-
-    public void updateTimeToCompleteTask(int timeRemaining) {
-      timeToCompleteTaskLabel.setText(""+timeRemaining);
+    
+    public void updateRemainingQuestTime(int timeRemaining) {
+      remainingQuestTime = timeRemaining;
     }
-
+    
     public void updateNumberOfTickTests(int numTickTests) {
-      numberOfTickTestsLabel.setText(""+numTickTests);
+      numberOfTickTests = numTickTests;
     }
-
+    
     public void updateNumberofCheapMeds(int numCheapMeds) {
-      numberOfCheapMedsLabel.setText(""+numCheapMeds);
+      numberOfCheapMeds = numCheapMeds;
     }
-
-    public void updateNumberOfAntibiotics(int numAntibiotics) {
-      numberOfAntibioticsLabel.setText(""+numAntibiotics);
-    }
-
+    
     public void updateRangerGear(String newRangerGear) {
-      rangerGearLabel.setText(newRangerGear);
+      rangerGear = newRangerGear;
     }
-
-    public void updateFishingRod(String newFishingRod) {
-      fishingRodLabel.setText(newFishingRod);
+    
+    public void updateFishingGear(String newFishingRod) {
+      fishingRod = newFishingRod;
     }
-
+    
     public void showMessage(String s) {
       myMessage.setText(s);
     }
-
+	
     public void showError(String s){
       JOptionPane.showMessageDialog(this,s,"Controller Error",
             JOptionPane.ERROR_MESSAGE);
     }
+
 }

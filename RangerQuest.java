@@ -11,6 +11,9 @@ public class RangerQuest extends Quest {
 	/**
 	 * Constructor. Generates a quest with assumed skill level of 1.
 	 */
+	public RangerQuest(){
+		super();
+	}
 
 	public void generateRandomEvents(int skillLevel) {
 		resetQuest();
