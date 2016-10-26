@@ -37,7 +37,7 @@ public class FishingQuest extends Quest {
 	 * @param multiplier
 	 *            increases chance of catching fish.
 	 */
-	protected int[] fish(int skillLevel, int multiplier) {
+	protected void fish(int skillLevel, int multiplier) {
 		int numRegFishes = 0;
 		int numBigFishes = 0;
 		int chancesLeft = multiplier;
@@ -53,7 +53,7 @@ public class FishingQuest extends Quest {
 		if (numRegFishes == 0 && numBigFishes == 0) {
 			infoString += "Oh no! Looks like today was bad for fishing! \n";
 			int[] fish = {numRegFishes, numBigFishes};
-			return fish;
+			return;
 		}
 		infoString += "Pulled some nice fish! " + numRegFishes
 				+ " regular fish and " + numBigFishes + "big fish!\n";
@@ -66,7 +66,6 @@ public class FishingQuest extends Quest {
 		infoString += "Got meself a hefty " + streetCredGain
 				+ " streetCred by selling 'em!\n";
 		int[] fish = {numRegFishes, numBigFishes};
-		return fish;
 	}
 
 	/**
