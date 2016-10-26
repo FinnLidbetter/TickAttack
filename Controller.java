@@ -25,6 +25,7 @@ public class Controller extends AbstractController implements IController {
       String command = (String) o;
       switch (command) {
         case "Fishing Quest":
+
           FishingQuest fQuest = new FishingQuest(gamePlayer.getFishingSkill());
           gamePlayer.setCurrentTask(fQuest);
 
@@ -60,6 +61,8 @@ public class Controller extends AbstractController implements IController {
   public void endGame() {
 
   }
+
+
 
   public void update(String infoString) {
     currentInfoString = infoString;

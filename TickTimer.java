@@ -24,13 +24,15 @@ public class TickTimer {
 	private void update(){
 		player.incrementPerSecondStreetCred();
 		player.incrementPerSecondHealth();
-		for (Tick tick: player.getTicks()){
-			if (tick.suckBlood()){
-				Collection<Tick> ticks = player.getTicks();
-				ticks.remove(tick);
-				player.adjustHealth(-10);
-				if (tick.hasLymeDisease())
+		ArrayList<Tick> ticks = player.getTicks();
+		for (int i=0; i<ticks.size(); i++){
+			if (ticks.get(i).suckBlood()) {}
+				if (ticks.get(i).hasLymeDisease()) {
 					player.incrementInfectionStage();
+				}
+				ticks.remove(i);
+				i--;
+				player.adjustHealth(-10);
 			}
 		}
 
