@@ -6,7 +6,7 @@ import javax.swing.Timer;
 
 public class TickTimer {
 
-	private static final int MILLISECONDS_BETWEEN_ACTIONS = 1000;
+	private static final int MILLISECONDS_BETWEEN_ACTIONS = 100;
 	private Timer timer;
 	private Controller controller;
 	private Player player;
@@ -43,17 +43,21 @@ public class TickTimer {
 				TickSearch action = (TickSearch)task;
 				action.attemptRemovingTicks(player.getTicks(), player.useTickTest());
 			}
-			else{
+			else {
+			//else if (player.getTimeToCompleteTask()==0){
 				Quest action = (Quest)task;
 				player.updateStreetCred(action.getStreetCredGain());
 				player.updateWorkCred(action.getWorkCredGain());
 				player.adjustHealth(action.getHealthCost()+action.getHealthGain());
 				if(action.hasTick())
 					player.addTick();
+			//}
 			}
+			controller.update(task.getInfoString());
 		}
-
-		controller.update();
+		else {
+			controller.update(controller.getCurrentInfoString());
+		}
 	}
 
 	public void startTimer(){

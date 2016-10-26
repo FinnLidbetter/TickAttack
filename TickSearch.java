@@ -6,20 +6,20 @@ import java.util.Random;
  *
  */
 public class TickSearch implements Task{
-	
+
 	private static Random random;
 
 	private int timeToComplete;
 	private static final double BASE_REMOVE_TICK_CHANCE = 0.3;
 	private static final double TICK_TEST_EXTRA_REMOVAL_CHANCE = 0.4;
-	
+
 	/**
 	 * Constructor.
 	 */
 	public TickSearch(){
 		timeToComplete = MIN_TASK_TIME;
 	}
-	
+
 	public int getTimeToComplete() {
 		return timeToComplete;
 	}
@@ -40,5 +40,9 @@ public class TickSearch implements Task{
 			if (random.nextDouble() <= removalChance)
 				ticks.remove(tick);
 		}
+	}
+
+	public String getInfoString() {
+		return "Searching for Ticks";
 	}
 }

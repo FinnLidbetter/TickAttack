@@ -2,8 +2,12 @@
 public class TickAttackMain {
 
   public static void main(String[] args) {
-		SimpleViewer tviewer = new SimpleViewer("Tick Attack","Game Information");
-		
+		SimpleViewer tViewer = new SimpleViewer("Tick Attack","Game Information");
+		Controller controller = new Controller();
+    tViewer.setController(controller);
+    controller.update("");
+    TickTimer timer = new TickTimer(controller);
+    timer.startTimer();
   }
 
 }

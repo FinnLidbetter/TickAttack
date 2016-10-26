@@ -10,10 +10,10 @@ public class FishingQuest extends Quest {
 	private static final long NESSY_MAX_STREETCRED_MULTIPLIER = 10000;
 
 	/**
-	 * Constructor. Generates a quest with assumed skill level of 1.
+	 * Constructor. Generates a quest with the specified skill level.
 	 */
-	public FishingQuest() {
-		super();
+	public FishingQuest(int skillLevel) {
+		super(skillLevel);
 		super.workCredCost = WORKCRED_COST;
 	}
 

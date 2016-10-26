@@ -11,7 +11,7 @@ public abstract class Quest implements QuestProperties, Task{
 	public static final int TASK_TIME_RANGE = 100;
 	public static final double TICK_CHANCE = 0.3;
 
-	protected static Random random;
+	protected static Random random = new Random();
 
 	protected String questName;
 	protected String infoString;

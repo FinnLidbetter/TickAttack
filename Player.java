@@ -27,8 +27,8 @@ public class Player {
     streetCred = 0;
     workCred = 0;
     health = INITIAL_HEALTH;
-    fishingSkill = 0;
-    rangerSkill = 0;
+    fishingSkill = 1;
+    rangerSkill = 1;
 
     numTickTests = 0;
     numAntibiotics = 0;
@@ -42,6 +42,7 @@ public class Player {
     currentTask = null;
     timeToCompleteTask = 0;
     currentStore = null;
+    ticks = new ArrayList<Tick>();
   }
 
   public long getStreetCred() {
@@ -128,6 +129,7 @@ public class Player {
   }
 
   public void consumeCheapMeds() {
+    //adjustHealth();
     numCheapMeds--;
   }
 
@@ -135,16 +137,12 @@ public class Player {
     streetCred += (int)Math.round(streetCredGainRate);
   }
 
-  public void incrementWorkCred(int workCredGained) {
-    workCred += workCredGained;
-  }
-
   public void updateStreetCred(long streetCredChange) {
     streetCred += streetCredChange;
   }
 
   public void updateWorkCred(int workCredChange) {
-    workCred -= workCredChange;
+    workCred += workCredChange;
   }
 
   public void multiplyStreetCredGainRate(double multiplier) {
@@ -175,6 +173,7 @@ public class Player {
 
   public void setCurrentTask(Task currentTask) {
   	this.currentTask = currentTask;
+    this.timeToCompleteTask = currentTask.getTimeToComplete();
   }
 
   public int getTimeToCompleteTask() {
@@ -191,7 +190,7 @@ public class Player {
 			  Task completedTask = currentTask;
 			  currentTask = null;
 			  return completedTask;
-		  }
+      }
 	  }
 	  return null;
   }
@@ -199,6 +198,7 @@ public class Player {
   public Store getCurrentStore() {
     return currentStore;
   }
+
 
   public void goToStore(Store destinationStore) {
     currentStore = destinationStore;

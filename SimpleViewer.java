@@ -11,8 +11,7 @@ import java.io.FileNotFoundException;
 
 /**
  * Finn Lidbetter
- * This class handles the GUI for this program. This code was not
- * written by me.
+ * This class handles the GUI for this program.
  */
 
 public class SimpleViewer extends JFrame implements IView{
@@ -20,7 +19,7 @@ public class SimpleViewer extends JFrame implements IView{
     protected JLabel       workCredLabel;
     protected JLabel       healthLabel;
     protected JLabel       infectionStageLabel;
-    protected JLabel       remainingQuestTimeLabel;
+    protected JLabel       timeToCompleteTaskLabel;
     protected JLabel       numberOfTickTestsLabel;
     protected JLabel       numberOfCheapMedsLabel;
     protected JLabel       numberOfAntibioticsLabel;
@@ -140,7 +139,7 @@ public class SimpleViewer extends JFrame implements IView{
       p.add(makeWorkCredLabel());
       p.add(makeHealthLabel());
       p.add(makeInfectionStageLabel());
-      p.add(makeRemainingQuestTimeLabel());
+      p.add(makeTimeToCompleteTaskLabel());
       return p;
     }
 
@@ -176,11 +175,11 @@ public class SimpleViewer extends JFrame implements IView{
       return p;
     }
 
-    private JPanel makeRemainingQuestTimeLabel() {
+    private JPanel makeTimeToCompleteTaskLabel() {
       JPanel p = new JPanel(new GridLayout(1,2));
-      p.add(new JLabel("   Remaining Quest Time: "));
-      remainingQuestTimeLabel = new JLabel("");
-      p.add(remainingQuestTimeLabel);
+      p.add(new JLabel("   Time Remaining to Complete Task: "));
+      timeToCompleteTaskLabel = new JLabel("");
+      p.add(timeToCompleteTaskLabel);
       return p;
     }
 
@@ -275,21 +274,29 @@ public class SimpleViewer extends JFrame implements IView{
       });
     }
 
-    public void update(String infoString){
+    public void update(Player playerInfo, String infoString){
+      updateStreetCred(playerInfo.getStreetCred());
+      updateWorkCred(playerInfo.getWorkCred());
+      updateHealth(playerInfo.getHealth());
+      updateInfectionStage(playerInfo.getInfectionStage());
+      updateTimeToCompleteTask(playerInfo.getTimeToCompleteTask());
+      updateNumberOfTickTests(playerInfo.getNumTickTests());
+      updateNumberofCheapMeds(playerInfo.getNumCheapMeds());
+      updateNumberOfAntibiotics(playerInfo.getNumAntibiotics());
       myOutput.setText(infoString);
     }
 
-    public void updateStreetCred(int streetCredValue) {
+    public void updateStreetCred(long streetCredValue) {
       streetCredLabel.setText(""+streetCredValue);
 
     }
-    public void updateWorkCred(int workCredValue) {
+    public void updateWorkCred(long workCredValue) {
       workCredLabel.setText(""+workCredValue);
     }
-    public void updateHealth(int healthValue) {
+    public void updateHealth(double healthValue) {
       healthLabel.setText(""+healthValue);
     }
-    public void updateInfectionStageString(double infectionStage) {
+    public void updateInfectionStage(double infectionStage) {
       String infectionStageString = "";
       switch((int)infectionStage) {
         case 0:
@@ -308,8 +315,8 @@ public class SimpleViewer extends JFrame implements IView{
       infectionStageLabel.setText(infectionStageString);
     }
 
-    public void updateRemainingQuestTime(int timeRemaining) {
-      remainingQuestTimeLabel.setText(""+timeRemaining);
+    public void updateTimeToCompleteTask(int timeRemaining) {
+      timeToCompleteTaskLabel.setText(""+timeRemaining);
     }
 
     public void updateNumberOfTickTests(int numTickTests) {
@@ -318,6 +325,10 @@ public class SimpleViewer extends JFrame implements IView{
 
     public void updateNumberofCheapMeds(int numCheapMeds) {
       numberOfCheapMedsLabel.setText(""+numCheapMeds);
+    }
+
+    public void updateNumberOfAntibiotics(int numAntibiotics) {
+      numberOfAntibioticsLabel.setText(""+numAntibiotics);
     }
 
     public void updateRangerGear(String newRangerGear) {

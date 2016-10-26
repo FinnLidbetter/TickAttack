@@ -11,16 +11,16 @@ public class RangerQuest extends Quest {
 	/**
 	 * Constructor. Generates a quest with assumed skill level of 1.
 	 */
-	public RangerQuest() {
-		super();
+	public RangerQuest(int rangerSkillLevel) {
+		super(rangerSkillLevel);
 	}
 
 	public void generateRandomEvents(int skillLevel) {
 		resetQuest();
 		int multiplier = Math.round((1.0F * timeToComplete) / MIN_TASK_TIME);
 		infoString = "Performing Ranger Quest! \n";
-		workCredGain = random.nextInt(skillLevel * MAX_WORKCRED_MULTIPLIER
-				* multiplier);
+		workCredGain = Math.abs(random.nextInt(skillLevel * MAX_WORKCRED_MULTIPLIER
+				* multiplier));
 		foundHiker(multiplier);
 		foundMedicinalHerbs(multiplier);
 		foundBear(multiplier);
@@ -30,7 +30,7 @@ public class RangerQuest extends Quest {
 	 * Has a chance of finding a bear. The chance of finding a bear increases
 	 * with the multiplier, and the damage taken is between 0 and
 	 * BEAR_MAX_DAMAGE.
-	 * 
+	 *
 	 * @param multiplier
 	 *            increases chances of event happening.
 	 */
@@ -47,7 +47,7 @@ public class RangerQuest extends Quest {
 	 * Has a chance of finding medicinal herbs. The chance of finding them
 	 * increases with the multiplier, and the health healed is between 0 and
 	 * MEDICINAL_HERBS_MAX_HEAL.
-	 * 
+	 *
 	 * @param multiplier
 	 *            increases chances of event happening.
 	 */
@@ -65,7 +65,7 @@ public class RangerQuest extends Quest {
 	 * hiker increases with the multiplier. The user's payoff for this quest is
 	 * increased by a percentage between 0 and RESCUE_HIKERS_MAX_WORKCRED_BONUS
 	 * if a hiker is rescued.
-	 * 
+	 *
 	 * @param multiplier
 	 */
 	private void foundHiker(int multiplier) {
