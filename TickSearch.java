@@ -9,15 +9,18 @@ public class TickSearch implements Task{
 	
 	private static Random random = new Random();
 
+	private String infoString;
 	private int timeToComplete;
 	protected static final double BASE_REMOVE_TICK_CHANCE = 0.3;
 	protected static final double TICK_TEST_EXTRA_REMOVAL_CHANCE = 0.4;
+	
 	
 	/**
 	 * Constructor.
 	 */
 	public TickSearch(){
 		timeToComplete = MIN_TASK_TIME;
+		infoString = "";
 	}
 	
 	public int getTimeToComplete() {
@@ -32,6 +35,7 @@ public class TickSearch implements Task{
 	 */
 	public void attemptRemovingTicks(ArrayList<Tick> ticks, boolean usingTickTest){
 		Tick tick;
+		int removedTicks = 0;
 		for (int i = 0; i < ticks.size(); i++){
 			tick = ticks.get(i);
 			double removalChance = tick.engorgedSize() + BASE_REMOVE_TICK_CHANCE;
@@ -40,9 +44,18 @@ public class TickSearch implements Task{
 				removalChance += TICK_TEST_EXTRA_REMOVAL_CHANCE;
 			}
 			if (random.nextDouble() <= removalChance){
+				removedTicks++;
 				ticks.remove(i);
 				i--;
 			}
 		}
+		
+		this.infoString = "Performed a tick search!\n";
+		this.infoString += "Found " + removedTicks + " ticks!";
+	}
+
+	@Override
+	public String getInfoString() {
+		return infoString;
 	}
 }

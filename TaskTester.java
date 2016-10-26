@@ -20,8 +20,8 @@ public class TaskTester {
 	public void testTimeRandomizes() {
 		double time = 0;
 		for (int i = 0; i < 1000; i++){
-			Task quest = new RangerQuest();
-			Task quest2 = new FishingQuest();
+			Task quest = new RangerQuest(1);
+			Task quest2 = new FishingQuest(1);
 			time += quest.getTimeToComplete();
 			time += quest2.getTimeToComplete();
 		}
@@ -78,7 +78,7 @@ public class TaskTester {
 	
 	@Test
 	public void testNessy(){
-		FishingQuest f = new FishingQuest();
+		FishingQuest f = new FishingQuest(1);
 		long payoff1 = 0;
 		long payoff2 = 0;
 		for (int i = 0; i < 100000;i++){
@@ -97,7 +97,7 @@ public class TaskTester {
 	
 	@Test
 	public void testFish(){
-		FishingQuest f = new FishingQuest();
+		FishingQuest f = new FishingQuest(1);
 		long streetCredMultiplier2 = 0;
 		long streetCredMultiplier4 = 0;
 		for (int i = 0; i < 100000; i++){
@@ -114,7 +114,7 @@ public class TaskTester {
 	
 	@Test
 	public void testFoundBear(){
-		RangerQuest quest = new RangerQuest();
+		RangerQuest quest = new RangerQuest(1);
 		int healthLostMultiplier2 = 0;
 		int healthLostMultiplier4 = 0;
 		for (int i = 0; i < 100000; i++){
@@ -131,7 +131,7 @@ public class TaskTester {
 	
 	@Test
 	public void testFoundMedicinalHerb(){
-		RangerQuest quest = new RangerQuest();
+		RangerQuest quest = new RangerQuest(1);
 		int healthGainMultiplier2 = 0;
 		int healthGainMultiplier4 = 0;
 		for (int i = 0; i < 100000; i++){

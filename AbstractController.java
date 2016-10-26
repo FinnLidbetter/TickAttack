@@ -14,7 +14,7 @@ import java.io.Reader;
  */
 public abstract class AbstractController implements IController {
     private ArrayList myViews;
-    
+
     public AbstractController(){
     	myViews = new ArrayList();
     }
@@ -22,25 +22,25 @@ public abstract class AbstractController implements IController {
     public void addView(IView view){
     	myViews.add(view);
     }
-    
+
     public void removeView(IView view){
     	myViews.remove(view);
     }
 
-    public void notifyViews(String output){
+    public void notifyViews(Player playerInfo, String output){
       for(int k=0; k < myViews.size(); k++){
         IView view = (IView) myViews.get(k);
-        view.update(output);
-      } 
+        view.update(playerInfo, output);
+      }
     }
-    
+
     public void showViewsError(String s){
     	for(int k=0; k <myViews.size(); k++){
         IView view = (IView) myViews.get(k);
         view.showError(s);
     	}
     }
-    
+
     public void messageViews(String s){
     	for(int k=0; k <myViews.size(); k++){
         IView view = (IView) myViews.get(k);

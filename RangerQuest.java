@@ -9,12 +9,14 @@ public class RangerQuest extends Quest {
 	private static final int BEAR_MAX_DAMAGE = 30;
 
 	/**
-	 * Constructor. Generates a quest with assumed skill level of 1.
+	 * Constructor. Generates a quest with the given skill level.
 	 */
-	public RangerQuest(){
-		super();
+	
+	public RangerQuest(int skillLevel){
+		super(skillLevel);
+		generateRandomEvents(skillLevel);
+		
 	}
-
 	public void generateRandomEvents(int skillLevel) {
 		resetQuest();
 		int multiplier = Math.round((1.0F * timeToComplete) / MIN_TASK_TIME);

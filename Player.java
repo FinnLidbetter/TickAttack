@@ -1,8 +1,11 @@
 import java.util.ArrayList;
 
 public class Player {
-  
+
   public static final double INFECTIONSTAGE_INCREMENT = 0.002;
+  public static final int INITIAL_HEALTH = 100;
+  public static final double INITIAL_STREET_CRED_GAIN_RATE = 1.0;
+
   private long streetCred;
   private int workCred;
   private double health;
@@ -18,27 +21,30 @@ public class Player {
   private boolean isAlive;
   private Task currentTask;
   private int timeToCompleteTask;
-  
+  private Store currentStore;
+
   public Player() {
     streetCred = 0;
     workCred = 0;
-    health = 100;
-    fishingSkill = 0;
-    rangerSkill = 0;
-    
+    health = INITIAL_HEALTH;
+    fishingSkill = 1;
+    rangerSkill = 1;
+
     numTickTests = 0;
     numAntibiotics = 0;
     numCheapMeds = 0;
     infectionStage = 0;
-    streetCredGainRate = 1.0;
-    
+    streetCredGainRate = INITIAL_STREET_CRED_GAIN_RATE;
+
     infoString = ""; // Insert appropriate info string here
-    
+
     isAlive = true;
     currentTask = null;
     timeToCompleteTask = 0;
+    currentStore = null;
+    ticks = new ArrayList<Tick>();
   }
-  
+
   public long getStreetCred() {
     return streetCred;
   }
@@ -80,118 +86,125 @@ public class Player {
     return infoString;
   }
   public void setInfoString(String newInfoString) {
-    infoString = newInfoString; 
+    infoString = newInfoString;
   }
-  
+
   public void incrementInfectionStage() {
     if (infectionStage != 0)
     	infectionStage += INFECTIONSTAGE_INCREMENT;
   }
-  
+
   public void updateInfectionStage(double amount){
 	  infectionStage += amount;
 	  if (infectionStage < 0)
 		  infectionStage = 0;
   }
-  
+
   public ArrayList<Tick> getTicks() {
     return ticks;
   }
-  
+
   public void addTick(){
 	  ticks.add(new Tick());
   }
-  
+
   public void incrementRangerSkill(int rangerSkillIncrease) {
     rangerSkill += rangerSkillIncrease;
   }
-  
+
   public void incrementFishingSkill(int fishingSkillIncrease) {
-    fishingSkill += fishingSkillIncrease; 
+    fishingSkill += fishingSkillIncrease;
   }
-  
+
   public void incrementNumAntibiotics(int numExtraAntibiotics) {
     numAntibiotics += numExtraAntibiotics;
   }
-  
+
   public void consumeAntibiotics() {
-    numAntibiotics--; 
+    numAntibiotics--;
   }
-  
+
   public void incrementNumCheapMeds(int numExtraCheapMeds) {
     numCheapMeds += numExtraCheapMeds;
   }
-  
+
   public void consumeCheapMeds() {
-    numCheapMeds--; 
+    //adjustHealth();
+    numCheapMeds--;
   }
-  
+
   public void incrementPerSecondStreetCred() {
     streetCred += (int)Math.round(streetCredGainRate);
   }
-  
-  public void incrementWorkCred(int workCredGained) {
-    workCred += workCredGained; 
-  }
-  
+
   public void updateStreetCred(long streetCredChange) {
     streetCred += streetCredChange;
   }
-  
+
   public void updateWorkCred(int workCredChange) {
-    workCred -= workCredChange; 
+    workCred += workCredChange;
   }
-  
+
   public void multiplyStreetCredGainRate(double multiplier) {
-    streetCredGainRate *= multiplier; 
+    streetCredGainRate *= multiplier;
   }
-  
+
   public void adjustHealth(int healthChange) {
-    health += healthChange; 
+    health += healthChange;
     if (health > 100)
     	health = 100;
     if (health <= 0)
     	isAlive = false;
   }
-  
+
   public void incrementPerSecondHealth(){
-	health -= infectionStage;
-	if (health <= 0)
-      isAlive = false;
+  	health -= infectionStage;
+  	if (health <= 0)
+        isAlive = false;
   }
 
   public boolean isAlive() {
-	return isAlive;
-  }
-
-  public void setAlive(boolean isAlive) {
-	this.isAlive = isAlive;
+  	return isAlive;
   }
 
   public Task getCurrentTask() {
-	return currentTask;
+  	return currentTask;
   }
 
   public void setCurrentTask(Task currentTask) {
-	this.currentTask = currentTask;
+  	this.currentTask = currentTask;
+    this.timeToCompleteTask = currentTask.getTimeToComplete();
   }
 
   public int getTimeToCompleteTask() {
-	return timeToCompleteTask;
+  	return timeToCompleteTask;
   }
 
   public void setTimeToCompleteTask(int timeToCompleteTask) {
-	this.timeToCompleteTask = timeToCompleteTask;
+  	this.timeToCompleteTask = timeToCompleteTask;
   }
-  
+
   public Task decrementTimeToCompleteTask(){
 	  if (currentTask != null){
 		  if (--timeToCompleteTask == 0){
 			  Task completedTask = currentTask;
 			  currentTask = null;
 			  return completedTask;
-		  }
+      }
 	  }
 	  return null;
+  }
+
+  public Store getCurrentStore() {
+    return currentStore;
+  }
+
+
+  public void goToStore(Store destinationStore) {
+    currentStore = destinationStore;
+  }
+
+  public void leaveStore() {
+    currentStore = null;
   }
 }
