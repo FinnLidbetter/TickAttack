@@ -9,6 +9,7 @@ public class Player {
   private long streetCred;
   private int workCred;
   private double health;
+  private int numKnownTicks;
   private int fishingSkill;
   private int rangerSkill;
   private int numTickTests;
@@ -33,6 +34,8 @@ public class Player {
     numTickTests = 0;
     numAntibiotics = 0;
     numCheapMeds = 0;
+
+    numKnownTicks = 0;
     infectionStage = 0;
     streetCredGainRate = INITIAL_STREET_CRED_GAIN_RATE;
 
@@ -43,6 +46,12 @@ public class Player {
     timeToCompleteTask = 0;
     currentStore = null;
     ticks = new ArrayList<Tick>();
+  }
+
+  public void infect() {
+    if (infectionStage!=0) {
+      infectionStage = INFECTIONSTAGE_INCREMENT;
+    }
   }
 
   public long getStreetCred() {
@@ -106,6 +115,10 @@ public class Player {
 
   public void addTick(){
 	  ticks.add(new Tick());
+  }
+
+  public int getNumKnownTicks() {
+    return numKnownTicks;
   }
 
   public void incrementRangerSkill(int rangerSkillIncrease) {

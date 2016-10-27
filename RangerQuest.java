@@ -1,21 +1,21 @@
 public class RangerQuest extends Quest {
 
 	private static final int MAX_WORKCRED_MULTIPLIER = 10;
-	private static final double RESCUE_HIKERS_CHANCE = 0.1;
+	private static final double RESCUE_HIKERS_CHANCE = 0.2;
 	private static final double RESCUE_HIKERS_MAX_WORKCRED_BONUS = 0.8;
-	private static final double MEDICINAL_HERBS_CHANCE = 0.075;
+	private static final double MEDICINAL_HERBS_CHANCE = 0.15;
 	private static final int MEDICINAL_HERB_MAX_HEAL = 20;
-	private static final double BEAR_CHANCE = 0.05;
+	private static final double BEAR_CHANCE = 0.1;
 	private static final int BEAR_MAX_DAMAGE = 30;
 
 	/**
 	 * Constructor. Generates a quest with the given skill level.
 	 */
-	
+
 	public RangerQuest(int skillLevel){
 		super(skillLevel);
 		generateRandomEvents(skillLevel);
-		
+
 	}
 	public void generateRandomEvents(int skillLevel) {
 		resetQuest();
@@ -32,7 +32,7 @@ public class RangerQuest extends Quest {
 	 * Has a chance of finding a bear. The chance of finding a bear increases
 	 * with the multiplier, and the damage taken is between 0 and
 	 * BEAR_MAX_DAMAGE.
-	 * 
+	 *
 	 * @param multiplier
 	 *            increases chances of event happening.
 	 */
@@ -49,7 +49,7 @@ public class RangerQuest extends Quest {
 	 * Has a chance of finding medicinal herbs. The chance of finding them
 	 * increases with the multiplier, and the health healed is between 0 and
 	 * MEDICINAL_HERBS_MAX_HEAL.
-	 * 
+	 *
 	 * @param multiplier
 	 *            increases chances of event happening.
 	 */
@@ -67,7 +67,7 @@ public class RangerQuest extends Quest {
 	 * hiker increases with the multiplier. The user's payoff for this quest is
 	 * increased by a percentage between 0 and RESCUE_HIKERS_MAX_WORKCRED_BONUS
 	 * if a hiker is rescued.
-	 * 
+	 *
 	 * @param multiplier
 	 */
 	protected void foundHiker(int multiplier) {
@@ -76,7 +76,7 @@ public class RangerQuest extends Quest {
 					.nextInt((int)Math.max(1,(Math.round(workCredGain * RESCUE_HIKERS_MAX_WORKCRED_BONUS))));
 			workCredGain += extraWorkCred;
 			infoString += "Found and rescued a hiker! Bonus of "
-					+ extraWorkCred + " workCred!";
+					+ extraWorkCred + " workCred!\n";
 		}
 	}
 

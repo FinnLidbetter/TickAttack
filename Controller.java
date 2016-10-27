@@ -7,15 +7,14 @@ public class Controller extends AbstractController implements IController {
 
   String currentInfoString;
   Player gamePlayer;
-  ArrayList<Store> stores;
+  Store expensiveStore;
+  Store localStore;
 
   public Controller() {
     super();
     gamePlayer = new Player();
-
-    stores = new ArrayList<Store>();
-    //stores.add(buildCheapStore());
-    //stores.add(buildExpensiveStore());
+    localStore = StoreFactory.buildLocalStore();
+    expensiveStore = StoreFactory.buildAcrossBorderStore();
   }
 
 
@@ -26,21 +25,30 @@ public class Controller extends AbstractController implements IController {
       switch (command) {
         case "Fishing Quest":
           FishingQuest fQuest = new FishingQuest(gamePlayer.getFishingSkill());
-          gamePlayer.setCurrentTask(fQuest);
-
+          if (gamePlayer.getTimeToCompleteTask()==0 && fQuest.canPerformQuest(gamePlayer.getWorkCred()))  {
+            gamePlayer.updateWorkCred(-1*fQuest.getWorkCredCost());
+            gamePlayer.setCurrentTask(fQuest);
+            update(gamePlayer.getCurrentTask().getInfoString());
+          } else if (gamePlayer.getTimeToCompleteTask()==0) {
+            update("You are still performing a task.");
+          } else {
+            update("Sorry, you do not have enough work cred to go fishing.");
+          }
           break;
         case "Ranger Quest":
           if (gamePlayer.getTimeToCompleteTask()==0) {
             RangerQuest rQuest = new RangerQuest(gamePlayer.getRangerSkill());
             gamePlayer.setCurrentTask(rQuest);
             update(gamePlayer.getCurrentTask().getInfoString());
+          } else {
+            update("You are still performing a task.");
           }
           break;
         case "Cheap Local Store":
           //Not implemented yet
           //gamePlayer.goToStore(); //insert ref. to Cheap Local Store
           break;
-        case "Big Expensive Foreign Store":
+        case "Expensive Across Border Foreign Store":
           //Not implemented yet
           //gamePlayer.goToStore(); // insert ref. to Expensive Store
           break;
@@ -51,7 +59,50 @@ public class Controller extends AbstractController implements IController {
           //Not implemented yet
           break;
         case "Tick Search":
-          //Not implemented yet
+          if (gamePlayer.getTimeToCompleteTask()==0) {
+            TickSearch tSearch = new TickSearch();
+            gamePlayer.setCurrentTask(tSearch);
+            update(gamePlayer.getCurrentTask().getInfoString());
+          }
+          break;
+        case "0":
+          System.out.println("Registering!");
+          break;
+        case "1":
+          System.out.println("Registering!");
+
+          break;
+        case "2":
+          System.out.println("Registering!");
+
+          break;
+        case "3":
+          System.out.println("Registering!");
+
+          break;
+        case "4":
+          System.out.println("Registering!");
+
+          break;
+        case "5":
+          System.out.println("Registering!");
+
+          break;
+        case "6":
+          System.out.println("Registering!");
+
+          break;
+        case "7":
+          System.out.println("Registering!");
+
+          break;
+        case "8":
+          System.out.println("Registering!");
+
+          break;
+        case "9":
+          System.out.println("Registering!");
+
           break;
       }
     }

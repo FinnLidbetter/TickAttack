@@ -25,6 +25,7 @@ public class SimpleViewer extends JFrame implements IView{
     protected JLabel       numberOfAntibioticsLabel;
     protected JLabel       rangerGearLabel;
     protected JLabel       fishingRodLabel;
+    protected JLabel       knownTicksLabel;
 
     protected JTextArea    myOutput;
     protected IController  myController;
@@ -57,10 +58,26 @@ public class SimpleViewer extends JFrame implements IView{
       panel.add(makeMessage(), BorderLayout.SOUTH);
       panel.add(makeItemTracker(), BorderLayout.SOUTH);
       panel.add(makeButtons(), BorderLayout.EAST);
+
+      panel.addKeyListener(new KeyListener() {
+        public void keyTyped(KeyEvent k) {
+
+        }
+        public void keyPressed(KeyEvent k) {
+
+        }
+        public void keyReleased(KeyEvent k) {
+          int keyValue = k.getKeyCode();
+          if (keyValue >= KeyEvent.VK_0 && keyValue <= KeyEvent.VK_9)
+            myController.process(""+(keyValue-KeyEvent.VK_0));
+        }
+      });
+      panel.setFocusable(true);
+
       connectEvents();
 
       pack();
-      setSize(800,400);
+      setSize(800,450);
       setVisible(true);
     }
 
@@ -103,7 +120,7 @@ public class SimpleViewer extends JFrame implements IView{
     private JPanel makeStoreButton() {
       JPanel p = new JPanel(new GridLayout(2,1));
       p.setBorder(BorderFactory.createTitledBorder("Store: "));
-      String[] storeNames = {"Cheap Local Store","Big Expensive Foreign Store"};
+      String[] storeNames = {"Cheap Local Store","Expensive Across Border Store"};
       storeChoice = new JComboBox<>(storeNames);
       p.add(storeChoice);
       storeButton = new JButton("Go to store");
@@ -134,12 +151,13 @@ public class SimpleViewer extends JFrame implements IView{
     }
 
     protected JPanel makeVariableTracker() {
-      JPanel p = new JPanel(new GridLayout(5,0));
+      JPanel p = new JPanel(new GridLayout(6,1));
       p.add(makeStreetCredLabel());
       p.add(makeWorkCredLabel());
       p.add(makeHealthLabel());
       p.add(makeInfectionStageLabel());
       p.add(makeTimeToCompleteTaskLabel());
+      p.add(makeKnownTicksLabel());
       return p;
     }
 
@@ -180,6 +198,14 @@ public class SimpleViewer extends JFrame implements IView{
       p.add(new JLabel("   Time Remaining to Complete Task: "));
       timeToCompleteTaskLabel = new JLabel("");
       p.add(timeToCompleteTaskLabel);
+      return p;
+    }
+
+    private JPanel makeKnownTicksLabel() {
+      JPanel p = new JPanel(new GridLayout(1,2));
+      p.add(new JLabel("   Known Ticks: "));
+      knownTicksLabel = new JLabel("");
+      p.add(knownTicksLabel);
       return p;
     }
 
@@ -280,16 +306,23 @@ public class SimpleViewer extends JFrame implements IView{
       updateHealth(playerInfo.getHealth());
       updateInfectionStage(playerInfo.getInfectionStage());
       updateTimeToCompleteTask(playerInfo.getTimeToCompleteTask());
+      updateNumberOfKnownTicks(playerInfo.getNumKnownTicks());
       updateNumberOfTickTests(playerInfo.getNumTickTests());
       updateNumberofCheapMeds(playerInfo.getNumCheapMeds());
       updateNumberOfAntibiotics(playerInfo.getNumAntibiotics());
+
       myOutput.setText(infoString);
+    }
+
+
+    public void updateNumberOfKnownTicks(int numKnownTicks) {
+      knownTicksLabel.setText(""+numKnownTicks);
     }
 
     public void updateStreetCred(long streetCredValue) {
       streetCredLabel.setText(""+streetCredValue);
-
     }
+
     public void updateWorkCred(long workCredValue) {
       workCredLabel.setText(""+workCredValue);
     }
