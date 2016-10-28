@@ -11,8 +11,6 @@ public class Item {
 	private int rangerSkillGain;
 	private int fishingSkillGain;
 	private int healthGain;
-	private int tickTestGain;
-	private int infectionGain;
 
 	private String name;
 	private String infoString;
@@ -27,13 +25,10 @@ public class Item {
 	 * @param rangerSkillGain how much this item increases the player's rangerSkill by.
 	 * @param fishingSkillGain how much this item increases the player's fishingSkill by.
 	 * @param healthGain how the health the player gains by using this item.
-	 * @param tickTestGain how many additional tick tests this item provides.
-	 * @param infectionGain how much this item modifies the player's infectionStage by.
 	 */
 	public Item(String name, String infoString, boolean unlocked,
 			long streetCredCost, int workCredCost, int rangerSkillGain,
-			int fishingSkillGain, int healthGain, int tickTestGain,
-			int infectionGain) {
+			int fishingSkillGain, int healthGain) {
 
 		this.name = name;
 		this.infoString = infoString;
@@ -44,9 +39,6 @@ public class Item {
 		this.rangerSkillGain = rangerSkillGain;
 		this.fishingSkillGain = fishingSkillGain;
 		this.healthGain = healthGain;
-		this.tickTestGain = tickTestGain;
-		this.infectionGain = infectionGain;
-
 	}
 
 	/**
@@ -72,14 +64,6 @@ public class Item {
 	public int getRangerSkillGain() {
 		return rangerSkillGain;
 	}
-	
-	/**
-	 * How much the user's infectionStage is modified by this item.
-	 * @return the value.
-	 */
-	public int getInfectionGain() {
-		return infectionGain;
-	}
 
 	/**
 	 * How much the user's health is modified by this item.
@@ -89,14 +73,6 @@ public class Item {
 		return healthGain;
 	}
 
-	/**
-	 * How many additional tickTests the player gets by buying this item.
-	 * @return the value.
-	 */
-	public int getTickTestGain() {
-		return tickTestGain;
-	}
-	
 	/**
 	 * How much this item increases the player's fishingSkill by.
 	 * @return the value.
@@ -112,7 +88,7 @@ public class Item {
 	public String getInfoString() {
 		return infoString;
 	}
-	
+
 	/**
 	 * The item's name.
 	 * @return the item's name.

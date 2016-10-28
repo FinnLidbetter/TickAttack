@@ -13,8 +13,8 @@ public class Controller extends AbstractController implements IController {
   public Controller() {
     super();
     gamePlayer = new Player();
-    localStore = StoreFactory.buildLocalStore();
-    expensiveStore = StoreFactory.buildAcrossBorderStore();
+    localStore = StoreFactory.createLocalStore();
+    expensiveStore = StoreFactory.createAcrossBorderStore();
   }
 
 

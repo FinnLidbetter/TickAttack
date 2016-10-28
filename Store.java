@@ -6,7 +6,7 @@ public class Store {
   private int streetCredAccessCost;
   private int workCredAccessCost;
   private String infoString;
-  
+
   public Store(String name, ArrayList<Item> initialItems, int streetCredCost, int workCredCost) {
     storeName = name;
     availableItems = initialItems;
@@ -14,7 +14,7 @@ public class Store {
     workCredAccessCost = workCredCost;
     infoString = ""; // INSERT APPROPRIATE INFO STRING HERE
   }
-  
+
   public void addItem(Item toAdd) {
     if (!availableItems.contains(toAdd))
       availableItems.add(toAdd);
@@ -38,9 +38,5 @@ public class Store {
 
   public String getInfoString() {
     return infoString;
-  }
-  
-  public void setInfoString(String newInfoString) {
-    infoString = newInfoString;
   }
 }
