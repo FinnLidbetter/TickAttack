@@ -24,6 +24,7 @@ public class Player {
   private int timeToCompleteTask;
   private Store currentStore;
 
+
   public Player() {
     streetCred = 0;
     workCred = 0;
@@ -49,7 +50,7 @@ public class Player {
   }
 
   public void infect() {
-    if (infectionStage!=0) {
+    if (infectionStage==0) {
       infectionStage = INFECTIONSTAGE_INCREMENT;
     }
   }
@@ -141,9 +142,12 @@ public class Player {
     numCheapMeds += numExtraCheapMeds;
   }
 
-  public void consumeCheapMeds() {
-    //adjustHealth();
+  public boolean consumeCheapMeds() {
+    if (health==100 || numCheapMeds==0)
+      return false;
+    adjustHealth(10);
     numCheapMeds--;
+    return true;
   }
 
   public void incrementPerSecondStreetCred() {
@@ -219,5 +223,25 @@ public class Player {
 
   public void leaveStore() {
     currentStore = null;
+  }
+
+  public boolean useAntibiotics() {
+    if (numAntibiotics>0 && infectionStage!=0) {
+      infectionStage -= 0.1;
+      if (infectionStage<=0) {
+        infectionStage = INFECTIONSTAGE_INCREMENT;
+      }
+      return true;
+    }
+    return false;
+  }
+
+  public boolean useIntensiveTreatment() {
+    if (infectionStage!=0) {
+      health = 100;
+      infectionStage = 0;
+      return true;
+    }
+    return false;
   }
 }

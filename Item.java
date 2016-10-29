@@ -14,7 +14,7 @@ public class Item {
 
 	private String name;
 	private String infoString;
-
+	private int id;
 	/**
 	 * Constructor.
 	 * @param name name of item.
@@ -105,4 +105,11 @@ public class Item {
 		return unlocked;
 	}
 
+	public int getID() {
+		return id;
+	}
+
+	public void setID(int newID) {
+		id = newID;
+	}
 }

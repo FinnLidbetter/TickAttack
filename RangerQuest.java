@@ -14,13 +14,11 @@ public class RangerQuest extends Quest {
 
 	public RangerQuest(int skillLevel){
 		super(skillLevel);
-		generateRandomEvents(skillLevel);
-
+		infoString = "Performing Ranger Quest! \n";
 	}
-	public void generateRandomEvents(int skillLevel) {
+	public void generateRandomEvents() {
 		resetQuest();
 		int multiplier = Math.round((1.0F * timeToComplete) / MIN_TASK_TIME);
-		infoString = "Performing Ranger Quest! \n";
 		workCredGain = random.nextInt(skillLevel * MAX_WORKCRED_MULTIPLIER
 				* multiplier) + 1;
 		foundHiker(multiplier);

@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 public class TaskTester {
-	
+
 	double avgMultiplier;
 	@Before
 	public void setUp() throws Exception {
@@ -30,36 +30,36 @@ public class TaskTester {
 		assertTrue(time < avgTime*1.1);
 		assertTrue(time > avgTime*0.9);
 	}
-	
+
 	@Test
 	public void testTickSearch(){
 		ArrayList<Tick> ticks = new ArrayList<Tick>();
 		for (int i = 0; i < 3000; i++)
 			ticks.add(new Tick());
-		TickSearch tickSearch = new TickSearch();
+		TickSearch tickSearch = new TickSearch(false);
 		tickSearch.attemptRemovingTicks(ticks, false);
-		
+
 		double predictedTicks = 3000*(1-TickSearch.BASE_REMOVE_TICK_CHANCE);
 		assertTrue(ticks.size() > predictedTicks*0.9);
 		assertTrue(ticks.size() < predictedTicks*1.1);
 	}
-	
+
 	@Test
 	public void testTickSearchWithTickTest(){
 		ArrayList<Tick> ticks = new ArrayList<Tick>();
 		for (int i = 0; i < 3000; i++)
 			ticks.add(new Tick());
-		TickSearch tickSearch = new TickSearch();
+		TickSearch tickSearch = new TickSearch(true);
 		tickSearch.attemptRemovingTicks(ticks, true);
-		
+
 		double predictedTicks = 3000*(1-TickSearch.BASE_REMOVE_TICK_CHANCE-TickSearch.TICK_TEST_EXTRA_REMOVAL_CHANCE);
 		assertTrue(ticks.size() > predictedTicks*0.9);
 		assertTrue(ticks.size() < predictedTicks*1.1);
-		
+
 		for (Tick tick : ticks)
 			assertTrue(tick.isVisible());
 	}
-	
+
 	@Test
 	public void testEngorgedTickSearch(){
 		ArrayList<Tick> ticks = new ArrayList<Tick>();
@@ -69,13 +69,13 @@ public class TaskTester {
 				tick.suckBlood();
 			ticks.add(tick);
 		}
-		TickSearch tickSearch = new TickSearch();
+		TickSearch tickSearch = new TickSearch(false);
 		tickSearch.attemptRemovingTicks(ticks, false);
 		double predictedTicks = 3000*(1-TickSearch.BASE_REMOVE_TICK_CHANCE-Tick.GROWTH_RATE*200);
 		assertTrue(ticks.size() > predictedTicks*0.9);
 		assertTrue(ticks.size() < predictedTicks*1.1);
 	}
-	
+
 	@Test
 	public void testNessy(){
 		FishingQuest f = new FishingQuest(1);
@@ -94,7 +94,7 @@ public class TaskTester {
 		assertTrue(2*payoff1 < 1.1*payoff2);
 		assertTrue(2*payoff1 > 0.9*payoff2);
 	}
-	
+
 	@Test
 	public void testFish(){
 		FishingQuest f = new FishingQuest(1);
@@ -111,7 +111,7 @@ public class TaskTester {
 		assertTrue(2*streetCredMultiplier2 < 1.1*streetCredMultiplier4);
 		assertTrue(2*streetCredMultiplier2 > 0.9*streetCredMultiplier4);
 	}
-	
+
 	@Test
 	public void testFoundBear(){
 		RangerQuest quest = new RangerQuest(1);
@@ -128,7 +128,7 @@ public class TaskTester {
 		assertTrue(2*healthLostMultiplier2 < 1.1*healthLostMultiplier4);
 		assertTrue(2*healthLostMultiplier2 > 0.9*healthLostMultiplier4);
 	}
-	
+
 	@Test
 	public void testFoundMedicinalHerb(){
 		RangerQuest quest = new RangerQuest(1);

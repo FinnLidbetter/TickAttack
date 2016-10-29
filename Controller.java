@@ -7,14 +7,14 @@ public class Controller extends AbstractController implements IController {
 
   String currentInfoString;
   Player gamePlayer;
-  Store expensiveStore;
+  Store acrossBorderStore;
   Store localStore;
 
   public Controller() {
     super();
     gamePlayer = new Player();
     localStore = StoreFactory.createLocalStore();
-    expensiveStore = StoreFactory.createAcrossBorderStore();
+    acrossBorderStore = StoreFactory.createAcrossBorderStore();
   }
 
 
@@ -29,10 +29,10 @@ public class Controller extends AbstractController implements IController {
             gamePlayer.updateWorkCred(-1*fQuest.getWorkCredCost());
             gamePlayer.setCurrentTask(fQuest);
             update(gamePlayer.getCurrentTask().getInfoString());
-          } else if (gamePlayer.getTimeToCompleteTask()==0) {
-            update("You are still performing a task.");
+          } else if (gamePlayer.getTimeToCompleteTask()!=0) {
+            showViewsError("You are still performing a task");
           } else {
-            update("Sorry, you do not have enough work cred to go fishing.");
+            showViewsError("Sorry, you do not have enough work cred to go fishin'");
           }
           break;
         case "Ranger Quest":
@@ -41,16 +41,28 @@ public class Controller extends AbstractController implements IController {
             gamePlayer.setCurrentTask(rQuest);
             update(gamePlayer.getCurrentTask().getInfoString());
           } else {
-            update("You are still performing a task.");
+            showViewsError("You are still performing a task");
           }
           break;
         case "Cheap Local Store":
-          //Not implemented yet
-          //gamePlayer.goToStore(); //insert ref. to Cheap Local Store
+          if (gamePlayer.getTimeToCompleteTask()==0) {
+            gamePlayer.goToStore(localStore);
+            update(localStore.getStoreContents());
+          } else {
+            showViewsError("You are still performing a task");
+          }
           break;
-        case "Expensive Across Border Foreign Store":
-          //Not implemented yet
-          //gamePlayer.goToStore(); // insert ref. to Expensive Store
+        case "Expensive Across Border Store":
+          if (gamePlayer.getTimeToCompleteTask()==0) {
+            if (gamePlayer.getWorkCred()>=acrossBorderStore.getWorkCredAccessCost()) {
+              gamePlayer.goToStore(acrossBorderStore);
+              update(acrossBorderStore.getStoreContents());
+            } else {
+              showViewsError("Sorry, you need to spend "+acrossBorderStore.getWorkCredAccessCost()+" to access this store.");
+            }
+          } else {
+            showViewsError("You are still performing a task");
+          }
           break;
         case "Cheap Meds":
           //Not implemented yet
@@ -60,13 +72,13 @@ public class Controller extends AbstractController implements IController {
           break;
         case "Tick Search":
           if (gamePlayer.getTimeToCompleteTask()==0) {
-            TickSearch tSearch = new TickSearch();
+            TickSearch tSearch = new TickSearch(gamePlayer.useTickTest());
             gamePlayer.setCurrentTask(tSearch);
             update(gamePlayer.getCurrentTask().getInfoString());
           }
           break;
         case "0":
-          System.out.println("Registering!");
+
           break;
         case "1":
           System.out.println("Registering!");
@@ -110,6 +122,10 @@ public class Controller extends AbstractController implements IController {
 
   public void endGame() {
 
+  }
+
+  public void update() {
+    notifyViews(gamePlayer);
   }
 
   public void update(String infoString) {

@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
  * This class handles the GUI for this program.
  */
 
-public class SimpleViewer extends JFrame implements IView{
+public class SimpleViewer extends JFrame implements IView {
     protected JLabel       streetCredLabel;
     protected JLabel       workCredLabel;
     protected JLabel       healthLabel;
@@ -25,8 +25,8 @@ public class SimpleViewer extends JFrame implements IView{
     protected JLabel       numberOfAntibioticsLabel;
     protected JLabel       rangerGearLabel;
     protected JLabel       fishingRodLabel;
-    protected JLabel       knownTicksLabel;
 
+    protected JPanel       mainPanel;
     protected JTextArea    myOutput;
     protected IController  myController;
     protected String       myTitle;
@@ -40,31 +40,40 @@ public class SimpleViewer extends JFrame implements IView{
     protected JButton useItemButton;
     protected JButton tickSearchButton;
 
-
     protected JTextField   myMessage;
-
 
     public SimpleViewer(String title, String prompt){
       setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-      JPanel panel = (JPanel) getContentPane();
-      panel.setLayout(new BorderLayout());
+      mainPanel = (JPanel) getContentPane();
+      mainPanel.setLayout(new BorderLayout());
       setTitle(title);
       myTitle = title;
       myLabelString = prompt;
 
-      panel.add(makeVariableTracker(), BorderLayout.NORTH);
-      panel.add(makeOutput(), BorderLayout.CENTER);
-      panel.add(makeMessage(), BorderLayout.SOUTH);
-      panel.add(makeItemTracker(), BorderLayout.SOUTH);
-      panel.add(makeButtons(), BorderLayout.EAST);
+      mainPanel.add(makeVariableTracker(), BorderLayout.NORTH);
+      mainPanel.add(makeOutput(), BorderLayout.CENTER);
+      mainPanel.add(makeMessage(), BorderLayout.SOUTH);
+      mainPanel.add(makeItemTracker(), BorderLayout.SOUTH);
+      mainPanel.add(makeButtons(), BorderLayout.EAST);
 
-      panel.addKeyListener(new KeyListener() {
+      addKeyListenerToComponent(storeButton);
+      addKeyListenerToComponent(useItemButton);
+      addKeyListenerToComponent(questChoice);
+      addKeyListenerToComponent(storeChoice);
+      addKeyListenerToComponent(itemChoice);
+      connectEvents();
+
+      pack();
+      setSize(800,500);
+      setVisible(true);
+    }
+
+    public void addKeyListenerToComponent(JComponent jComponent) {
+      jComponent.addKeyListener(new KeyListener() {
         public void keyTyped(KeyEvent k) {
-
         }
         public void keyPressed(KeyEvent k) {
-
         }
         public void keyReleased(KeyEvent k) {
           int keyValue = k.getKeyCode();
@@ -72,13 +81,6 @@ public class SimpleViewer extends JFrame implements IView{
             myController.process(""+(keyValue-KeyEvent.VK_0));
         }
       });
-      panel.setFocusable(true);
-
-      connectEvents();
-
-      pack();
-      setSize(800,450);
-      setVisible(true);
     }
 
     public void setController(IController controller){
@@ -157,7 +159,6 @@ public class SimpleViewer extends JFrame implements IView{
       p.add(makeHealthLabel());
       p.add(makeInfectionStageLabel());
       p.add(makeTimeToCompleteTaskLabel());
-      p.add(makeKnownTicksLabel());
       return p;
     }
 
@@ -198,14 +199,6 @@ public class SimpleViewer extends JFrame implements IView{
       p.add(new JLabel("   Time Remaining to Complete Task: "));
       timeToCompleteTaskLabel = new JLabel("");
       p.add(timeToCompleteTaskLabel);
-      return p;
-    }
-
-    private JPanel makeKnownTicksLabel() {
-      JPanel p = new JPanel(new GridLayout(1,2));
-      p.add(new JLabel("   Known Ticks: "));
-      knownTicksLabel = new JLabel("");
-      p.add(knownTicksLabel);
       return p;
     }
 
@@ -300,23 +293,20 @@ public class SimpleViewer extends JFrame implements IView{
       });
     }
 
-    public void update(Player playerInfo, String infoString){
+    public void update(Player playerInfo){
       updateStreetCred(playerInfo.getStreetCred());
       updateWorkCred(playerInfo.getWorkCred());
       updateHealth(playerInfo.getHealth());
       updateInfectionStage(playerInfo.getInfectionStage());
       updateTimeToCompleteTask(playerInfo.getTimeToCompleteTask());
-      updateNumberOfKnownTicks(playerInfo.getNumKnownTicks());
       updateNumberOfTickTests(playerInfo.getNumTickTests());
       updateNumberofCheapMeds(playerInfo.getNumCheapMeds());
       updateNumberOfAntibiotics(playerInfo.getNumAntibiotics());
-
-      myOutput.setText(infoString);
     }
 
-
-    public void updateNumberOfKnownTicks(int numKnownTicks) {
-      knownTicksLabel.setText(""+numKnownTicks);
+    public void update(Player playerInfo, String infoString) {
+      update(playerInfo);
+      myOutput.setText(infoString);
     }
 
     public void updateStreetCred(long streetCredValue) {
@@ -349,7 +339,11 @@ public class SimpleViewer extends JFrame implements IView{
     }
 
     public void updateTimeToCompleteTask(int timeRemaining) {
-      timeToCompleteTaskLabel.setText(""+timeRemaining);
+      if (timeRemaining==0) {
+        timeToCompleteTaskLabel.setText("No active task");
+      } else {
+        timeToCompleteTaskLabel.setText(""+timeRemaining);
+      }
     }
 
     public void updateNumberOfTickTests(int numTickTests) {

@@ -24,15 +24,17 @@ public class TickTimer {
 	private void update(){
 		player.incrementPerSecondStreetCred();
 		player.incrementPerSecondHealth();
+		player.incrementInfectionStage();
 		ArrayList<Tick> ticks = player.getTicks();
 		for (int i=0; i<ticks.size(); i++){
 			if (ticks.get(i).suckBlood()) {
 				if (ticks.get(i).hasLymeDisease()) {
-					player.incrementInfectionStage();
+					player.infect();
 				}
 				ticks.remove(i);
 				i--;
 				player.adjustHealth(-10);
+				controller.showViewsError("You just found a big tick on you and may have been infected with Lyme disease. (-10 Health)");
 			}
 		}
 
@@ -47,16 +49,17 @@ public class TickTimer {
 			}
 			else {
 				Quest action = (Quest)task;
+				action.generateRandomEvents();
 				player.updateStreetCred(action.getStreetCredGain());
 				player.updateWorkCred(action.getWorkCredGain());
-				player.adjustHealth(action.getHealthCost()+action.getHealthGain());
+				player.adjustHealth(action.getHealthGain()-action.getHealthCost());
 				if(action.hasTick())
 					player.addTick();
 			}
 			controller.update(task.getInfoString());
 		}
 		else {
-			controller.update(controller.getCurrentInfoString());
+			controller.update();
 		}
 	}
 

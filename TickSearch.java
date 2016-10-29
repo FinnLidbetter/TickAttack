@@ -6,23 +6,29 @@ import java.util.Random;
  *
  */
 public class TickSearch implements Task{
-	
+
 	private static Random random = new Random();
 
 	private String infoString;
 	private int timeToComplete;
-	protected static final double BASE_REMOVE_TICK_CHANCE = 0.3;
+	private boolean usingTickTest;
+	protected static final double BASE_REMOVE_TICK_CHANCE = 0.5;
 	protected static final double TICK_TEST_EXTRA_REMOVAL_CHANCE = 0.4;
-	
-	
+
+
 	/**
 	 * Constructor.
 	 */
-	public TickSearch(){
+	public TickSearch(boolean usingTickTest){
 		timeToComplete = MIN_TASK_TIME;
-		infoString = "";
+		this.usingTickTest = usingTickTest;
+		if (usingTickTest)
+			infoString = "Performing an improved tick search";
+		else {
+			infoString = "Performing a tick search";
+		}
 	}
-	
+
 	public int getTimeToComplete() {
 		return timeToComplete;
 	}
@@ -49,9 +55,8 @@ public class TickSearch implements Task{
 				i--;
 			}
 		}
-		
-		this.infoString = "Performed a tick search!\n";
-		this.infoString += "Found " + removedTicks + " ticks!";
+
+		this.infoString = "Found " + removedTicks + " ticks!";
 	}
 
 	@Override

@@ -22,6 +22,7 @@ public abstract class Quest implements QuestProperties, Task{
 	protected int healthCost;
 	protected int healthGain;
 	protected int timeToComplete;
+	protected int skillLevel;
 	private boolean hasTick;
 
 	/**
@@ -45,8 +46,8 @@ public abstract class Quest implements QuestProperties, Task{
 	 * Constructor.
 	 */
 	public Quest(int skillLevel) {
+		this.skillLevel = skillLevel;
 		resetQuest();
-		generateRandomEvents(skillLevel);
 	}
 
 	public String getInfoString() {

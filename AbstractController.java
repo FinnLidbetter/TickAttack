@@ -27,6 +27,13 @@ public abstract class AbstractController implements IController {
     	myViews.remove(view);
     }
 
+    public void notifyViews(Player playerInfo){
+      for(int k=0; k < myViews.size(); k++){
+        IView view = (IView) myViews.get(k);
+        view.update(playerInfo);
+      }
+    }
+
     public void notifyViews(Player playerInfo, String output){
       for(int k=0; k < myViews.size(); k++){
         IView view = (IView) myViews.get(k);

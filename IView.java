@@ -7,6 +7,8 @@ import java.util.Collection;
 
 public interface IView{
 
+    public void update(Player playerInfo);
+
     public void update(Player playerInfo, String infoDisplay);
 
     public void showError(String errorMessage);

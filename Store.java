@@ -7,8 +7,9 @@ public class Store {
   private int workCredAccessCost;
   private String infoString;
 
-  public Store(String name, ArrayList<Item> initialItems, int streetCredCost, int workCredCost) {
+  public Store(String name, String infoString, ArrayList<Item> initialItems, int streetCredCost, int workCredCost) {
     storeName = name;
+    this.infoString = infoString;
     availableItems = initialItems;
     streetCredAccessCost = streetCredCost;
     workCredAccessCost = workCredCost;
@@ -38,5 +39,31 @@ public class Store {
 
   public String getInfoString() {
     return infoString;
+  }
+
+  public String getStoreContents() {
+    String storeRepresentation = getInfoString();
+    storeRepresentation += "\n";
+    for (Item i:getAvailableItems()) {
+      String itemString = ""+i.getID();
+      itemString += ": " + i.getName();
+      itemString += ", ";
+      itemString += "StreetCred cost: " + i.getStreetCredCost();
+      itemString += ", ";
+      itemString += "WorkCred cost: " + i.getWorkCredCost();
+      itemString += "\n\t"+i.getInfoString();
+      storeRepresentation += itemString;
+      storeRepresentation += "\n";
+    }
+    return storeRepresentation;
+  }
+
+  public void setItemIDs() {
+    int idCounter = 0;
+    ArrayList<Item> items = getAvailableItems();
+    for (int i=0; i<items.size(); i++) {
+      items.get(i).setID(idCounter);
+      idCounter++;
+    }
   }
 }

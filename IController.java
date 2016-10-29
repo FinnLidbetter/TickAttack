@@ -43,7 +43,15 @@ public interface IController{
      * @param elements represents views to be displayed
      * @see IView
      */
-    public void notifyViews(Player playerInfo, String output);    
+    public void notifyViews(Player playerInfo);    
+
+    /**
+     * Notify this controller's views of the relevant model-state
+     * passed to views in the collection
+     * @param elements represents views to be displayed
+     * @see IView
+     */
+    public void notifyViews(Player playerInfo, String output);
 
     /**
      * Send a message to each of this controller's views.
