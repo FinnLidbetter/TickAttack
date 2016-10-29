@@ -49,9 +49,11 @@ public class TickSearch implements Task{
 				i--;
 			}
 		}
-		
-		this.infoString = "Performed a tick search!\n";
-		this.infoString += "Found " + removedTicks + " ticks!";
+		if (usingTickTest)
+			infoString += "Performing an improved tick search!";
+		else
+			infoString += "Performing a tick search!";
+		infoString += "Found " + removedTicks + " ticks!";
 	}
 
 	@Override
