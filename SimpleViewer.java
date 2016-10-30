@@ -65,7 +65,7 @@ public class SimpleViewer extends JFrame implements IView {
       connectEvents();
 
       pack();
-      setSize(800,500);
+      setSize(900,500);
       setVisible(true);
     }
 
@@ -302,6 +302,8 @@ public class SimpleViewer extends JFrame implements IView {
       updateNumberOfTickTests(playerInfo.getNumTickTests());
       updateNumberofCheapMeds(playerInfo.getNumCheapMeds());
       updateNumberOfAntibiotics(playerInfo.getNumAntibiotics());
+      updateFishingRod(playerInfo.getBestRod());
+      updateRangerGear(playerInfo.getBestGear());
     }
 
     public void update(Player playerInfo, String infoString) {
@@ -358,12 +360,18 @@ public class SimpleViewer extends JFrame implements IView {
       numberOfAntibioticsLabel.setText(""+numAntibiotics);
     }
 
-    public void updateRangerGear(String newRangerGear) {
-      rangerGearLabel.setText(newRangerGear);
+    public void updateRangerGear(RangerGear newRangerGear) {
+      if (newRangerGear!=null)
+        rangerGearLabel.setText(newRangerGear.getName());
+      else
+        rangerGearLabel.setText("None");
     }
 
-    public void updateFishingRod(String newFishingRod) {
-      fishingRodLabel.setText(newFishingRod);
+    public void updateFishingRod(FishingRod newFishingRod) {
+      if (newFishingRod!=null)
+        fishingRodLabel.setText(newFishingRod.getName());
+      else
+        fishingRodLabel.setText("None");
     }
 
     public void showMessage(String s) {

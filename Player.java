@@ -18,7 +18,6 @@ public class Player {
   private ArrayList<Tick> ticks;
   private double infectionStage;
   private String infoString;
-  private boolean isAlive;
   private Task currentTask;
   private int timeToCompleteTask;
   private Store currentStore;
@@ -42,7 +41,6 @@ public class Player {
 
     infoString = ""; // Insert appropriate info string here
 
-    isAlive = true;
     currentTask = null;
     timeToCompleteTask = 0;
     currentStore = null;
@@ -177,17 +175,15 @@ public class Player {
     if (health > 100)
     	health = 100;
     if (health <= 0)
-    	isAlive = false;
+    	health = 0;
   }
 
-  public void incrementPerSecondHealth(){
-  	health -= infectionStage;
-  	if (health <= 0)
-        isAlive = false;
+  public void incrementPerSecondHealth() {
+  	adjustHealth((int)(-1*infectionStage));
   }
 
   public boolean isAlive() {
-  	return isAlive;
+  	return health>0;
   }
 
   public Task getCurrentTask() {
@@ -266,5 +262,5 @@ public class Player {
 
   public void setBestGear(RangerGear gear) {
     bestGear = gear;
-  }  
+  }
 }

@@ -9,12 +9,15 @@ public class Controller extends AbstractController implements IController {
   Player gamePlayer;
   Store acrossBorderStore;
   Store localStore;
+  boolean gamePlaying;
+
 
   public Controller() {
     super();
     gamePlayer = new Player();
     localStore = StoreFactory.createLocalStore();
     acrossBorderStore = StoreFactory.createAcrossBorderStore();
+    gamePlaying = false;
   }
 
 
@@ -106,12 +109,54 @@ public class Controller extends AbstractController implements IController {
         for (Item item:currentStore.getAvailableItems()) {
           if (item.getID()==(int)o) {
             if (FishingRod.stringToRodMap.containsKey(item.getName())) {
-
+              FishingRod wantToBuy = FishingRod.stringToRodMap.get(item.getName());
+              FishingRod currentRod = gamePlayer.getBestRod();
+              if (item.isUnlocked() && ((currentRod==null && wantToBuy.ordinal()==0) || (currentRod!=null && wantToBuy.ordinal()==gamePlayer.getBestRod().ordinal()+1))) {
+                long itemStreetCredCost = item.getStreetCredCost();
+                long itemWorkCredCost = item.getWorkCredCost();
+                if (gamePlayer.getStreetCred()>=itemStreetCredCost) {
+                  if (gamePlayer.getWorkCred()>=itemWorkCredCost) {
+                    gamePlayer.spendStreetCred(itemStreetCredCost);
+                    gamePlayer.spendWorkCred(itemWorkCredCost);
+                    gamePlayer.incrementFishingSkill(item.getFishingSkillGain());
+                    gamePlayer.setBestRod(wantToBuy);
+                  } else {
+                    showViewsError("You don't have enough WorkCred to purchase this item");
+                  }
+                } else {
+                  showViewsError("You don't have enough StreetCred to purchase this item");
+                  System.out.println("Printing here");
+                }
+              } else {
+                showViewsError("Sorry, this item is not yet unlocked for purchase");
+              }
+              break;
             }
             else if (RangerGear.stringToGearMap.containsKey(item.getName())) {
-              
+              RangerGear wantToBuy = RangerGear.stringToGearMap.get(item.getName());
+              RangerGear currentGear = gamePlayer.getBestGear();
+              if (item.isUnlocked() && ((currentGear==null && wantToBuy.ordinal()==0) || (currentGear!=null && wantToBuy.ordinal()==gamePlayer.getBestGear().ordinal()+1))) {
+                long itemStreetCredCost = item.getStreetCredCost();
+                long itemWorkCredCost = item.getWorkCredCost();
+                if (gamePlayer.getStreetCred()>=itemStreetCredCost) {
+                  if (gamePlayer.getWorkCred()>=itemWorkCredCost) {
+                    gamePlayer.spendStreetCred(itemStreetCredCost);
+                    gamePlayer.spendWorkCred(itemWorkCredCost);
+                    gamePlayer.incrementRangerSkill(item.getRangerSkillGain());
+                    gamePlayer.setBestGear(wantToBuy);
+                  } else {
+                    showViewsError("You don't have enough WorkCred to purchase this item");
+                  }
+                } else {
+                  showViewsError("You don't have enough StreetCred to purchase this item");
+                  System.out.println("Printing here");
+                }
+              } else {
+                showViewsError("Sorry, this item is not yet unlocked for purchase");
+              }
+              break;
             }
-            if (item.isUnlocked()) {
+            else if (item.isUnlocked()) {
               long itemStreetCredCost = item.getStreetCredCost();
               long itemWorkCredCost = item.getWorkCredCost();
               if (gamePlayer.getWorkCred()>=itemWorkCredCost) {
@@ -124,9 +169,6 @@ public class Controller extends AbstractController implements IController {
                     gamePlayer.incrementNumCheapMeds(1);
                   } else if (item.getName().equals("Tick Test")) {
                     gamePlayer.incrementNumTickTests(1);
-                  } else {
-                    gamePlayer.incrementFishingSkill(item.getFishingSkillGain());
-                    gamePlayer.incrementRangerSkill(item.getRangerSkillGain());
                   }
                 } else {
                   showViewsError("You don't have enough StreetCred to purchase this item");
@@ -147,7 +189,9 @@ public class Controller extends AbstractController implements IController {
   }
 
   public void endGame() {
+    showViewsError("You died, game over!");
 
+    update();
   }
 
   public void update() {

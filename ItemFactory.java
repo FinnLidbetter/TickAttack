@@ -12,53 +12,21 @@ public class ItemFactory {
   private static int CHEAPMEDS_WORKCRED_COST = 0;
   private static int CHEAPMEDS_HEALTH_GAIN = 10;
 
-  private static int OLD_ROD_STREETCRED_COST = 100;
-  private static int OLD_ROD_WORKCRED_COST = 0;
-  private static int OLD_ROD_FISHING_SKILL_GAIN = 1;
-
-  private static int GOOD_ROD_STREETCRED_COST = 500;
-  private static int GOOD_ROD_WORKCRED_COST = 0;
-  private static int GOOD_ROD_FISHING_SKILL_GAIN = 2;
-
-  private static int SUPER_ROD_STREETCRED_COST = 5000;
-  private static int SUPER_ROD_WORKCRED_COST = 0;
-  private static int SUPER_ROD_FISHING_SKILL_GAIN = 3;
-
-  private static int GREAT_ROD_STREETCRED_COST = 50000;
-  private static int GREAT_ROD_WORKCRED_COST = 0;
-  private static int GREAT_ROD_FISHING_SKILL_GAIN = 4;
-
-  private static int HYPER_ROD_STREETCRED_COST = 500000;
-  private static int HYPER_ROD_WORKCRED_COST = 0;
-  private static int HYPER_ROD_FISHING_SKILL_GAIN = 5;
-
-  private static int MASTER_ROD_STREETCRED_COST = 5000000;
-  private static int MASTER_ROD_WORKCRED_COST = 0;
-  private static int MASTER_ROD_FISHING_SKILL_GAIN = 6;
-
-  private static int BASIC_GEAR_STREETCRED_COST = 500;
-  private static int BASIC_GEAR_WORKCRED_COST = 0;
-  private static int BASIC_GEAR_RANGER_SKILL_GAIN = 1;
-
-  private static int DECENT_GEAR_STREETCRED_COST = 5000;
-  private static int DECENT_GEAR_WORKCRED_COST = 0;
-  private static int DECENT_GEAR_RANGER_SKILL_GAIN = 2;
-
-  private static int EXCELLENT_GEAR_STREETCRED_COST = 50000;
-  private static int EXCELLENT_GEAR_WORKCRED_COST = 0;
-  private static int EXCELLENT_GEAR_RANGER_SKILL_GAIN = 3;
-
-  private static int PHENOMENAL_GEAR_STREETCRED_COST = 500000;
-  private static int PHENOMENAL_GEAR_WORKCRED_COST = 0;
-  private static int PHENOMENAL_GEAR_RANGER_SKILL_GAIN = 4;
-
-  private static int MASTER_GEAR_STREETCRED_COST = 5000000;
-  private static int MASTER_GEAR_WORKCRED_COST = 0;
-  private static int MASTER_GEAR_RANGER_SKILL_GAIN = 5;
-
   private static int TREATMENT_PLAN_STREETCRED_COST = 100000;
   private static int TREATMENT_PLAN_WORKCRED_COST = 50000;
   private static int TREATMENT_PLAN_HEALTH_GAIN = 100;
+
+  public static Item createFishingRod(boolean unlocked, FishingRod rod) {
+    Item fishingRodItem = new Item(rod.getName(),rod.getInfo(), unlocked,
+      rod.getStreetCredCost(), 0,0,rod.getFishingSkillGain(),0);
+    return fishingRodItem;
+  }
+
+  public static Item createRangerGear(boolean unlocked, RangerGear gear) {
+    Item rangerGearItem = new Item(gear.getName(), gear.getInfo(), unlocked,
+      gear.getStreetCredCost(), 0, gear.getRangerSkillGain(),0,0);
+    return rangerGearItem;
+  }
 
   public static Item createAntibiotics(boolean unlocked) {
     Item antibiotics = new Item("Antibiotics", "Treats early stages of Lyme disease",
@@ -78,48 +46,63 @@ public class ItemFactory {
   }
 
   public static Item createOldRod(boolean unlocked) {
-    Item oldRod = new Item("Old rod", "This fishing rod looks a little tired.", unlocked,
-    OLD_ROD_STREETCRED_COST, OLD_ROD_WORKCRED_COST, 0, OLD_ROD_FISHING_SKILL_GAIN, 0);
+    Item oldRod = createFishingRod(unlocked, FishingRod.OLD_ROD);
     return oldRod;
   }
 
   public static Item createGoodRod(boolean unlocked) {
-    Item goodRod = new Item("Good rod", "This fishing rod looks ok.", unlocked,
-    GOOD_ROD_STREETCRED_COST, GOOD_ROD_WORKCRED_COST, 0, GOOD_ROD_FISHING_SKILL_GAIN, 0);
+    Item goodRod = createFishingRod(unlocked, FishingRod.GOOD_ROD);
     return goodRod;
   }
 
+
   public static Item createSuperRod(boolean unlocked) {
-    Item superRod = new Item("Super rod", "This fishing rod is even better than a good rod!", unlocked,
-    SUPER_ROD_STREETCRED_COST, SUPER_ROD_WORKCRED_COST, 0, SUPER_ROD_FISHING_SKILL_GAIN, 0);
+    Item superRod = createFishingRod(unlocked, FishingRod.SUPER_ROD);
     return superRod;
   }
 
   public static Item createGreatRod(boolean unlocked) {
-    Item greatRod = new Item("Great rod", "This fishing rod is even better than a super rod!", unlocked,
-    GREAT_ROD_STREETCRED_COST, GREAT_ROD_WORKCRED_COST, 0, GREAT_ROD_FISHING_SKILL_GAIN, 0);
+    Item greatRod = createFishingRod(unlocked, FishingRod.GREAT_ROD);
     return greatRod;
   }
 
   public static Item createHyperRod(boolean unlocked) {
-    Item hyperRod = new Item("Hyper rod", "This fishing rod is even better than a great rod!", unlocked,
-    HYPER_ROD_STREETCRED_COST, HYPER_ROD_WORKCRED_COST, 0, HYPER_ROD_FISHING_SKILL_GAIN, 0);
+    Item hyperRod = createFishingRod(unlocked, FishingRod.HYPER_ROD);
     return hyperRod;
   }
 
   public static Item createMasterRod(boolean unlocked) {
-    Item masterRod = new Item("Master rod", "This fishing rod is even better than a hyper rod!", unlocked,
-    MASTER_ROD_STREETCRED_COST, MASTER_ROD_WORKCRED_COST, 0, MASTER_ROD_FISHING_SKILL_GAIN, 0);
+    Item masterRod = createFishingRod(unlocked, FishingRod.MASTER_ROD);
     return masterRod;
   }
 
   public static Item createBasicGear(boolean unlocked) {
-    Item basicGear = new Item("Basic gear", "This gear will really help me with my park ranger duties!", unlocked,
-    BASIC_GEAR_STREETCRED_COST, BASIC_GEAR_WORKCRED_COST, BASIC_GEAR_RANGER_SKILL_GAIN, 0, 0);
+    Item basicGear = createRangerGear(unlocked, RangerGear.BASIC_GEAR);
     return basicGear;
   }
 
   public static Item createDecentGear(boolean unlocked) {
+    Item decentGear = createRangerGear(unlocked, RangerGear.DECENT_GEAR);
+    return decentGear;
+  }
+
+  public static Item createExcellentGear(boolean unlocked) {
+    Item excellentGear = createRangerGear(unlocked, RangerGear.EXCELLENT_GEAR);
+    return excellentGear;
+  }
+
+  public static Item createPhenomenalGear(boolean unlocked) {
+    Item phenomenalGear = createRangerGear(unlocked, RangerGear.PHENOMENAL_GEAR);
+    return phenomenalGear;
+  }
+
+  public static Item createMasterGear(boolean unlocked) {
+    Item masterGear = createRangerGear(unlocked, RangerGear.MASTER_GEAR);
+    return masterGear;
+  }
+
+  /*
+  public static Item createExcellentGear(boolean unlocked) {
     Item decentGear = new Item("Decent gear", "This gear will really help me with my park ranger duties!", unlocked,
     DECENT_GEAR_STREETCRED_COST, DECENT_GEAR_WORKCRED_COST, DECENT_GEAR_RANGER_SKILL_GAIN, 0, 0);
     return decentGear;
@@ -142,7 +125,7 @@ public class ItemFactory {
     MASTER_GEAR_STREETCRED_COST, MASTER_GEAR_WORKCRED_COST, MASTER_GEAR_RANGER_SKILL_GAIN, 0, 0);
     return masterGear;
   }
-
+*/
   public static Item createIntensiveTreatmentPlan(boolean unlocked) {
     Item treatmentPlan = new Item("Intensive Treatment Plan", "This intensive treatment plan will cure the early stages of Lyme disease",
     unlocked, TREATMENT_PLAN_STREETCRED_COST, TREATMENT_PLAN_WORKCRED_COST, 0, 0, TREATMENT_PLAN_HEALTH_GAIN);
