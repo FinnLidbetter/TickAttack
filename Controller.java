@@ -56,66 +56,92 @@ public class Controller extends AbstractController implements IController {
           if (gamePlayer.getTimeToCompleteTask()==0) {
             if (gamePlayer.getWorkCred()>=acrossBorderStore.getWorkCredAccessCost()) {
               gamePlayer.goToStore(acrossBorderStore);
+              gamePlayer.spendWorkCred(acrossBorderStore.getWorkCredAccessCost());
               update(acrossBorderStore.getStoreContents());
             } else {
-              showViewsError("Sorry, you need to spend "+acrossBorderStore.getWorkCredAccessCost()+" to access this store.");
+              showViewsError("Sorry, you need to spend "+acrossBorderStore.getWorkCredAccessCost()+" WorkCred to access this store.");
             }
           } else {
             showViewsError("You are still performing a task");
           }
           break;
         case "Cheap Meds":
-          //Not implemented yet
+          boolean used = gamePlayer.useCheapMeds();
+          if (used) {
+            update("Cheap Meds consumed, +10 health");
+          } else {
+            if (gamePlayer.getNumCheapMeds()==0) {
+              showViewsError("You don't have any Cheap Meds available to use");
+            } else {
+              showViewsError("You are already at maximum health");
+            }
+          }
           break;
         case "Antibiotics":
-          //Not implemented yet
+          used = gamePlayer.useAntibiotics();
+          if (used) {
+            update("Antibiotics used, you are fighting off Lyme disease");
+          } else {
+            if (gamePlayer.getNumAntibiotics()==0) {
+              showViewsError("You don't have any Antibiotics available to use");
+            } else {
+              showViewsError("You do not have any Lyme disease to treat");
+            }
+          }
           break;
         case "Tick Search":
           if (gamePlayer.getTimeToCompleteTask()==0) {
             TickSearch tSearch = new TickSearch(gamePlayer.useTickTest());
             gamePlayer.setCurrentTask(tSearch);
             update(gamePlayer.getCurrentTask().getInfoString());
+          } else {
+            showViewsError("You are still performing a task");
           }
           break;
-        case "0":
+      }
+    }
+    else if (o instanceof Integer) {
+      if (gamePlayer.getTimeToCompleteTask()==0) {
+        Store currentStore = gamePlayer.getCurrentStore();
+        for (Item item:currentStore.getAvailableItems()) {
+          if (item.getID()==(int)o) {
+            if (FishingRod.stringToRodMap.containsKey(item.getName())) {
 
-          break;
-        case "1":
-          System.out.println("Registering!");
-
-          break;
-        case "2":
-          System.out.println("Registering!");
-
-          break;
-        case "3":
-          System.out.println("Registering!");
-
-          break;
-        case "4":
-          System.out.println("Registering!");
-
-          break;
-        case "5":
-          System.out.println("Registering!");
-
-          break;
-        case "6":
-          System.out.println("Registering!");
-
-          break;
-        case "7":
-          System.out.println("Registering!");
-
-          break;
-        case "8":
-          System.out.println("Registering!");
-
-          break;
-        case "9":
-          System.out.println("Registering!");
-
-          break;
+            }
+            else if (RangerGear.stringToGearMap.containsKey(item.getName())) {
+              
+            }
+            if (item.isUnlocked()) {
+              long itemStreetCredCost = item.getStreetCredCost();
+              long itemWorkCredCost = item.getWorkCredCost();
+              if (gamePlayer.getWorkCred()>=itemWorkCredCost) {
+                if (gamePlayer.getStreetCred()>=itemStreetCredCost) {
+                  gamePlayer.spendWorkCred(itemWorkCredCost);
+                  gamePlayer.spendStreetCred(itemStreetCredCost);
+                  if (item.getName().equals("Antibiotics")) {
+                    gamePlayer.incrementNumAntibiotics(1);
+                  } else if (item.getName().equals("Cheap Meds")) {
+                    gamePlayer.incrementNumCheapMeds(1);
+                  } else if (item.getName().equals("Tick Test")) {
+                    gamePlayer.incrementNumTickTests(1);
+                  } else {
+                    gamePlayer.incrementFishingSkill(item.getFishingSkillGain());
+                    gamePlayer.incrementRangerSkill(item.getRangerSkillGain());
+                  }
+                } else {
+                  showViewsError("You don't have enough StreetCred to purchase this item");
+                }
+              } else {
+                showViewsError("You don't have enough WorkCred to purchase this item");
+              }
+            } else {
+              showViewsError("Sorry, you haven't yet unlocked the ability to purchase this item");
+            }
+            break;
+          }
+        }
+      } else {
+        showViewsError("You are still performing a task");
       }
     }
   }

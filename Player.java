@@ -9,7 +9,6 @@ public class Player {
   private long streetCred;
   private int workCred;
   private double health;
-  private int numKnownTicks;
   private int fishingSkill;
   private int rangerSkill;
   private int numTickTests;
@@ -23,6 +22,8 @@ public class Player {
   private Task currentTask;
   private int timeToCompleteTask;
   private Store currentStore;
+  private FishingRod bestRod;
+  private RangerGear bestGear;
 
 
   public Player() {
@@ -36,7 +37,6 @@ public class Player {
     numAntibiotics = 0;
     numCheapMeds = 0;
 
-    numKnownTicks = 0;
     infectionStage = 0;
     streetCredGainRate = INITIAL_STREET_CRED_GAIN_RATE;
 
@@ -47,6 +47,8 @@ public class Player {
     timeToCompleteTask = 0;
     currentStore = null;
     ticks = new ArrayList<Tick>();
+    bestRod = null;
+    bestGear = null;
   }
 
   public void infect() {
@@ -118,10 +120,6 @@ public class Player {
 	  ticks.add(new Tick());
   }
 
-  public int getNumKnownTicks() {
-    return numKnownTicks;
-  }
-
   public void incrementRangerSkill(int rangerSkillIncrease) {
     rangerSkill += rangerSkillIncrease;
   }
@@ -134,15 +132,15 @@ public class Player {
     numAntibiotics += numExtraAntibiotics;
   }
 
-  public void consumeAntibiotics() {
-    numAntibiotics--;
+  public void incrementNumTickTests(int numExtraTickTests) {
+    numTickTests += numExtraTickTests;
   }
 
   public void incrementNumCheapMeds(int numExtraCheapMeds) {
     numCheapMeds += numExtraCheapMeds;
   }
 
-  public boolean consumeCheapMeds() {
+  public boolean useCheapMeds() {
     if (health==100 || numCheapMeds==0)
       return false;
     adjustHealth(10);
@@ -158,12 +156,20 @@ public class Player {
     streetCred += streetCredChange;
   }
 
-  public void updateWorkCred(int workCredChange) {
+  public void updateWorkCred(long workCredChange) {
     workCred += workCredChange;
   }
 
   public void multiplyStreetCredGainRate(double multiplier) {
     streetCredGainRate *= multiplier;
+  }
+
+  public void spendWorkCred(long amount) {
+    updateWorkCred(-1L*amount);
+  }
+
+  public void spendStreetCred(long amount) {
+    updateStreetCred(-1L*amount);
   }
 
   public void adjustHealth(int healthChange) {
@@ -231,6 +237,7 @@ public class Player {
       if (infectionStage<=0) {
         infectionStage = INFECTIONSTAGE_INCREMENT;
       }
+      numAntibiotics--;
       return true;
     }
     return false;
@@ -244,4 +251,20 @@ public class Player {
     }
     return false;
   }
+
+  public FishingRod getBestRod() {
+    return bestRod;
+  }
+
+  public RangerGear getBestGear() {
+    return bestGear;
+  }
+
+  public void setBestRod(FishingRod rod) {
+    bestRod = rod;
+  }
+
+  public void setBestGear(RangerGear gear) {
+    bestGear = gear;
+  }  
 }

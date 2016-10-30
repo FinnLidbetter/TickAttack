@@ -78,7 +78,7 @@ public class SimpleViewer extends JFrame implements IView {
         public void keyReleased(KeyEvent k) {
           int keyValue = k.getKeyCode();
           if (keyValue >= KeyEvent.VK_0 && keyValue <= KeyEvent.VK_9)
-            myController.process(""+(keyValue-KeyEvent.VK_0));
+            myController.process(keyValue-KeyEvent.VK_0);
         }
       });
     }
@@ -153,7 +153,7 @@ public class SimpleViewer extends JFrame implements IView {
     }
 
     protected JPanel makeVariableTracker() {
-      JPanel p = new JPanel(new GridLayout(6,1));
+      JPanel p = new JPanel(new GridLayout(5,1));
       p.add(makeStreetCredLabel());
       p.add(makeWorkCredLabel());
       p.add(makeHealthLabel());
@@ -317,7 +317,7 @@ public class SimpleViewer extends JFrame implements IView {
       workCredLabel.setText(""+workCredValue);
     }
     public void updateHealth(double healthValue) {
-      healthLabel.setText(""+healthValue);
+      healthLabel.setText(""+((int)healthValue));
     }
     public void updateInfectionStage(double infectionStage) {
       String infectionStageString = "";

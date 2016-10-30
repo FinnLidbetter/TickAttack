@@ -56,86 +56,96 @@ public class ItemFactory {
   private static int MASTER_GEAR_WORKCRED_COST = 0;
   private static int MASTER_GEAR_RANGER_SKILL_GAIN = 5;
 
+  private static int TREATMENT_PLAN_STREETCRED_COST = 100000;
+  private static int TREATMENT_PLAN_WORKCRED_COST = 50000;
+  private static int TREATMENT_PLAN_HEALTH_GAIN = 100;
+
   public static Item createAntibiotics(boolean unlocked) {
     Item antibiotics = new Item("Antibiotics", "Treats early stages of Lyme disease",
-    true, ANTIBIOTICS_STREETCRED_COST, ANTIBIOTICS_WORKCRED_COST, 0, 0, ANTIBIOTICS_HEALTH_GAIN);
+    unlocked, ANTIBIOTICS_STREETCRED_COST, ANTIBIOTICS_WORKCRED_COST, 0, 0, ANTIBIOTICS_HEALTH_GAIN);
     return antibiotics;
   }
   public static Item createTickTest(boolean unlocked) {
-    Item tickTest = new Item("Tick Test", "This tick test can help me do my tick searches!", true,
+    Item tickTest = new Item("Tick Test", "This tick test can help me do my tick searches!", unlocked,
     TICKTEST_STREETCRED_COST, TICKTEST_WORKCRED_COST, 0, 0, TICKTEST_HEALTH_GAIN);
     return tickTest;
   }
 
   public static Item createCheapMeds(boolean unlocked) {
-    Item cheapMeds = new Item("Cheap meds", "Helps you feel better by restoring health", true,
+    Item cheapMeds = new Item("Cheap Meds", "Helps you feel better by restoring health", unlocked,
     CHEAPMEDS_STREETCRED_COST, CHEAPMEDS_WORKCRED_COST, 0, 0, CHEAPMEDS_HEALTH_GAIN);
     return cheapMeds;
   }
 
   public static Item createOldRod(boolean unlocked) {
-    Item oldRod = new Item("Old rod", "This fishing rod looks a little tired.", true,
+    Item oldRod = new Item("Old rod", "This fishing rod looks a little tired.", unlocked,
     OLD_ROD_STREETCRED_COST, OLD_ROD_WORKCRED_COST, 0, OLD_ROD_FISHING_SKILL_GAIN, 0);
     return oldRod;
   }
 
   public static Item createGoodRod(boolean unlocked) {
-    Item goodRod = new Item("Good rod", "This fishing rod looks ok.", true,
+    Item goodRod = new Item("Good rod", "This fishing rod looks ok.", unlocked,
     GOOD_ROD_STREETCRED_COST, GOOD_ROD_WORKCRED_COST, 0, GOOD_ROD_FISHING_SKILL_GAIN, 0);
     return goodRod;
   }
 
   public static Item createSuperRod(boolean unlocked) {
-    Item superRod = new Item("Super rod", "This fishing rod is even better than a good rod!", true,
+    Item superRod = new Item("Super rod", "This fishing rod is even better than a good rod!", unlocked,
     SUPER_ROD_STREETCRED_COST, SUPER_ROD_WORKCRED_COST, 0, SUPER_ROD_FISHING_SKILL_GAIN, 0);
     return superRod;
   }
 
   public static Item createGreatRod(boolean unlocked) {
-    Item greatRod = new Item("Great rod", "This fishing rod is even better than a super rod!", true,
+    Item greatRod = new Item("Great rod", "This fishing rod is even better than a super rod!", unlocked,
     GREAT_ROD_STREETCRED_COST, GREAT_ROD_WORKCRED_COST, 0, GREAT_ROD_FISHING_SKILL_GAIN, 0);
     return greatRod;
   }
 
   public static Item createHyperRod(boolean unlocked) {
-    Item hyperRod = new Item("Hyper rod", "This fishing rod is even better than a great rod!", true,
+    Item hyperRod = new Item("Hyper rod", "This fishing rod is even better than a great rod!", unlocked,
     HYPER_ROD_STREETCRED_COST, HYPER_ROD_WORKCRED_COST, 0, HYPER_ROD_FISHING_SKILL_GAIN, 0);
     return hyperRod;
   }
 
   public static Item createMasterRod(boolean unlocked) {
-    Item masterRod = new Item("Master rod", "This fishing rod is even better than a hyper rod!", true,
+    Item masterRod = new Item("Master rod", "This fishing rod is even better than a hyper rod!", unlocked,
     MASTER_ROD_STREETCRED_COST, MASTER_ROD_WORKCRED_COST, 0, MASTER_ROD_FISHING_SKILL_GAIN, 0);
     return masterRod;
   }
 
   public static Item createBasicGear(boolean unlocked) {
-    Item basicGear = new Item("Basic gear", "This gear will really help me with my park ranger duties!", true,
+    Item basicGear = new Item("Basic gear", "This gear will really help me with my park ranger duties!", unlocked,
     BASIC_GEAR_STREETCRED_COST, BASIC_GEAR_WORKCRED_COST, BASIC_GEAR_RANGER_SKILL_GAIN, 0, 0);
     return basicGear;
   }
 
   public static Item createDecentGear(boolean unlocked) {
-    Item decentGear = new Item("Decent gear", "This gear will really help me with my park ranger duties!", true,
+    Item decentGear = new Item("Decent gear", "This gear will really help me with my park ranger duties!", unlocked,
     DECENT_GEAR_STREETCRED_COST, DECENT_GEAR_WORKCRED_COST, DECENT_GEAR_RANGER_SKILL_GAIN, 0, 0);
     return decentGear;
   }
 
   public static Item createExcellentGear(boolean unlocked) {
-    Item excellentGear = new Item("Excellent gear", "This gear will really help me with my park ranger duties!", true,
+    Item excellentGear = new Item("Excellent gear", "This gear will really help me with my park ranger duties!", unlocked,
     EXCELLENT_GEAR_STREETCRED_COST, EXCELLENT_GEAR_WORKCRED_COST, EXCELLENT_GEAR_RANGER_SKILL_GAIN, 0, 0);
     return excellentGear;
   }
 
   public static Item createPhenomenalGear(boolean unlocked) {
-    Item phenomenalGear = new Item("Phenomenal gear", "This gear will really help me with my park ranger duties!", true,
+    Item phenomenalGear = new Item("Phenomenal gear", "This gear will really help me with my park ranger duties!", unlocked,
     PHENOMENAL_GEAR_STREETCRED_COST, PHENOMENAL_GEAR_WORKCRED_COST, PHENOMENAL_GEAR_RANGER_SKILL_GAIN, 0, 0);
     return phenomenalGear;
   }
 
   public static Item createMasterGear(boolean unlocked) {
-    Item masterGear = new Item("Master gear", "This gear will really help me with my park ranger duties!", true,
+    Item masterGear = new Item("Master gear", "This gear will really help me with my park ranger duties!", unlocked,
     MASTER_GEAR_STREETCRED_COST, MASTER_GEAR_WORKCRED_COST, MASTER_GEAR_RANGER_SKILL_GAIN, 0, 0);
     return masterGear;
+  }
+
+  public static Item createIntensiveTreatmentPlan(boolean unlocked) {
+    Item treatmentPlan = new Item("Intensive Treatment Plan", "This intensive treatment plan will cure the early stages of Lyme disease",
+    unlocked, TREATMENT_PLAN_STREETCRED_COST, TREATMENT_PLAN_WORKCRED_COST, 0, 0, TREATMENT_PLAN_HEALTH_GAIN);
+    return treatmentPlan;
   }
 }
