@@ -22,7 +22,7 @@ public class TaskTester {
 		ArrayList<Tick> ticks = new ArrayList<Tick>();
 		for (int i = 0; i < 3000; i++)
 			ticks.add(new Tick());
-		TickSearch tickSearch = new TickSearch(false);
+		TickSearch tickSearch = new TickSearch();
 		tickSearch.attemptRemovingTicks(ticks, false);
 
 		double predictedTicks = 3000*(1-TickSearch.BASE_REMOVE_TICK_CHANCE);
@@ -39,15 +39,12 @@ public class TaskTester {
 		ArrayList<Tick> ticks = new ArrayList<Tick>();
 		for (int i = 0; i < 3000; i++)
 			ticks.add(new Tick());
-		TickSearch tickSearch = new TickSearch(true);
+		TickSearch tickSearch = new TickSearch();
 		tickSearch.attemptRemovingTicks(ticks, true);
 
 		double predictedTicks = 3000*(1-TickSearch.BASE_REMOVE_TICK_CHANCE-TickSearch.TICK_TEST_EXTRA_REMOVAL_CHANCE);
 		assertTrue(ticks.size() > predictedTicks*0.9);
 		assertTrue(ticks.size() < predictedTicks*1.1);
-
-		for (Tick tick : ticks)
-			assertTrue(tick.isVisible());
 	}
 
 	/**
@@ -63,7 +60,7 @@ public class TaskTester {
 				tick.suckBlood();
 			ticks.add(tick);
 		}
-		TickSearch tickSearch = new TickSearch(false);
+		TickSearch tickSearch = new TickSearch();
 		tickSearch.attemptRemovingTicks(ticks, false);
 		double predictedTicks = 10000*(1-TickSearch.BASE_REMOVE_TICK_CHANCE-Tick.GROWTH_RATE*200);
 		assertTrue(ticks.size() > predictedTicks*0.9);

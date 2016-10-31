@@ -1,6 +1,3 @@
-import java.util.Collection;
-import java.io.Reader;
-import java.util.Scanner;
 
 /**
  * Finn Lidbetter

@@ -19,9 +19,8 @@ public class TickSearch implements Task{
 	/**
 	 * Constructor.
 	 */
-	public TickSearch(boolean usingTickTest){
+	public TickSearch(){
 		timeToComplete = MIN_TASK_TIME;
-		this.usingTickTest = usingTickTest;
 		if (usingTickTest)
 			infoString = "Performing an improved tick search";
 		else {
@@ -46,7 +45,6 @@ public class TickSearch implements Task{
 			tick = ticks.get(i);
 			double removalChance = tick.engorgedSize() + BASE_REMOVE_TICK_CHANCE;
 			if (usingTickTest){
-				tick.makeVisible();
 				removalChance += TICK_TEST_EXTRA_REMOVAL_CHANCE;
 			}
 			if (random.nextDouble() <= removalChance){

@@ -4,10 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.*;
-import java.util.Collection;
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
 
 /**
  * Finn Lidbetter

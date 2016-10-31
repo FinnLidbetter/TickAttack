@@ -1,7 +1,3 @@
-import java.io.Reader;
-import java.util.Collection;
-import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Controller extends AbstractController implements IController {
 
@@ -98,7 +94,7 @@ public class Controller extends AbstractController implements IController {
           break;
         case "Tick Search":
           if (gamePlayer.getTimeToCompleteTask()==0) {
-            TickSearch tSearch = new TickSearch(gamePlayer.useTickTest());
+            TickSearch tSearch = new TickSearch();
             gamePlayer.setCurrentTask(tSearch);
             update(gamePlayer.getCurrentTask().getInfoString());
           } else {

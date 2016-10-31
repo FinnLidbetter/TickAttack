@@ -52,7 +52,6 @@ public class FishingQuest extends Quest {
 		}
 		if (numRegFishes == 0 && numBigFishes == 0) {
 			infoString += "Oh no! Looks like today was bad for fishing! \n";
-			int[] fish = {numRegFishes, numBigFishes};
 			return;
 		}
 		infoString += "Pulled some nice fish! " + numRegFishes
@@ -65,7 +64,6 @@ public class FishingQuest extends Quest {
 
 		infoString += "Got meself a hefty " + streetCredGain
 				+ " streetCred by selling 'em!\n";
-		int[] fish = {numRegFishes, numBigFishes};
 	}
 
 	/**
