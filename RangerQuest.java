@@ -1,12 +1,12 @@
 public class RangerQuest extends Quest {
 
-	private static final int MAX_WORKCRED_MULTIPLIER = 10;
-	private static final double RESCUE_HIKERS_CHANCE = 0.2;
-	private static final double RESCUE_HIKERS_MAX_WORKCRED_BONUS = 0.8;
-	private static final double MEDICINAL_HERBS_CHANCE = 0.15;
-	private static final int MEDICINAL_HERB_MAX_HEAL = 20;
-	private static final double BEAR_CHANCE = 0.1;
-	private static final int BEAR_MAX_DAMAGE = 30;
+	protected static final int MAX_WORKCRED_MULTIPLIER = 10;
+	protected static final double RESCUE_HIKERS_CHANCE = 0.2;
+	protected static final double RESCUE_HIKERS_MAX_WORKCRED_BONUS = 0.8;
+	protected static final double MEDICINAL_HERBS_CHANCE = 0.15;
+	protected static final int MEDICINAL_HERB_MAX_HEAL = 20;
+	protected static final double BEAR_CHANCE = 0.1;
+	protected static final int BEAR_MAX_DAMAGE = 30;
 
 	/**
 	 * Constructor. Generates a quest with the given skill level.
@@ -35,7 +35,7 @@ public class RangerQuest extends Quest {
 	 *            increases chances of event happening.
 	 */
 	protected void foundBear(int multiplier) {
-		if (random.nextDouble() <= 1 - Math.pow(1-BEAR_CHANCE, multiplier)) {
+		if (random.nextDouble() <= BEAR_CHANCE*multiplier) {
 			int damageTaken = random.nextInt(BEAR_MAX_DAMAGE);
 			healthCost = damageTaken;
 			infoString += "Found a bear! Lost " + damageTaken
@@ -52,7 +52,7 @@ public class RangerQuest extends Quest {
 	 *            increases chances of event happening.
 	 */
 	protected void foundMedicinalHerbs(int multiplier) {
-		if (random.nextDouble() <= 1 - Math.pow(1-MEDICINAL_HERBS_CHANCE, multiplier)) {
+		if (random.nextDouble() <= MEDICINAL_HERBS_CHANCE*multiplier) {
 			int healthHealed = random.nextInt(MEDICINAL_HERB_MAX_HEAL);
 			healthGain = healthHealed;
 			infoString += "Found some medicinal herbs! Recovered "
@@ -69,7 +69,7 @@ public class RangerQuest extends Quest {
 	 * @param multiplier
 	 */
 	protected void foundHiker(int multiplier) {
-		if (random.nextDouble() <= 1 - Math.pow(1-RESCUE_HIKERS_CHANCE, multiplier)) {
+		if (random.nextDouble() <= RESCUE_HIKERS_CHANCE*multiplier) {
 			int extraWorkCred = random
 					.nextInt((int)Math.max(1,(Math.round(workCredGain * RESCUE_HIKERS_MAX_WORKCRED_BONUS))));
 			workCredGain += extraWorkCred;

@@ -329,9 +329,9 @@ public class SimpleViewer extends JFrame implements IView {
       } else if (infectionStage<0.2) {
         infectionStageString = "Early Stages of Lyme Disease";
       } else if (infectionStage<0.3) {
-        infectionStageString = "Middle Stages";
+        infectionStageString = "Middle Stages of Lyme Disease";
       } else {
-        infectionStageString = "Late Stages";
+        infectionStageString = "Late Stages of Lyme Disease";
       }
       infectionStageLabel.setText(infectionStageString);
     }

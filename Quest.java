@@ -9,7 +9,7 @@ import java.util.Random;
 public abstract class Quest implements QuestProperties, Task{
 
 	public static final int TASK_TIME_RANGE = 50;
-	public static final double TICK_CHANCE = 0.3;
+	public static final double TICK_CHANCE = 0.8;
 
 	protected static Random random = new Random();
 

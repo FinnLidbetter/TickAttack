@@ -6,7 +6,7 @@ import javax.swing.Timer;
 
 public class TickTimer {
 
-	private static final int MILLISECONDS_BETWEEN_ACTIONS = 200;
+	private static final int MILLISECONDS_BETWEEN_ACTIONS = 500;
 	private Timer timer;
 	private Controller controller;
 	private Player player;

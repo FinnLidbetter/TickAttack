@@ -29,7 +29,7 @@ public class ItemFactory {
   }
 
   public static Item createAntibiotics(boolean unlocked) {
-    Item antibiotics = new Item("Antibiotics", "Treats early stages of Lyme disease",
+    Item antibiotics = new Item("Antibiotics", "Treats the symptoms of Lyme Disease, but cannot fully cure it.",
     unlocked, ANTIBIOTICS_STREETCRED_COST, ANTIBIOTICS_WORKCRED_COST, 0, 0, ANTIBIOTICS_HEALTH_GAIN);
     return antibiotics;
   }
@@ -40,13 +40,13 @@ public class ItemFactory {
   }
 
   public static Item createCheapMeds(boolean unlocked) {
-    Item cheapMeds = new Item("Cheap Meds", "Helps you feel better by restoring health", unlocked,
+    Item cheapMeds = new Item("Cheap Meds", "Helps you feel better by restoring health.", unlocked,
     CHEAPMEDS_STREETCRED_COST, CHEAPMEDS_WORKCRED_COST, 0, 0, CHEAPMEDS_HEALTH_GAIN);
     return cheapMeds;
   }
 
   public static Item createIntensiveTreatmentPlan(boolean unlocked) {
-    Item treatmentPlan = new Item("Intensive Treatment Plan", "This health care option will treat Lyme Disease", unlocked,
+    Item treatmentPlan = new Item("Intensive Treatment Plan", "This health care option will fully treat Lyme Disease", unlocked,
     TREATMENT_PLAN_STREETCRED_COST, TREATMENT_PLAN_WORKCRED_COST, 0, 0, TREATMENT_PLAN_HEALTH_GAIN);
     return treatmentPlan;
   }
