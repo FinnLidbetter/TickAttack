@@ -56,7 +56,7 @@ public class FishingQuest extends Quest {
 			return;
 		}
 		infoString += "Pulled some nice fish! " + numRegFishes
-				+ " regular fish and " + numBigFishes + "big fish!\n";
+				+ " regular fish and " + numBigFishes + " big fish!\n";
 
 		if (numRegFishes > 0)
 			streetCredGain += Math.abs(random.nextLong()) % (numRegFishes * REGULAR_FISH_MAX_STREETCRED_MULTIPLIER * skillLevel);

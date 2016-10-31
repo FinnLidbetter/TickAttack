@@ -13,7 +13,7 @@ public class ItemFactory {
   private static int CHEAPMEDS_HEALTH_GAIN = 10;
 
   private static int TREATMENT_PLAN_STREETCRED_COST = 100000;
-  private static int TREATMENT_PLAN_WORKCRED_COST = 50000;
+  private static int TREATMENT_PLAN_WORKCRED_COST = 10000;
   private static int TREATMENT_PLAN_HEALTH_GAIN = 100;
 
   public static Item createFishingRod(boolean unlocked, FishingRod rod) {
@@ -43,6 +43,12 @@ public class ItemFactory {
     Item cheapMeds = new Item("Cheap Meds", "Helps you feel better by restoring health", unlocked,
     CHEAPMEDS_STREETCRED_COST, CHEAPMEDS_WORKCRED_COST, 0, 0, CHEAPMEDS_HEALTH_GAIN);
     return cheapMeds;
+  }
+
+  public static Item createIntensiveTreatmentPlan(boolean unlocked) {
+    Item treatmentPlan = new Item("Intensive Treatment Plan", "This health care option will treat Lyme Disease", unlocked,
+    TREATMENT_PLAN_STREETCRED_COST, TREATMENT_PLAN_WORKCRED_COST, 0, 0, TREATMENT_PLAN_HEALTH_GAIN);
+    return treatmentPlan;
   }
 
   public static Item createOldRod(boolean unlocked) {
@@ -101,34 +107,4 @@ public class ItemFactory {
     return masterGear;
   }
 
-  /*
-  public static Item createExcellentGear(boolean unlocked) {
-    Item decentGear = new Item("Decent gear", "This gear will really help me with my park ranger duties!", unlocked,
-    DECENT_GEAR_STREETCRED_COST, DECENT_GEAR_WORKCRED_COST, DECENT_GEAR_RANGER_SKILL_GAIN, 0, 0);
-    return decentGear;
-  }
-
-  public static Item createExcellentGear(boolean unlocked) {
-    Item excellentGear = new Item("Excellent gear", "This gear will really help me with my park ranger duties!", unlocked,
-    EXCELLENT_GEAR_STREETCRED_COST, EXCELLENT_GEAR_WORKCRED_COST, EXCELLENT_GEAR_RANGER_SKILL_GAIN, 0, 0);
-    return excellentGear;
-  }
-
-  public static Item createPhenomenalGear(boolean unlocked) {
-    Item phenomenalGear = new Item("Phenomenal gear", "This gear will really help me with my park ranger duties!", unlocked,
-    PHENOMENAL_GEAR_STREETCRED_COST, PHENOMENAL_GEAR_WORKCRED_COST, PHENOMENAL_GEAR_RANGER_SKILL_GAIN, 0, 0);
-    return phenomenalGear;
-  }
-
-  public static Item createMasterGear(boolean unlocked) {
-    Item masterGear = new Item("Master gear", "This gear will really help me with my park ranger duties!", unlocked,
-    MASTER_GEAR_STREETCRED_COST, MASTER_GEAR_WORKCRED_COST, MASTER_GEAR_RANGER_SKILL_GAIN, 0, 0);
-    return masterGear;
-  }
-*/
-  public static Item createIntensiveTreatmentPlan(boolean unlocked) {
-    Item treatmentPlan = new Item("Intensive Treatment Plan", "This intensive treatment plan will cure the early stages of Lyme disease",
-    unlocked, TREATMENT_PLAN_STREETCRED_COST, TREATMENT_PLAN_WORKCRED_COST, 0, 0, TREATMENT_PLAN_HEALTH_GAIN);
-    return treatmentPlan;
-  }
 }

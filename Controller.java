@@ -9,7 +9,6 @@ public class Controller extends AbstractController implements IController {
   Player gamePlayer;
   Store acrossBorderStore;
   Store localStore;
-  boolean gamePlaying;
 
 
   public Controller() {
@@ -17,7 +16,12 @@ public class Controller extends AbstractController implements IController {
     gamePlayer = new Player();
     localStore = StoreFactory.createLocalStore();
     acrossBorderStore = StoreFactory.createAcrossBorderStore();
-    gamePlaying = false;
+  }
+
+  public void resetController() {
+    this.gamePlayer = new Player();
+    this.localStore = StoreFactory.createLocalStore();
+    this.acrossBorderStore = StoreFactory.createAcrossBorderStore();
   }
 
 
@@ -35,7 +39,7 @@ public class Controller extends AbstractController implements IController {
           } else if (gamePlayer.getTimeToCompleteTask()!=0) {
             showViewsError("You are still performing a task");
           } else {
-            showViewsError("Sorry, you do not have enough work cred to go fishin'");
+            showViewsError("Sorry, you do not have enough work cred to go fishing");
           }
           break;
         case "Ranger Quest":
@@ -125,10 +129,9 @@ public class Controller extends AbstractController implements IController {
                   }
                 } else {
                   showViewsError("You don't have enough StreetCred to purchase this item");
-                  System.out.println("Printing here");
                 }
               } else {
-                showViewsError("Sorry, this item is not yet unlocked for purchase");
+                showViewsError("Sorry, this item is not currently available for purchase");
               }
               break;
             }
@@ -149,10 +152,9 @@ public class Controller extends AbstractController implements IController {
                   }
                 } else {
                   showViewsError("You don't have enough StreetCred to purchase this item");
-                  System.out.println("Printing here");
                 }
               } else {
-                showViewsError("Sorry, this item is not yet unlocked for purchase");
+                showViewsError("Sorry, this item is not currently available for purchase");
               }
               break;
             }
@@ -169,6 +171,8 @@ public class Controller extends AbstractController implements IController {
                     gamePlayer.incrementNumCheapMeds(1);
                   } else if (item.getName().equals("Tick Test")) {
                     gamePlayer.incrementNumTickTests(1);
+                  } else if (item.getName().equals("Intensive Treatment Plan")) {
+                    gamePlayer.useIntensiveTreatment();
                   }
                 } else {
                   showViewsError("You don't have enough StreetCred to purchase this item");
@@ -188,9 +192,15 @@ public class Controller extends AbstractController implements IController {
     }
   }
 
-  public void endGame() {
+  public void endGameDead() {
     showViewsError("You died, game over!");
+    resetController();
+    update();
+  }
 
+  public void endGameWin() {
+    showViewsError("You have won the game! You may retire in peace after a remarkable career as a Park Ranger.\nLet's hope the next Park Ranger can continue your legacy.");
+    resetController();
     update();
   }
 

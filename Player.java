@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Player {
 
-  public static final double INFECTIONSTAGE_INCREMENT = 0.002;
+  public static final double INFECTIONSTAGE_INCREMENT = 0.0005;
   public static final int INITIAL_HEALTH = 100;
   public static final double INITIAL_STREET_CRED_GAIN_RATE = 1.0;
 
@@ -170,7 +170,7 @@ public class Player {
     updateStreetCred(-1L*amount);
   }
 
-  public void adjustHealth(int healthChange) {
+  public void adjustHealth(double healthChange) {
     health += healthChange;
     if (health > 100)
     	health = 100;
@@ -179,7 +179,7 @@ public class Player {
   }
 
   public void incrementPerSecondHealth() {
-  	adjustHealth((int)(-1*infectionStage));
+  	adjustHealth(-1*infectionStage);
   }
 
   public boolean isAlive() {

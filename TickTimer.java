@@ -6,7 +6,7 @@ import javax.swing.Timer;
 
 public class TickTimer {
 
-	private static final int MILLISECONDS_BETWEEN_ACTIONS = 100;
+	private static final int MILLISECONDS_BETWEEN_ACTIONS = 200;
 	private Timer timer;
 	private Controller controller;
 	private Player player;
@@ -20,6 +20,17 @@ public class TickTimer {
 			}
 		});
 	}
+
+	public void resetTimer() {
+		this.player = controller.getPlayer();
+		this.timer = new Timer(MILLISECONDS_BETWEEN_ACTIONS, new ActionListener() {
+			public void actionPerformed(ActionEvent evt){
+				update();
+			}
+		});
+	}
+
+
 
 	private void update(){
 		player.incrementPerSecondStreetCred();
@@ -38,8 +49,6 @@ public class TickTimer {
 			}
 		}
 
-		if (!player.isAlive())
-			controller.endGame();
 
 		Task task = player.decrementTimeToCompleteTask();
 		if (task != null){
@@ -60,6 +69,14 @@ public class TickTimer {
 		}
 		else {
 			controller.update();
+		}
+		if (!player.isAlive()) {
+			controller.endGameDead();
+			resetTimer();
+		}
+		if (player.getWorkCred()>100000) {
+			controller.endGameWin();
+			resetTimer();
 		}
 	}
 

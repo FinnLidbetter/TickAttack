@@ -31,7 +31,7 @@ public class StoreFactory {
     storeItems.add(ItemFactory.createExcellentGear(true));
     storeItems.add(ItemFactory.createPhenomenalGear(true));
     storeItems.add(ItemFactory.createMasterGear(true));
-
+    storeItems.add(ItemFactory.createIntensiveTreatmentPlan(true));
     Store joes = new Store("Across-Border Store","Welcome to Joe's Giant Outdoors Emporium.\nPurchase items by entering a digit [0-9] matching the item you wish to purchase." , storeItems,
     ACROSS_BORDER_STORE_STREETCRED_COST, ACROSS_BORDER_STORE_WORKCRED_COST);
     joes.setItemIDs();

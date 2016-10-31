@@ -62,6 +62,7 @@ public class SimpleViewer extends JFrame implements IView {
       addKeyListenerToComponent(questChoice);
       addKeyListenerToComponent(storeChoice);
       addKeyListenerToComponent(itemChoice);
+      addKeyListenerToComponent(myOutput);
       connectEvents();
 
       pack();
@@ -323,19 +324,14 @@ public class SimpleViewer extends JFrame implements IView {
     }
     public void updateInfectionStage(double infectionStage) {
       String infectionStageString = "";
-      switch((int)infectionStage) {
-        case 0:
-          infectionStageString = "Feeling fine";
-          break;
-        case 1:
-          infectionStageString = "Early Stages";
-          break;
-        case 2:
-          infectionStageString = "Middle Stages";
-          break;
-        case 3:
-          infectionStageString = "Late Stages";
-          break;
+      if (infectionStage<0.1) {
+        infectionStageString = "Feeling fine";
+      } else if (infectionStage<0.2) {
+        infectionStageString = "Early Stages of Lyme Disease";
+      } else if (infectionStage<0.3) {
+        infectionStageString = "Middle Stages";
+      } else {
+        infectionStageString = "Late Stages";
       }
       infectionStageLabel.setText(infectionStageString);
     }
@@ -379,7 +375,7 @@ public class SimpleViewer extends JFrame implements IView {
     }
 
     public void showError(String s){
-      JOptionPane.showMessageDialog(this,s,"Controller Error",
+      JOptionPane.showMessageDialog(this,s,"Information",
             JOptionPane.ERROR_MESSAGE);
     }
 }
