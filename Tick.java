@@ -2,6 +2,7 @@ import java.util.Random;
 
 /**
  * Tick object that can latch onto a player.
+ * @author Finn Lidbetter, Michael Bradet-Legris
  *
  */
 public class Tick {

@@ -1,7 +1,7 @@
 
 /**
  * Represents and item that can modify properties of a player.
- *
+ * @author Finn Lidbetter, Michael Bradet-Legris
  */
 public class Item {
 
