@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.swing.Timer;
 
 /**
- * Controller handling events that happen at a set time interval or 
+ * Controller handling events that happen at a set time interval or
  * when some time constraint has been satisfied.
  *
  */
@@ -19,7 +19,7 @@ public class TickTimer {
 	/**
 	 * Constructor.  User must specify a Controller that the TickTimer can update
 	 * the View with and that has access to a player (model).
-	 * @param controller 
+	 * @param controller
 	 */
 	public TickTimer(Controller controller){
 		this.controller = controller;
@@ -32,7 +32,7 @@ public class TickTimer {
 	}
 
 	/**
-	 * Resets the timer, presumably after a game has ended.  This also updates the 
+	 * Resets the timer, presumably after a game has ended.  This also updates the
 	 * player to the new player after the game has restarted.
 	 */
 	public void resetTimer() {
@@ -51,15 +51,15 @@ public class TickTimer {
 		player.incrementPerSecondStreetCred();
 		player.incrementPerSecondHealth();
 		player.incrementInfectionStage();
-		
+
 		updateTicks();
 		updateCurrentTask();
 		checkEndGameConditions();
 	}
-	
+
 	/**
 	 * All ticks on the player suck blood and grow larger.  There is a chance
-	 * that the tick damages the user and transmits Lyme disease if it is carrying it.  
+	 * that the tick damages the user and transmits Lyme disease if it is carrying it.
 	 * In this case, the tick is removed automatically, since it has been
 	 * "discovered" by the user (presumably because it had grown too large to go
 	 * unnoticed).
@@ -78,9 +78,9 @@ public class TickTimer {
 			}
 		}
 	}
-	
+
 	/**
-	 * Decrements the time remaining to complete the current task.  If the time 
+	 * Decrements the time remaining to complete the current task.  If the time
 	 * reaches 0, apply the payoffs of the task.
 	 */
 	private void updateCurrentTask(){
@@ -105,7 +105,7 @@ public class TickTimer {
 			controller.update();
 		}
 	}
-	
+
 	/**
 	 * Checks if the game is over or not.  If the game is over, display this
 	 * to the user and reset the game.

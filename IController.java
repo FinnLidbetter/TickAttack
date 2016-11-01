@@ -1,11 +1,10 @@
 
 /**
- * Finn Lidbetter
+ * Finn Lidbetter, Michael Bradet-Legris.
  * This is an interface for a controller.
- * I did not write this code. However, I adapted it to
- * an MVC design instead of a Model/View framework. As
- * such many things that used to be called "Model" are
- * now "Controller".
+ * We did not write this code - it was taken from the provided Midterm 1 code.
+ * However, we adapted it to an MVC design instead of a Model/View framework.
+ * As such many things that used to be called "Model" are now "Controller".
  */
 
 public interface IController{
@@ -40,7 +39,7 @@ public interface IController{
      * @param elements represents views to be displayed
      * @see IView
      */
-    public void notifyViews(Player playerInfo);    
+    public void notifyViews(Player playerInfo);
 
     /**
      * Notify this controller's views of the relevant model-state

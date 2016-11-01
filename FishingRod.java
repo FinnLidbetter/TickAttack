@@ -2,6 +2,11 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Collections;
 
+/**
+ * FishingRod enum stores information about each of the Fishing Rods
+ * @author Finn Lidbetter, Michael Bradet-Legris
+ * @version 1.0, 16/10/31
+ */
 public enum FishingRod implements Comparable<FishingRod> {
   OLD_ROD("Old Rod","This rod looks ok",100,1),
   GOOD_ROD("Good Rod", "This rod looks better than the old rod",500,2),
@@ -16,6 +21,9 @@ public enum FishingRod implements Comparable<FishingRod> {
   int fishingSkillGain;
   static final Map<String, FishingRod> stringToRodMap = Collections.unmodifiableMap(initializeMapping());
 
+  /**
+   * Initialiser for a FishingRod Enum type
+   */
   FishingRod(String rodName, String rodInfo, int cost, int skillGain) {
     name = rodName;
     info = rodInfo;
@@ -23,22 +31,42 @@ public enum FishingRod implements Comparable<FishingRod> {
     fishingSkillGain = skillGain;
   }
 
+  /**
+   * Gets the name of the FishingRod
+   * @return fishing rod name
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Gets the info string for the FishingRod
+   * @return fishing rod description
+   */
   public String getInfo() {
     return info;
   }
 
+  /**
+   * Gets the StreetCred cost of the fishing rod
+   * @return fishing rod cost
+   */
   public int getStreetCredCost() {
     return streetCredCost;
   }
 
+  /**
+   * Gets the fishing skill gain that this fishing rod gives
+   * @return the increase in the fishing skill given by this fishing rod
+   */
   public int getFishingSkillGain() {
     return fishingSkillGain;
   }
 
+  /**
+   * Initialises the map from rod names to rods
+   * @return the initial rod name to fishing rod mapping
+   */
   private static Map<String, FishingRod> initializeMapping() {
     Map<String, FishingRod> stringToRodMap = new HashMap<>();
     for (FishingRod rod:FishingRod.values()) {

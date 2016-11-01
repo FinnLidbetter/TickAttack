@@ -1,14 +1,11 @@
 import java.util.ArrayList;
-
-
 /**
- * Finn Lidbetter
+ * Finn Lidbetter and Michael Bradet-Legris
  * This class supplies a bare minimum controller implementation,
  * basically allowing views to be added, removed, and
  * notified of messages, errors, and other controller information.
- * Note that this class was not written by me, although I replaced
- * all instances of the word Model with the word Controller as it is
- * more appropriate for my design
+ * Note that this class was not written by us. It is code that was
+ * provided as part of Midterm 1
  */
 public abstract class AbstractController implements IController {
     private ArrayList myViews;

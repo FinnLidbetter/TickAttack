@@ -1,4 +1,11 @@
 import java.util.ArrayList;
+
+/**
+ * StoreFactory class has methods for initialising the Stores with their Items
+ * @author Finn Lidbetter, Michael Bradet-Legris
+ * @version 1.0, 16/10/31
+ */
+
 public class StoreFactory {
   private static int LOCAL_STORE_STREETCRED_COST = 0;
   private static int LOCAL_STORE_WORKCRED_COST = 0;
@@ -6,6 +13,10 @@ public class StoreFactory {
   private static int ACROSS_BORDER_STORE_STREETCRED_COST = 0;
   private static int ACROSS_BORDER_STORE_WORKCRED_COST = 100;
 
+  /**
+   * Creates the Local Store
+   * @return the initialised Local Store
+   */
   public static Store createLocalStore() {
     ArrayList<Item> storeItems = new ArrayList<Item>();
     storeItems.add(ItemFactory.createCheapMeds(true));
@@ -21,6 +32,10 @@ public class StoreFactory {
     return bobs;
   }
 
+  /**
+   * Creates the across border store
+   * @return the initialised across border store
+   */
   public static Store createAcrossBorderStore() {
     ArrayList<Item> storeItems = new ArrayList<Item>();
     storeItems.add(ItemFactory.createAntibiotics(true));

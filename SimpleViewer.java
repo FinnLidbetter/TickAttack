@@ -66,6 +66,10 @@ public class SimpleViewer extends JFrame implements IView {
       setVisible(true);
     }
 
+    /**
+     *
+     * @param jComponent 
+     */
     public void addKeyListenerToComponent(JComponent jComponent) {
       jComponent.addKeyListener(new KeyListener() {
         public void keyTyped(KeyEvent k) {

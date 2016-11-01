@@ -1,7 +1,7 @@
 
 /**
- * Finn Lidbetter
- * This is an interface for the view.
+ * Finn Lidbetter and Michael Bradet-Legris
+ * This is an interface for the view. This is based on code given provided with Midterm 1
  */
 
 public interface IView{
