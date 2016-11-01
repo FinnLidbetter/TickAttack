@@ -7,6 +7,7 @@ import javax.swing.Timer;
 /**
  * Controller handling events that happen at a set time interval or
  * when some time constraint has been satisfied.
+ * @author Finn Lidbetter, Michael Bradet-Legris
  *
  */
 public class TickTimer {

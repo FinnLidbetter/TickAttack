@@ -2,7 +2,7 @@
 /**
  * Interface for any action that takes a certain amount of
  * time to complete.
- *
+ * @author Finn Lidbetter, Michael Bradet-Legris
  */
 public interface Task {
 

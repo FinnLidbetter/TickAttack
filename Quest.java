@@ -3,7 +3,7 @@ import java.util.Random;
 /**
  * Contains all methods any quest should contain, except the
  * generateRandomEvents() method, which is quest specific.
- * @author mbl80_000
+ * @author Finn Lidbetter, Michael Bradet-Legris
  *
  */
 public abstract class Quest implements QuestProperties, Task{

@@ -1,3 +1,4 @@
+
 public class RangerQuest extends Quest {
 
 	protected static final int MAX_WORKCRED_MULTIPLIER = 10;

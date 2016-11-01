@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * are proportional to the completion time, every test case is a probabilistic 
  * test.  Thus, if one test fails but passes multiple times afterwards when the
  * test suite is ran again, the functionality probably still works. 
+ * @author Finn Lidbetter, Michael Bradet-Legris
  *
  */
 public class TaskTester {

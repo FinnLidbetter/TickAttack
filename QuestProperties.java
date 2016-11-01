@@ -1,5 +1,6 @@
 /**
  * Properties a Quest must contain pertaining to costs and payoffs.
+ * @author Finn Lidbetter, Michael Bradet-Legris
  *
  */
 public interface QuestProperties {
