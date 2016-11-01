@@ -53,8 +53,10 @@ public class TickSearch implements Task{
 				i--;
 			}
 		}
-
-		this.infoString = "Found " + removedTicks + " ticks!";
+		if (removedTicks == 1)
+			this.infoString = "Found 1 tick!";
+		else
+			this.infoString = "Found " + removedTicks + " ticks!";
 	}
 
 	@Override
