@@ -6,8 +6,9 @@ import java.awt.GridLayout;
 import java.awt.event.*;
 
 /**
- * Finn Lidbetter
- * This class handles the GUI for this program.
+ * SimpleViewer class creates the GUI for the TickAttack game
+ * @author Finn Lidbetter, Michael Bradet-Legris
+ * @version 1.0, 16/10/31
  */
 
 public class SimpleViewer extends JFrame implements IView {
@@ -67,8 +68,8 @@ public class SimpleViewer extends JFrame implements IView {
     }
 
     /**
-     *
-     * @param jComponent 
+     * Adds a key listener listening for numeric input to the specified JComponent
+     * @param jComponent - component to add the key listener to
      */
     public void addKeyListenerToComponent(JComponent jComponent) {
       jComponent.addKeyListener(new KeyListener() {
@@ -84,6 +85,10 @@ public class SimpleViewer extends JFrame implements IView {
       });
     }
 
+    /**
+     * Connects a controller to the view
+     * @param controller - controller to connect to view
+     */
     public void setController(IController controller){
       myController = controller;
       myController.addView(this);
@@ -324,11 +329,11 @@ public class SimpleViewer extends JFrame implements IView {
     }
     public void updateInfectionStage(double infectionStage) {
       String infectionStageString = "";
-      if (infectionStage<0.1) {
+      if (infectionStage<0.05) {
         infectionStageString = "Feeling fine";
-      } else if (infectionStage<0.2) {
+      } else if (infectionStage<0.1) {
         infectionStageString = "Early Stages of Lyme Disease";
-      } else if (infectionStage<0.3) {
+      } else if (infectionStage<0.15) {
         infectionStageString = "Middle Stages of Lyme Disease";
       } else {
         infectionStageString = "Late Stages of Lyme Disease";
