@@ -30,6 +30,7 @@ public class Item {
 			long streetCredCost, int workCredCost, int rangerSkillGain,
 			int fishingSkillGain, int healthGain) {
 
+		this.id = 0;
 		this.name = name;
 		this.infoString = infoString;
 		this.streetCredCost = streetCredCost;
@@ -105,10 +106,19 @@ public class Item {
 		return unlocked;
 	}
 
+	/**
+	 * Gets the ID of the item.  The default ID is 0, if no ID has 
+	 * been set with the setID() method.
+	 * @return the Item's ID.
+	 */
 	public int getID() {
 		return id;
 	}
-
+	
+	/**
+	 * Sets the ID of this item to be the indicated value.
+	 * @param newID the new ID of this item.
+	 */
 	public void setID(int newID) {
 		id = newID;
 	}
