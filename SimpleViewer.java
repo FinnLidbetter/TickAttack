@@ -125,13 +125,13 @@ public class SimpleViewer extends JFrame implements IView {
     }
 
     /**
-     * Makes a panel for the quest button
+     * Makes a panel for the quest button (Added Surf Internet for quest insert purposes.)
      * @return the quest button panel
      */
     private JPanel makeQuestButton() {
       JPanel p = new JPanel(new GridLayout(2,1));
       p.setBorder(BorderFactory.createTitledBorder("Quest: "));
-      String[] questNames = {"Ranger Quest", "Fishing Quest"};
+      String[] questNames = {"Ranger Quest", "Fishing Quest", "Surf Internet Quest"};
       questChoice = new JComboBox<>(questNames);
       p.add(questChoice);
       questButton = new JButton("Perform quest");

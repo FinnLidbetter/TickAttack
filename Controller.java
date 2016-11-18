@@ -60,6 +60,13 @@ public class Controller extends AbstractController implements IController {
           RangerQuest rQuest = new RangerQuest(gamePlayer.getRangerSkill());
           attemptStartQuest(rQuest);
           break;
+          //Added the surf internet quest so it runs when the player selects it.
+        case "Surf Internet Quest":
+            SurfInternetQuest sQuest = new SurfInternetQuest(gamePlayer.getRangerSkill());
+            if(attemptStartQuest(sQuest)){
+            	sQuest.startDialog(this);
+            }
+            break;
         case "Cheap Local Store":
           attemptGoToStore(localStore);
           break;
@@ -111,19 +118,22 @@ public class Controller extends AbstractController implements IController {
   }
 
   /**
-   * Helper method to start a quest
+   * Helper method to start a quest. (Modified to return a boolean, so that dialog quests are possible)
    * @param quest - The quest that we are attempting to start
+   * @return True if the quest can start, false otherwise.
    */
-  private void attemptStartQuest(Quest quest) {
+  private boolean attemptStartQuest(Quest quest) {
     if (gamePlayer.getTimeToCompleteTask()==0 && quest.canPerformQuest(gamePlayer.getWorkCred()))  {
       gamePlayer.spendWorkCred(quest.getWorkCredCost());
       gamePlayer.setCurrentTask(quest);
       update(gamePlayer.getCurrentTask().getInfoString());
+      return true;
     } else if (gamePlayer.getTimeToCompleteTask()!=0) {
       showViewsError("You are still performing a task");
     } else {
       showViewsError("Sorry, you do not have enough work cred to go on this quest");
     }
+    return false;
   }
 
   /**
