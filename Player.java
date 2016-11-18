@@ -15,7 +15,7 @@ public class Player {
   private int workCred;
   private double health;
   private FishingSkill fishingSkill;
-  private int rangerSkill;
+  private RangerSkill rangerSkill;
   private int numTickTests;
   private int numAntibiotics;
   private int numCheapMeds;
@@ -35,9 +35,8 @@ public class Player {
     streetCred = 0;
     workCred = 0;
     health = INITIAL_HEALTH;
-    //fishingSkill = 1;
     fishingSkill = new BaseFishingSkill();
-    rangerSkill = 1;
+    rangerSkill = new BaseRangerSkill();
 
     numTickTests = 0;
     numAntibiotics = 0;
@@ -52,7 +51,6 @@ public class Player {
     timeToCompleteTask = 0;
     currentStore = null;
     ticks = new ArrayList<Tick>();
-    bestGear = null;
   }
 
 
@@ -73,8 +71,11 @@ public class Player {
   public int getFishingSkill() {
     return fishingSkill.getFishingSkill();
   }
-  public int getRangerSkill() {
+  public RangerSkill getBaseRangerSkill() {
     return rangerSkill;
+  }
+  public int getRangerSkill() {
+    return rangerSkill.getRangerSkill();
   }
   public int getNumTickTests() {
     return numTickTests;
@@ -102,7 +103,7 @@ public class Player {
   }
 
   public RangerGear getBestGear() {
-    return bestGear;
+    return rangerSkill.getBestGear();
   }
 
   public Store getCurrentStore() {
@@ -142,16 +143,12 @@ public class Player {
     infoString = newInfoString;
   }
 
-  /**
-   * Sets the best gear that the player has
-   * @param gear - the new best RangerGear
-   */
-  public void setBestGear(RangerGear gear) {
-    bestGear = gear;
-  }
-
   public void setFishingSkill(FishingSkill skill) {
     fishingSkill = skill;
+  }
+
+  public void setRangerSkill(RangerSkill skill) {
+    rangerSkill = skill;
   }
 
   /**
@@ -196,14 +193,6 @@ public class Player {
    */
   public void addTick(){
 	  ticks.add(new Tick());
-  }
-
-  /**
-   * Updates the ranger skill
-   * @param rangerSkillIncrease - amount to increase ranger skill by
-   */
-  public void incrementRangerSkill(int rangerSkillIncrease) {
-    rangerSkill += rangerSkillIncrease;
   }
 
   /**

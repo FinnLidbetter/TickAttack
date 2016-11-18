@@ -99,7 +99,7 @@ public class Controller extends AbstractController implements IController {
         itemAvailable = isSkillBoosterAvailable(desiredRod, bestRod);
       } else if (RangerGear.stringToGearMap.containsKey(desiredItemName)) {
         RangerGear desiredGear = RangerGear.stringToGearMap.get(desiredItemName);
-        RangerGear bestGear = gamePlayer.getBestGear();
+        RangerGear bestGear = gamePlayer.getBaseRangerSkill().getBestGear();
         itemAvailable = isSkillBoosterAvailable(desiredGear, bestGear);
       }
       if (!itemAvailable || !desiredItem.isUnlocked()) {
@@ -250,13 +250,13 @@ public class Controller extends AbstractController implements IController {
     long itemWorkCredCost = desiredItem.getWorkCredCost();
     gamePlayer.spendStreetCred(itemStreetCredCost);
     gamePlayer.spendWorkCred(itemWorkCredCost);
-    gamePlayer.incrementRangerSkill(desiredItem.getRangerSkillGain());
     if (FishingRod.stringToRodMap.containsKey(desiredItemName)) {
       FishingRod newRod = FishingRod.stringToRodMap.get(desiredItemName);
       gamePlayer.setFishingSkill(new AddRod(gamePlayer.getBaseFishingSkill(), newRod));
-    } if (RangerGear.stringToGearMap.containsKey(desiredItemName))
-      gamePlayer.setBestGear(RangerGear.stringToGearMap.get(desiredItemName));
-    if (desiredItemName.equals("Cheap Meds"))
+    } if (RangerGear.stringToGearMap.containsKey(desiredItemName)) {
+      RangerGear newGear = RangerGear.stringToGearMap.get(desiredItemName);
+      gamePlayer.setRangerSkill(new AddGear(gamePlayer.getBaseRangerSkill(), newGear));
+    } if (desiredItemName.equals("Cheap Meds"))
       gamePlayer.incrementNumCheapMeds(1);
     if (desiredItemName.equals("Tick Test"))
       gamePlayer.incrementNumTickTests(1);
