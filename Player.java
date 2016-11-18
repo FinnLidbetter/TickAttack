@@ -14,7 +14,8 @@ public class Player {
   private long streetCred;
   private int workCred;
   private double health;
-  private int fishingSkill;
+  //private int fishingSkill;
+  private FishingSkill fishingSkill;
   private int rangerSkill;
   private int numTickTests;
   private int numAntibiotics;
@@ -36,7 +37,8 @@ public class Player {
     streetCred = 0;
     workCred = 0;
     health = INITIAL_HEALTH;
-    fishingSkill = 1;
+    //fishingSkill = 1;
+    fishingSkill = new BaseFishingSkill();
     rangerSkill = 1;
 
     numTickTests = 0;
@@ -68,8 +70,11 @@ public class Player {
   public double getHealth() {
     return health;
   }
-  public int getFishingSkill() {
+  public FishingSkill getBaseFishingSkill() {
     return fishingSkill;
+  }
+  public int getFishingSkill() {
+    return fishingSkill.getFishingSkill();
   }
   public int getRangerSkill() {
     return rangerSkill;
@@ -156,6 +161,10 @@ public class Player {
     bestGear = gear;
   }
 
+  public void setFishingSkill(FishingSkill skill) {
+    fishingSkill = skill;
+  }
+
   /**
    * Attempts to use a tick test
    * @return true if a TickTest is used
@@ -212,9 +221,9 @@ public class Player {
    * Updates the fishing skill
    * @param fishingSkillIncrease - amount to increase fishing skill by
    */
-  public void incrementFishingSkill(int fishingSkillIncrease) {
-    fishingSkill += fishingSkillIncrease;
-  }
+  //public void incrementFishingSkill(int fishingSkillIncrease) {
+    //fishingSkill += fishingSkillIncrease;
+  //}
 
   /**
    * Updates the number of antibiotics
