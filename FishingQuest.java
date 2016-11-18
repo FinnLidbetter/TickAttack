@@ -1,3 +1,8 @@
+/**
+ * Specific type of quest pertaining to fishing.
+ * @author Finn Lidbetter, Michael Bradet-Legris
+ *
+ */
 public class FishingQuest extends Quest {
 
 	protected static final int WORKCRED_COST = 20;

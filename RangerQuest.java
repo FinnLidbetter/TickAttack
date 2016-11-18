@@ -1,3 +1,8 @@
+/**
+ * Specific type of quest pertaining to ranger patrol duties.
+ * @author Finn Lidbetter, Michael Bradet-Legris
+ *
+ */
 public class RangerQuest extends Quest {
 
 	protected static final int MAX_WORKCRED_MULTIPLIER = 10;

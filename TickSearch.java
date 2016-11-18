@@ -3,7 +3,7 @@ import java.util.Random;
 
 /**
  * Task for performing a tick search.
- *
+ * @author Finn Lidbetter, Michael Bradet-Legris
  */
 public class TickSearch implements Task{
 
