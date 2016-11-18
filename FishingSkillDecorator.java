@@ -9,4 +9,8 @@ public abstract class FishingSkillDecorator implements FishingSkill {
   public int getFishingSkill() {
     return skillToDecorate.getFishingSkill();
   }
+
+  public FishingRod getBestRod() {
+    return skillToDecorate.getBestRod();
+  }
 }

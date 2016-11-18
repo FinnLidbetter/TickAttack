@@ -5,4 +5,9 @@ public class BaseFishingSkill implements FishingSkill {
   public int getFishingSkill() {
     return baseFishingSkill;
   }
+
+  @Override
+  public FishingRod getBestRod() {
+    return null;
+  }
 }

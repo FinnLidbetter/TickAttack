@@ -95,7 +95,7 @@ public class Controller extends AbstractController implements IController {
       boolean itemAvailable = true;
       if (FishingRod.stringToRodMap.containsKey(desiredItemName)) {
         FishingRod desiredRod = FishingRod.stringToRodMap.get(desiredItemName);
-        FishingRod bestRod = gamePlayer.getBestRod();
+        FishingRod bestRod = gamePlayer.getBaseFishingSkill().getBestRod();
         itemAvailable = isSkillBoosterAvailable(desiredRod, bestRod);
       } else if (RangerGear.stringToGearMap.containsKey(desiredItemName)) {
         RangerGear desiredGear = RangerGear.stringToGearMap.get(desiredItemName);
@@ -250,12 +250,11 @@ public class Controller extends AbstractController implements IController {
     long itemWorkCredCost = desiredItem.getWorkCredCost();
     gamePlayer.spendStreetCred(itemStreetCredCost);
     gamePlayer.spendWorkCred(itemWorkCredCost);
-    //gamePlayer.incrementFishingSkill(desiredItem.getFishingSkillGain());
     gamePlayer.incrementRangerSkill(desiredItem.getRangerSkillGain());
-    if (FishingRod.stringToRodMap.containsKey(desiredItemName))
-      gamePlayer.setBestRod(FishingRod.stringToRodMap.get(desiredItemName));
-      gamePlayer.setFishingSkill(new AddRod(gamePlayer.getBaseFishingSkill(), FishingRod.stringToRodMap.get(desiredItemName)));
-    if (RangerGear.stringToGearMap.containsKey(desiredItemName))
+    if (FishingRod.stringToRodMap.containsKey(desiredItemName)) {
+      FishingRod newRod = FishingRod.stringToRodMap.get(desiredItemName);
+      gamePlayer.setFishingSkill(new AddRod(gamePlayer.getBaseFishingSkill(), newRod));
+    } if (RangerGear.stringToGearMap.containsKey(desiredItemName))
       gamePlayer.setBestGear(RangerGear.stringToGearMap.get(desiredItemName));
     if (desiredItemName.equals("Cheap Meds"))
       gamePlayer.incrementNumCheapMeds(1);

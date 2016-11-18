@@ -14,7 +14,6 @@ public class Player {
   private long streetCred;
   private int workCred;
   private double health;
-  //private int fishingSkill;
   private FishingSkill fishingSkill;
   private int rangerSkill;
   private int numTickTests;
@@ -27,7 +26,6 @@ public class Player {
   private Task currentTask;
   private int timeToCompleteTask;
   private Store currentStore;
-  private FishingRod bestRod;
   private RangerGear bestGear;
 
   /**
@@ -54,7 +52,6 @@ public class Player {
     timeToCompleteTask = 0;
     currentStore = null;
     ticks = new ArrayList<Tick>();
-    bestRod = null;
     bestGear = null;
   }
 
@@ -101,7 +98,7 @@ public class Player {
     return ticks;
   }
   public FishingRod getBestRod() {
-    return bestRod;
+    return fishingSkill.getBestRod();
   }
 
   public RangerGear getBestGear() {
@@ -143,14 +140,6 @@ public class Player {
    */
   public void setInfoString(String newInfoString) {
     infoString = newInfoString;
-  }
-
-  /**
-   * Sets the best rod that the player has
-   * @param rod - the new best rod
-   */
-  public void setBestRod(FishingRod rod) {
-    bestRod = rod;
   }
 
   /**
