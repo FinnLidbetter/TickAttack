@@ -1,4 +1,5 @@
 import javax.swing.Timer;
+
 import java.io.*;
 import java.util.*;
 import java.awt.event.ActionEvent;
@@ -106,6 +107,14 @@ public abstract class Quest implements QuestProperties, Task{
 		}
 		return 0;
 		
+	}
+	/**
+	 * Starts the process of the dialog
+	 * @param cont
+	 */
+	public void startDialog(Controller cont){
+		this.cont = cont;
+		readFile();
 	}
 
 	/**

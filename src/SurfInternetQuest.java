@@ -6,8 +6,6 @@
 
 
 public class SurfInternetQuest extends Quest {
-
-	protected static final int MAX_WORKCRED_MULTIPLIER = 10;
 	
 
 	/**
@@ -18,12 +16,8 @@ public class SurfInternetQuest extends Quest {
 		super(skillLevel);
 		infoString = "Performing Surf Internet Quest! \n";
 		this.timeToComplete = 75;
-	}
-	
-	public void startDialog(Controller cont){
+		//required for the dialog quest to work.
 		this.questName = "Surf Internet";
-		this.cont = cont;
-		readFile();
 	}
 		
 	public boolean canPerformQuest(int currentWorkCred) {
