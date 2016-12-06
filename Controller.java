@@ -9,6 +9,7 @@ public class Controller extends AbstractController implements IController {
   Player gamePlayer;
   Store acrossBorderStore;
   Store localStore;
+  Store witchHut;
 
   /**
    * Constructor that initialises the controller for the TickAttack game
@@ -18,6 +19,7 @@ public class Controller extends AbstractController implements IController {
     gamePlayer = new Player();
     localStore = StoreFactory.createLocalStore();
     acrossBorderStore = StoreFactory.createAcrossBorderStore();
+    witchHut = StoreFactory.createWitchHut();
   }
 
   /**
@@ -65,6 +67,9 @@ public class Controller extends AbstractController implements IController {
           break;
         case "Expensive Across Border Store":
           attemptGoToStore(acrossBorderStore);
+          break;
+        case "The Witch's Hut":
+          attemptGoToStore(witchHut);
           break;
         case "Cheap Meds":
           attemptUseCheapMeds();

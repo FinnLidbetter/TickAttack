@@ -32,9 +32,11 @@ public class SimpleViewer extends JFrame implements IView {
     protected JComboBox<String> questChoice;
     protected JComboBox<String> storeChoice;
     protected JComboBox<String> itemChoice;
+    protected JComboBox<String> potionChoice;
     protected JButton questButton;
     protected JButton storeButton;
     protected JButton useItemButton;
+    protected JButton brewPotionButton;
     protected JButton tickSearchButton;
 
     protected JTextField   myMessage;
@@ -111,11 +113,12 @@ public class SimpleViewer extends JFrame implements IView {
      * @return a panel with all of the buttons and their associated dropdown menus
      */
     protected JPanel makeButtons() {
-      JPanel p = new JPanel(new GridLayout(3,1));
+      JPanel p = new JPanel(new GridLayout(4,1));
 
       p.add(makeQuestButton());
       p.add(makeStoreButton());
       p.add(makeUseItemButton());
+      p.add(makePotionButton());
 
       JPanel outerPanel = new JPanel(new BorderLayout());
       outerPanel.add(p, BorderLayout.CENTER);
@@ -146,7 +149,7 @@ public class SimpleViewer extends JFrame implements IView {
     private JPanel makeStoreButton() {
       JPanel p = new JPanel(new GridLayout(2,1));
       p.setBorder(BorderFactory.createTitledBorder("Store: "));
-      String[] storeNames = {"Cheap Local Store","Expensive Across Border Store"};
+      String[] storeNames = {"Cheap Local Store","Expensive Across Border Store", "The Witch's Hut"};
       storeChoice = new JComboBox<>(storeNames);
       p.add(storeChoice);
       storeButton = new JButton("Go to store");
@@ -166,6 +169,17 @@ public class SimpleViewer extends JFrame implements IView {
       p.add(itemChoice);
       useItemButton = new JButton("Consume item");
       p.add(useItemButton);
+      return p;
+    }
+
+    private JPanel makePotionButton() {
+      JPanel p = new JPanel(new GridLayout(2,1));
+      p.setBorder(BorderFactory.createTitledBorder("Potions: "));
+      String[] potionNames = {};
+      potionChoice = new JComboBox<>(potionNames);
+      p.add(potionChoice);
+      brewPotionButton = new JButton("Brew potion");
+      p.add(brewPotionButton);
       return p;
     }
 

@@ -21,6 +21,14 @@ public class ItemFactory {
   private static int TREATMENT_PLAN_WORKCRED_COST = 10000;
   private static int TREATMENT_PLAN_HEALTH_GAIN = 100;
 
+  private static int TICKLEGS_STREETCRED_COST = 500;
+  private static int TICKLEGS_WORKCRED_COST = 0;
+
+  private static int EYEOFNEWT_STREETCRED_COST = 0;
+  private static int EYEOFNEWT_WORKCRED_COST = 500;
+
+  private static int POTIONBOOK_STREETCRED_COST = 1000;
+  private static int POTIONBOOK_WORKCRED_COST = 1000;
   /**
    * Initialises a FishingRod Enum type as an Item object
    * @param unlocked - boolean value indicating whether this item is available for purchase or not
@@ -198,5 +206,33 @@ public class ItemFactory {
   public static Item createMasterGear(boolean unlocked) {
     Item masterGear = createRangerGear(unlocked, RangerGear.MASTER_GEAR);
     return masterGear;
+  }
+
+  /**
+   * Initialises TickLegs as an item
+   * @param unlocked - boolean value indicating whether this item is available for purchase or not
+   * @return the TickLegs Item
+   */
+  public static Item createTickLegs(boolean unlocked) {
+    Item tickLegs = new Item("Tick Legs", "This could be useful in brewing potions", unlocked, TICKLEGS_STREETCRED_COST,
+    TICKLEGS_WORKCRED_COST, 0, 0, 0);
+    return tickLegs;
+  }
+
+  /**
+   * Initialises an Eye of Newt as an item
+   * @param unlocked - boolean value indicating whether this item is available for purchase or not
+   * @return the Eye of Newt Item
+   */
+  public static Item createEyeOfNewt(boolean unlocked) {
+    Item eyeOfNewt = new Item("Eye of Newt", "This could be useful in brewing potions", unlocked, EYEOFNEWT_STREETCRED_COST,
+    EYEOFNEWT_WORKCRED_COST, 0, 0, 0);
+    return eyeOfNewt;
+  }
+
+  public static Item createPotionBook(boolean unlocked) {
+    Item potionBook = new Item("Book of Potions", "This might tell me the secrets of brewing potions!", unlocked, POTIONBOOK_STREETCRED_COST,
+    POTIONBOOK_WORKCRED_COST, 0, 0, 0);
+    return potionBook;
   }
 }

@@ -13,6 +13,9 @@ public class StoreFactory {
   private static int ACROSS_BORDER_STORE_STREETCRED_COST = 0;
   private static int ACROSS_BORDER_STORE_WORKCRED_COST = 100;
 
+  private static int WITCH_HUT_STREETCRED_COST = 1000;
+  private static int WITCH_HUT_WORKCRED_COST = 1000;
+
   /**
    * Creates the Local Store
    * @return the initialised Local Store
@@ -51,5 +54,20 @@ public class StoreFactory {
     ACROSS_BORDER_STORE_STREETCRED_COST, ACROSS_BORDER_STORE_WORKCRED_COST);
     joes.setItemIDs();
     return joes;
+  }
+
+  /**
+   * Method to create the Witch's Hut
+   * @return the initialised Witch's Hut
+   */
+  public static Store createWitchHut() {
+    ArrayList<Item> storeItems = new ArrayList<Item>();
+    storeItems.add(ItemFactory.createPotionBook(true));
+    storeItems.add(ItemFactory.createTickLegs(true));
+    storeItems.add(ItemFactory.createEyeOfNewt(true));
+    Store witchHut = new Store("The Witch's Hut","Welcome to my Hut.\nPurchase items by entering a digit [0-9] if you dare", storeItems,
+    WITCH_HUT_STREETCRED_COST, WITCH_HUT_WORKCRED_COST);
+    witchHut.setItemIDs();
+    return witchHut;
   }
 }
