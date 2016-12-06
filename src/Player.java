@@ -30,8 +30,8 @@ public class Player {
    * Constructor for the player
    */
   public Player() {
-    streetCred = 100000;
-    workCred = 100000;
+    streetCred = 0;
+    workCred = 0;
     health = INITIAL_HEALTH;
     fishingSkill = new BaseFishingSkill();
     rangerSkill = new BaseRangerSkill();

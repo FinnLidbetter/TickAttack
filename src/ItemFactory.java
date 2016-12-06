@@ -248,24 +248,44 @@ public class ItemFactory {
     return eyeOfNewt;
   }
 
+  /**
+   * Initialises a Book of Potions as an item
+   * @param unlocked - boolean value indication whether this item is available for purchase or not
+   * @return the Book of Potions item
+   */
   public static Item createPotionBook(boolean unlocked) {
     Item potionBook = new Item("Book of Potions", "This might tell me the secrets of brewing potions!", POTION_RECIPES, "", unlocked, POTIONBOOK_STREETCRED_COST,
     POTIONBOOK_WORKCRED_COST, 0, 0, 0);
     return potionBook;
   }
 
+  /**
+   * Initialises a Fishing Potion as an Item
+   * @param unlocked - boolean value indication whether this item is available for purchase or not
+   * @return the Fishing Potion as an item
+   */
   public static Item createFishingPotion(boolean unlocked){
 	  Item fishingPotion = new Item("Fishing Potion", "This Fishing Potion will help me with fishing!", "Fishing skill boosted!", "", unlocked,
 			  FISHINGPOTION_STREETCRED_COST, FISHINGPOTION_WORKCRED_COST, 0, FISHINGPOTION_FISHING_SKILL_GAIN, 0);
 	  return fishingPotion;
   }
 
+  /**
+   * Initialises a Ranger Potion as an Item
+   * @param unlocked - boolean value indication whether this item is available for purchase or not
+   * @return the Ranger Potion as an item
+   */
   public static Item createRangerPotion(boolean unlocked){
 	  Item rangerPotion = new Item("Ranger Potion", "This Ranger Potion will help me with my park ranger duties!", "Ranger skill boosted!", "", unlocked,
 			  RANGERPOTION_STREETCRED_COST, RANGERPOTION_WORKCRED_COST, RANGERPOTION_RANGER_SKILL_GAIN, 0, 0);
 	  return rangerPotion;
   }
 
+  /**
+   * Initialises a Fusion Potion as an Item
+   * @param unlocked - boolean value indication whether this item is available for purchase or not
+   * @return the Fusion Potion as an item
+   */
   public static Item createFusionPotion(boolean unlocked){
 	  Item fusionPotion = new Item("Fusion Potion", "This Fusion Potion must be good for me!", "Fishing Skill, Ranger Skill, and health boosted!", "", unlocked,
 			  FUSIONPOTION_STREETCRED_COST, FUSIONPOTION_WORKCRED_COST, FUSIONPOTION_RANGER_SKILL_GAIN, FUSIONPOTION_FISHING_SKILL_GAIN,

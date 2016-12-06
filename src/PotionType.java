@@ -35,10 +35,18 @@ public enum PotionType {
     return name;
   }
 
+  /**
+   * Gets the ingredients for a potion
+   * @return the array of ingredients
+   */
   public String[] getIngredientNames() {
     return ingredientNames;
   }
 
+  /**
+   * Gets the multiplicities of each ingredient required
+   * @return the array of the number of each type of ingredient
+   */
   public int[] getIngredientMultiplicities() {
     return ingredientMultiplicities;
   }
