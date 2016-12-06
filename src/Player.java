@@ -30,8 +30,8 @@ public class Player {
    * Constructor for the player
    */
   public Player() {
-    streetCred = 0;
-    workCred = 0;
+    streetCred = 100000;
+    workCred = 100000;
     health = INITIAL_HEALTH;
     fishingSkill = new BaseFishingSkill();
     rangerSkill = new BaseRangerSkill();
@@ -191,27 +191,27 @@ public class Player {
   }
 
   public boolean useItem(String itemName){
-	  for(int i = 0; i < inventory.size(); i++){
+    if (itemName.equals("Book of Potions"))
+      return true;
+    for(int i = 0; i < inventory.size(); i++){
 		  if(inventory.get(i).getName().equals(itemName)){
 			  Item theItem = inventory.get(i);
 			  if(itemName.equals("Antibiotics")){
-				  if(useAntibiotics()){
-					  inventory.remove(itemName);
-					  return true;
+				  if(!useAntibiotics()){
+					  return false;
 				  }
-				  return false;
 			  }
 			  if(theItem.getFishingSkillGain() > 0){
-
+          setFishingSkill(new AddFishingItem(getBaseFishingSkill(), theItem));
 			  }
 			  if(theItem.getRangerSkillGain() > 0){
-
+          setRangerSkill(new AddRangerItem(getBaseRangerSkill(), theItem));
 			  }
 			  if(theItem.getHealthGain() > 0){
 				  adjustHealth(theItem.getHealthGain());
-				  return inventory.remove(theItem);
 			  }
-
+			  inventory.remove(theItem);
+        return true;
 		  }
 	  }
 	  return false;

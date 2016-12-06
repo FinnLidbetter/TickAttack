@@ -29,6 +29,10 @@ public class BrewPotion implements Task {
     return infoString;
   }
 
+  public void setFinishedBrew() {
+    infoString = "You successfully brewed a " + brewedPotion.getName()+"!";
+  }
+
   public int getTimeToComplete() {
     return MIN_TASK_TIME;
   }

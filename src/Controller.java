@@ -157,7 +157,7 @@ public class Controller extends AbstractController implements IController {
 	  } else {
 		  if (gamePlayer.getItemNum(itemName) == 0){
 			  showViewsError("You don't have \"" + itemName + "\" in your inventory");
-		  }else{
+		  } else{
 			  showViewsError(theItem.getFailMessage());
 		  }
 	  }
@@ -177,7 +177,9 @@ public class Controller extends AbstractController implements IController {
   }
 
   private void attemptBrewPotion(String potionName) {
-    if (gamePlayer.getTimeToCompleteTask()==0) {
+    if (gamePlayer.getItemNum("Book of Potions")<1) {
+      showViewsError("You don't know how to make potions yet");
+    } else if (gamePlayer.getTimeToCompleteTask()==0) {
       PotionType type = PotionType.stringToPotionMap.get(potionName);
       String[] ingredientNames = type.getIngredientNames();
       int[] ingredientMultiplicities = type.getIngredientMultiplicities();
@@ -186,6 +188,8 @@ public class Controller extends AbstractController implements IController {
         BrewPotion brewPotion = new BrewPotion(potionName);
         gamePlayer.setCurrentTask(brewPotion);
         update(gamePlayer.getCurrentTask().getInfoString());
+      } else {
+        showViewsError("You don't have all of the ingredients for this potion");
       }
     } else {
       showViewsError("You are still performing a task");

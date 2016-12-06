@@ -35,6 +35,8 @@ public class Item {
 		this.id = 0;
 		this.name = name;
 		this.infoString = infoString;
+		this.successMessage = successMessage;
+		this.failMessage = failMessage;
 		this.streetCredCost = streetCredCost;
 		this.unlocked = unlocked;
 		this.streetCredCost = streetCredCost;

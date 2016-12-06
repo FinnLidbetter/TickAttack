@@ -170,10 +170,10 @@ public class SimpleViewer extends JFrame implements IView {
     private JPanel makeUseItemButton() {
       JPanel p = new JPanel(new GridLayout(2,1));
       p.setBorder(BorderFactory.createTitledBorder("Item: "));
-      String[] itemNames = {"Cheap Meds", "Antibiotics"};
+      String[] itemNames = {"Cheap Meds", "Antibiotics", "Book of Potions","Fishing Potion","Ranger Potion","Fusion Potion"};
       itemChoice = new JComboBox<>(itemNames);
       p.add(itemChoice);
-      useItemButton = new JButton("Consume item");
+      useItemButton = new JButton("Use item");
       p.add(useItemButton);
       return p;
     }
@@ -369,7 +369,7 @@ public class SimpleViewer extends JFrame implements IView {
      */
     private JPanel makeNumberOfTickLegsLabel() {
       JPanel p = new JPanel(new FlowLayout());
-      p.add(new JLabel("Tick legs: "));
+      p.add(new JLabel("Number of Tick legs: "));
       numberOfTickLegsLabel = new JLabel("");
       p.add(numberOfTickLegsLabel);
       return p;
@@ -431,6 +431,7 @@ public class SimpleViewer extends JFrame implements IView {
       connectStoreEvent();
       connectItemEvent();
       connectTickSearchEvent();
+      connectBrewPotionEvent();
     }
 
     /**
@@ -483,7 +484,7 @@ public class SimpleViewer extends JFrame implements IView {
     protected void connectBrewPotionEvent() {
       brewPotionButton.addActionListener(new ActionListener(){
         public void actionPerformed(ActionEvent ev) {
-          myController.process("Brew Potion");
+          myController.process("Brew "+(String)potionChoice.getSelectedItem());
         }
       });
     }

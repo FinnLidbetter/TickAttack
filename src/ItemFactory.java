@@ -45,8 +45,8 @@ public class ItemFactory {
   private static int FUSIONPOTION_RANGER_SKILL_GAIN = 1;
   private static int FUSIONPOTION_HEALTH_GAIN = 10;
 
-  
-  
+
+
   /**
    * Initialises a FishingRod Enum type as an Item object
    * @param unlocked - boolean value indicating whether this item is available for purchase or not
@@ -232,7 +232,7 @@ public class ItemFactory {
    * @return the TickLegs Item
    */
   public static Item createTickLegs(boolean unlocked) {
-    Item tickLegs = new Item("Tick Legs", "This could be useful in brewing potions", "", "", unlocked, TICKLEGS_STREETCRED_COST,
+    Item tickLegs = new Item("Tick Legs", "This could be useful in brewing potions", "You eat the Tick Legs. No effect but a bad taste.", "", unlocked, TICKLEGS_STREETCRED_COST,
     TICKLEGS_WORKCRED_COST, 0, 0, 0);
     return tickLegs;
   }
@@ -243,7 +243,7 @@ public class ItemFactory {
    * @return the Eye of Newt Item
    */
   public static Item createEyeOfNewt(boolean unlocked) {
-    Item eyeOfNewt = new Item("Eye of Newt", "This could be useful in brewing potions", "", "", unlocked, EYEOFNEWT_STREETCRED_COST,
+    Item eyeOfNewt = new Item("Eye of Newt", "This could be useful in brewing potions", "You eat the Eye of Newt. No effect but a bad taste.", "", unlocked, EYEOFNEWT_STREETCRED_COST,
     EYEOFNEWT_WORKCRED_COST, 0, 0, 0);
     return eyeOfNewt;
   }
@@ -267,10 +267,10 @@ public class ItemFactory {
   }
 
   public static Item createFusionPotion(boolean unlocked){
-	  Item fusionPotion = new Item("Fusion Potion", "This Fusion Potion must be good for me!", "Skils and health boosted!", "", unlocked,
+	  Item fusionPotion = new Item("Fusion Potion", "This Fusion Potion must be good for me!", "Fishing Skill, Ranger Skill, and health boosted!", "", unlocked,
 			  FUSIONPOTION_STREETCRED_COST, FUSIONPOTION_WORKCRED_COST, FUSIONPOTION_RANGER_SKILL_GAIN, FUSIONPOTION_FISHING_SKILL_GAIN,
         FUSIONPOTION_HEALTH_GAIN);
 	  return fusionPotion;
   }
- 
+
 }

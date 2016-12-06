@@ -94,6 +94,7 @@ public class TickTimer {
 				BrewPotion action = (BrewPotion)task;
 				Item potionForPlayer = action.getBrewedPotion();
 				player.addItem(potionForPlayer);
+				action.setFinishedBrew();
 			} else {
 				Quest action = (Quest)task;
 				action.generateRandomEvents();
