@@ -77,15 +77,11 @@ public class Controller extends AbstractController implements IController {
         case "The Witch's Hut":
           attemptGoToStore(witchHut);
           break;
-        case "Cheap Meds":
-          attemptUseCheapMeds();
-          break;
-        case "Antibiotics":
-          attemptUseAntibiotics();
-          break;
         case "Tick Search":
           attemptTickSearch();
           break;
+        default:
+        	attemptUseItem(instruction);
       }
   }
 
@@ -157,37 +153,19 @@ public class Controller extends AbstractController implements IController {
       update(store.getStoreContents());
     }
   }
-
-  /**
-   * Helper method to attempt to use the Cheap Meds item
-   */
-  private void attemptUseCheapMeds() {
-    boolean used = gamePlayer.useCheapMeds();
-    if (used) {
-      update("Cheap Meds consumed, +10 health");
-    } else {
-      if (gamePlayer.getNumCheapMeds()==0) {
-        showViewsError("You don't have any Cheap Meds available to use");
-      } else {
-        showViewsError("You are already at maximum health");
-      }
-    }
-  }
-
-  /**
-   * Helper method to attempt to use the Antibiotics item
-   */
-  private void attemptUseAntibiotics() {
-    boolean used = gamePlayer.useAntibiotics();
-    if (used) {
-      update("Antibiotics used, you are fighting off Lyme disease");
-    } else {
-      if (gamePlayer.getNumAntibiotics()==0) {
-        showViewsError("You don't have any Antibiotics available to use");
-      } else {
-        showViewsError("You do not have any Lyme disease to treat");
-      }
-    }
+  
+  private void attemptUseItem(String itemName){
+	  Item theItem = gamePlayer.getItem(itemName);
+	  boolean used = gamePlayer.useItem(itemName);
+	  if (used) {
+		  update(theItem.getSuccessMessage());
+	  } else {
+		  if (gamePlayer.getItemNum(theItem.getName()) == 0){
+			  showViewsError("You don't have \"" + itemName + "\" in your inventory");
+		  }else{
+			  showViewsError(theItem.getFailMessage());
+		  }
+	  }
   }
 
   /**
@@ -266,16 +244,11 @@ public class Controller extends AbstractController implements IController {
     if (FishingRod.stringToRodMap.containsKey(desiredItemName)) {
       FishingRod newRod = FishingRod.stringToRodMap.get(desiredItemName);
       gamePlayer.setFishingSkill(new AddRod(gamePlayer.getBaseFishingSkill(), newRod));
-    } if (RangerGear.stringToGearMap.containsKey(desiredItemName)) {
+    } else if (RangerGear.stringToGearMap.containsKey(desiredItemName)) {
       RangerGear newGear = RangerGear.stringToGearMap.get(desiredItemName);
       gamePlayer.setRangerSkill(new AddGear(gamePlayer.getBaseRangerSkill(), newGear));
-    } if (desiredItemName.equals("Cheap Meds"))
-      gamePlayer.incrementNumCheapMeds(1);
-    if (desiredItemName.equals("Tick Test"))
-      gamePlayer.incrementNumTickTests(1);
-    if (desiredItemName.equals("Antibiotics"))
-      gamePlayer.incrementNumAntibiotics(1);
-    if (desiredItemName.equals("Intensive Treatment Plan")) {
+    }
+    else if (desiredItemName.equals("Intensive Treatment Plan")) {
       if (!gamePlayer.useIntensiveTreatment()) {
         // If treatment plan cannot be used, refund spendings and show error
         gamePlayer.updateStreetCred(itemStreetCredCost);
@@ -284,6 +257,8 @@ public class Controller extends AbstractController implements IController {
       } else {
         // plan used successfully
       }
+    }else {
+    	gamePlayer.addItem(desiredItem);
     }
   }
 

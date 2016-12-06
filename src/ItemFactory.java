@@ -45,6 +45,8 @@ public class ItemFactory {
   private static int FUSIONPOTION_RANGER_SKILL_GAIN = 1;
   private static int FUSIONPOTION_HEALTH_GAIN = 10;
 
+  
+  
   /**
    * Initialises a FishingRod Enum type as an Item object
    * @param unlocked - boolean value indicating whether this item is available for purchase or not
@@ -58,9 +60,9 @@ public class ItemFactory {
   }
 
   /**
-   * Initialises a RangerGear Enum type as an Item object
+   * Initializes a RangerGear Enum type as an Item object
    * @param unlocked - boolean value indicating whether this item is available for purchase or not
-   * @param gear - The RangerGear to initialise as an item
+   * @param gear - The RangerGear to initialize as an item
    * @return the RangerGear as an item
    */
   public static Item createRangerGear(boolean unlocked, RangerGear gear) {
@@ -270,4 +272,5 @@ public class ItemFactory {
         FUSIONPOTION_HEALTH_GAIN);
 	  return fusionPotion;
   }
+ 
 }
