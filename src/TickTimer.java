@@ -90,8 +90,10 @@ public class TickTimer {
 			if (task instanceof TickSearch){
 				TickSearch action = (TickSearch)task;
 				action.attemptRemovingTicks(player.getTicks(), player.removeItem("Tick Test", 1));
-			}
-			else {
+			} else if (task instanceof BrewPotion) {
+				// Do something
+				int a = 1;
+			} else {
 				Quest action = (Quest)task;
 				action.generateRandomEvents();
 				player.updateStreetCred(action.getStreetCredGain());

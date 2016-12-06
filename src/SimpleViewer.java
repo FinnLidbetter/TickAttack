@@ -181,7 +181,7 @@ public class SimpleViewer extends JFrame implements IView {
     private JPanel makePotionButton() {
       JPanel p = new JPanel(new GridLayout(2,1));
       p.setBorder(BorderFactory.createTitledBorder("Potions: "));
-      String[] potionNames = {"Fishing Potion, Ranger Potion, Fusion Potion"};
+      String[] potionNames = {"Fishing Potion", "Ranger Potion", "Fusion Potion"};
       potionChoice = new JComboBox<>(potionNames);
       p.add(potionChoice);
       brewPotionButton = new JButton("Brew potion");
@@ -613,11 +613,11 @@ public class SimpleViewer extends JFrame implements IView {
     }
 
     private void updateNumberOfRangerPotions(int numRangerPotions) {
-      numberOfFishingPotionsLabel.setText(""+numRangerPotions);
+      numberOfRangerPotionsLabel.setText(""+numRangerPotions);
     }
 
     private void updateNumberOfFusionPotions(int numFusionPotions) {
-      numberOfFishingPotionsLabel.setText(""+numFusionPotions);
+      numberOfFusionPotionsLabel.setText(""+numFusionPotions);
     }
 
     /**

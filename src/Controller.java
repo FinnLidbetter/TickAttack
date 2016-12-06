@@ -53,35 +53,29 @@ public class Controller extends AbstractController implements IController {
    * @param instruction - The given instruction
    */
   private void process(String instruction) {
-      switch (instruction) {
-        case "Fishing Quest":
-          FishingQuest fQuest = new FishingQuest(gamePlayer.getFishingSkill());
-          attemptStartQuest(fQuest);
-          break;
-        case "Ranger Quest":
-          RangerQuest rQuest = new RangerQuest(gamePlayer.getRangerSkill());
-          attemptStartQuest(rQuest);
-          break;
-        case "Surf Internet Quest":
-            SurfInternetQuest sQuest = new SurfInternetQuest(gamePlayer.getRangerSkill());
-            if(attemptStartQuest(sQuest)){
-            	sQuest.startDialog(this);
-            }
-            break;
-        case "Cheap Local Store":
-          attemptGoToStore(localStore);
-          break;
-        case "Expensive Across Border Store":
-          attemptGoToStore(acrossBorderStore);
-          break;
-        case "The Witch's Hut":
-          attemptGoToStore(witchHut);
-          break;
-        case "Tick Search":
-          attemptTickSearch();
-          break;
-        default:
-        	attemptUseItem(instruction);
+      if (instruction.equals("Fishing Quest")) {
+        FishingQuest fQuest = new FishingQuest(gamePlayer.getFishingSkill());
+        attemptStartQuest(fQuest);
+      } else if (instruction.equals("Ranger Quest")) {
+        RangerQuest rQuest = new RangerQuest(gamePlayer.getRangerSkill());
+        attemptStartQuest(rQuest);
+      } else if (instruction.equals("Surf Internet Quest")) {
+        SurfInternetQuest sQuest = new SurfInternetQuest(gamePlayer.getRangerSkill());
+        if(attemptStartQuest(sQuest)){
+        	sQuest.startDialog(this);
+        }
+      } else if (instruction.equals("Cheap Local Store")) {
+        attemptGoToStore(localStore);
+      } else if (instruction.equals("Expensive Across Border Store")) {
+        attemptGoToStore(acrossBorderStore);
+      } else if (instruction.equals("The Witch's Hut")) {
+        attemptGoToStore(witchHut);
+      } else if (instruction.equals("Tick Search")) {
+        attemptTickSearch();
+      } else if (instruction.length()>=5 && instruction.substring(0,4).equals("Brew")) {
+        attemptBrewPotion(instruction.substring(5,instruction.length()));
+      } else {
+        attemptUseItem(instruction);
       }
   }
 
@@ -153,7 +147,7 @@ public class Controller extends AbstractController implements IController {
       update(store.getStoreContents());
     }
   }
-  
+
   private void attemptUseItem(String itemName){
 	  Item theItem = gamePlayer.getItem(itemName);
 	  boolean used = gamePlayer.useItem(itemName);
@@ -176,6 +170,16 @@ public class Controller extends AbstractController implements IController {
       TickSearch tSearch = new TickSearch();
       gamePlayer.setCurrentTask(tSearch);
       update(gamePlayer.getCurrentTask().getInfoString());
+    } else {
+      showViewsError("You are still performing a task");
+    }
+  }
+
+  private void attemptBrewPotion(String potionName) {
+    if (gamePlayer.getTimeToCompleteTask()==0) {
+      // Do something
+      int a = 1;
+
     } else {
       showViewsError("You are still performing a task");
     }
