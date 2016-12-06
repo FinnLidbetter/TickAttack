@@ -30,7 +30,7 @@ public class SurfInternetQuest extends Quest {
 	public void generateRandomEvents() {
 		resetQuest();
 		hasTick = false;
-		workCredGain = 1000;
-		streetCredGain = 1000;
+		workCredGain = 3000;
+		streetCredGain = 3000;
 	}
 }
