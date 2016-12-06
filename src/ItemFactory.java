@@ -29,19 +29,22 @@ public class ItemFactory {
 
   private static int POTIONBOOK_STREETCRED_COST = 1000;
   private static int POTIONBOOK_WORKCRED_COST = 1000;
-  
-  private static int NEWTTICK_STREETCRED_COST = 1000;
-  private static int NEWTTICK_WORKCRED_COST = 500;
-  
-  private static int SUPERTICKCHECK_STREETCRED_COST = 1000;
-  private static int SUPERTICKCHECK_WORKCRED_COST = 500;
-  private static int SUPERTICKCHECK__HEALTH_GAIN = 0;
-  
-  private static int ULTRATICKCHECK_STREETCRED_COST = 1500;
-  private static int ULTRATICKCHECK_WORKCRED_COST = 500;
-  private static int ULTRATICKCHECK__HEALTH_GAIN = 0;
-  
-  
+  private static String POTION_RECIPES = "Potion Recipe Book:\n\tFishing Potion:\n\t\t2 Eyes of Newt\n\t\t4 Cheap Meds\n\tRanger Potion:\n\t\t3 Tick Legs\n\t\t1 Antibiotics\n\tFusion Potion\n\t\t1 Fishing Potion\n\t\t1 Ranger Potion";
+
+  private static int FISHINGPOTION_STREETCRED_COST = 0;
+  private static int FISHINGPOTION_WORKCRED_COST = 0;
+  private static int FISHINGPOTION_FISHING_SKILL_GAIN = 1;
+
+  private static int RANGERPOTION_STREETCRED_COST = 0;
+  private static int RANGERPOTION_WORKCRED_COST = 0;
+  private static int RANGERPOTION_RANGER_SKILL_GAIN = 1;
+
+  private static int FUSIONPOTION_STREETCRED_COST = 0;
+  private static int FUSIONPOTION_WORKCRED_COST = 0;
+  private static int FUSIONPOTION_FISHING_SKILL_GAIN = 1;
+  private static int FUSIONPOTION_RANGER_SKILL_GAIN = 1;
+  private static int FUSIONPOTION_HEALTH_GAIN = 10;
+
   /**
    * Initialises a FishingRod Enum type as an Item object
    * @param unlocked - boolean value indicating whether this item is available for purchase or not
@@ -49,7 +52,7 @@ public class ItemFactory {
    * @return the fishing rod as an item
    */
   public static Item createFishingRod(boolean unlocked, FishingRod rod) {
-    Item fishingRodItem = new Item(rod.getName(),rod.getInfo(), unlocked,
+    Item fishingRodItem = new Item(rod.getName(),rod.getInfo(), "", "", unlocked,
       rod.getStreetCredCost(), 0,0,rod.getFishingSkillGain(),0);
     return fishingRodItem;
   }
@@ -61,7 +64,7 @@ public class ItemFactory {
    * @return the RangerGear as an item
    */
   public static Item createRangerGear(boolean unlocked, RangerGear gear) {
-    Item rangerGearItem = new Item(gear.getName(), gear.getInfo(), unlocked,
+    Item rangerGearItem = new Item(gear.getName(), gear.getInfo(), "", "", unlocked,
       gear.getStreetCredCost(), 0, gear.getRangerSkillGain(),0,0);
     return rangerGearItem;
   }
@@ -72,7 +75,7 @@ public class ItemFactory {
    * @return the Antibiotics as an item
    */
   public static Item createAntibiotics(boolean unlocked) {
-    Item antibiotics = new Item("Antibiotics", "Treats the symptoms of Lyme Disease, but cannot fully cure it.",
+    Item antibiotics = new Item("Antibiotics", "Treats the symptoms of Lyme Disease, but cannot fully cure it.", "Antibiotics used, you are fighting off Lyme disease", "You do not have any Lyme disease to treat",
     unlocked, ANTIBIOTICS_STREETCRED_COST, ANTIBIOTICS_WORKCRED_COST, 0, 0, ANTIBIOTICS_HEALTH_GAIN);
     return antibiotics;
   }
@@ -83,7 +86,7 @@ public class ItemFactory {
    * @return the Tick Test as an item
    */
   public static Item createTickTest(boolean unlocked) {
-    Item tickTest = new Item("Tick Test", "This tick test can help me do my tick searches!", unlocked,
+    Item tickTest = new Item("Tick Test", "This tick test can help me do my tick searches!", "", "", unlocked,
     TICKTEST_STREETCRED_COST, TICKTEST_WORKCRED_COST, 0, 0, TICKTEST_HEALTH_GAIN);
     return tickTest;
   }
@@ -94,7 +97,7 @@ public class ItemFactory {
    * @return the CheapMeds as an item
    */
   public static Item createCheapMeds(boolean unlocked) {
-    Item cheapMeds = new Item("Cheap Meds", "Helps you feel better by restoring health.", unlocked,
+    Item cheapMeds = new Item("Cheap Meds", "Helps you feel better by restoring health.", "Cheap meds consumed +10 health", "You are already at maximum health", unlocked,
     CHEAPMEDS_STREETCRED_COST, CHEAPMEDS_WORKCRED_COST, 0, 0, CHEAPMEDS_HEALTH_GAIN);
     return cheapMeds;
   }
@@ -105,7 +108,7 @@ public class ItemFactory {
    * @return the IntensiveTreatmentPlan as an item
    */
   public static Item createIntensiveTreatmentPlan(boolean unlocked) {
-    Item treatmentPlan = new Item("Intensive Treatment Plan", "This health care option will fully treat Lyme Disease", unlocked,
+    Item treatmentPlan = new Item("Intensive Treatment Plan", "This health care option will fully treat Lyme Disease", "", "The Intensive Treatment Plan cannot be bought if you don't have Lyme Disease", unlocked,
     TREATMENT_PLAN_STREETCRED_COST, TREATMENT_PLAN_WORKCRED_COST, 0, 0, TREATMENT_PLAN_HEALTH_GAIN);
     return treatmentPlan;
   }
@@ -227,7 +230,7 @@ public class ItemFactory {
    * @return the TickLegs Item
    */
   public static Item createTickLegs(boolean unlocked) {
-    Item tickLegs = new Item("Tick Legs", "This could be useful in brewing potions", unlocked, TICKLEGS_STREETCRED_COST,
+    Item tickLegs = new Item("Tick Legs", "This could be useful in brewing potions", "", "", unlocked, TICKLEGS_STREETCRED_COST,
     TICKLEGS_WORKCRED_COST, 0, 0, 0);
     return tickLegs;
   }
@@ -238,32 +241,33 @@ public class ItemFactory {
    * @return the Eye of Newt Item
    */
   public static Item createEyeOfNewt(boolean unlocked) {
-    Item eyeOfNewt = new Item("Eye of Newt", "This could be useful in brewing potions", unlocked, EYEOFNEWT_STREETCRED_COST,
+    Item eyeOfNewt = new Item("Eye of Newt", "This could be useful in brewing potions", "", "", unlocked, EYEOFNEWT_STREETCRED_COST,
     EYEOFNEWT_WORKCRED_COST, 0, 0, 0);
     return eyeOfNewt;
   }
 
   public static Item createPotionBook(boolean unlocked) {
-    Item potionBook = new Item("Book of Potions", "This might tell me the secrets of brewing potions!", unlocked, POTIONBOOK_STREETCRED_COST,
+    Item potionBook = new Item("Book of Potions", "This might tell me the secrets of brewing potions!", POTION_RECIPES, "", unlocked, POTIONBOOK_STREETCRED_COST,
     POTIONBOOK_WORKCRED_COST, 0, 0, 0);
     return potionBook;
   }
-  
-  public static Item createNewtTick(boolean unlocked){
-	  Item newtTick = new Item("Newt Tick", "A guardian Newt-Tick hybrid that will protect you from the terrors of ticks for an adventure", unlocked, 
-			  NEWTTICK_STREETCRED_COST, NEWTTICK_WORKCRED_COST, 0, 0, 0);
-	  return newtTick;
+
+  public static Item createFishingPotion(boolean unlocked){
+	  Item fishingPotion = new Item("Fishing Potion", "This Fishing Potion will help me with fishing!", "Fishing skill boosted!", "", unlocked,
+			  FISHINGPOTION_STREETCRED_COST, FISHINGPOTION_WORKCRED_COST, 0, FISHINGPOTION_FISHING_SKILL_GAIN, 0);
+	  return fishingPotion;
   }
-  
-  public static Item superTickCheck(boolean unlocked){
-	  Item superTickCheck = new Item("Super Tick Check", "This tick check appears to be particularly good!", unlocked, 
-			  SUPERTICKCHECK_STREETCRED_COST, SUPERTICKCHECK_WORKCRED_COST, 0, 0, 0);
-	  return superTickCheck;
+
+  public static Item createRangerPotion(boolean unlocked){
+	  Item rangerPotion = new Item("Ranger Potion", "This Ranger Potion will help me with my park ranger duties!", "Ranger skill boosted!", "", unlocked,
+			  RANGERPOTION_STREETCRED_COST, RANGERPOTION_WORKCRED_COST, RANGERPOTION_RANGER_SKILL_GAIN, 0, 0);
+	  return rangerPotion;
   }
-  
-  public static Item perfectTickCheck(boolean unlocked){
-	  Item ultraTickCheck = new Item("Ultra Tick Check", "This tick check appears to be particularly good!", unlocked, 
-			  ULTRATICKCHECK_STREETCRED_COST, ULTRATICKCHECK_WORKCRED_COST, 0, 0, 0);
-	  return ultraTickCheck;
+
+  public static Item createFusionPotion(boolean unlocked){
+	  Item fusionPotion = new Item("Fusion Potion", "This Fusion Potion must be good for me!", "Skils and health boosted!", "", unlocked,
+			  FUSIONPOTION_STREETCRED_COST, FUSIONPOTION_WORKCRED_COST, FUSIONPOTION_RANGER_SKILL_GAIN, FUSIONPOTION_FISHING_SKILL_GAIN,
+        FUSIONPOTION_HEALTH_GAIN);
+	  return fusionPotion;
   }
 }

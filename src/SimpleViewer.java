@@ -20,6 +20,12 @@ public class SimpleViewer extends JFrame implements IView {
     protected JLabel       numberOfTickTestsLabel;
     protected JLabel       numberOfCheapMedsLabel;
     protected JLabel       numberOfAntibioticsLabel;
+    protected JLabel       numberOfTickLegsLabel;
+    protected JLabel       numberOfEyesOfNewtLabel;
+    protected JLabel       numberOfFishingPotionsLabel;
+    protected JLabel       numberOfRangerPotionsLabel;
+    protected JLabel       numberOfFusionPotionsLabel;
+
     protected JLabel       rangerGearLabel;
     protected JLabel       fishingRodLabel;
 
@@ -175,7 +181,7 @@ public class SimpleViewer extends JFrame implements IView {
     private JPanel makePotionButton() {
       JPanel p = new JPanel(new GridLayout(2,1));
       p.setBorder(BorderFactory.createTitledBorder("Potions: "));
-      String[] potionNames = {};
+      String[] potionNames = {"Fishing Potion, Ranger Potion, Fusion Potion"};
       potionChoice = new JComboBox<>(potionNames);
       p.add(potionChoice);
       brewPotionButton = new JButton("Brew potion");
@@ -278,13 +284,22 @@ public class SimpleViewer extends JFrame implements IView {
      * @return the item tracking panel
      */
     protected JPanel makeItemTracker() {
-      JPanel p = new JPanel(new FlowLayout());
+      JPanel p = new JPanel(new GridLayout(2,1));
+      JPanel p1 = new JPanel(new FlowLayout());
+      JPanel p2 = new JPanel(new FlowLayout());
       p.setBorder(BorderFactory.createTitledBorder("Items Owned: "));
-      p.add(makeNumberOfTickTestsLabel());
-      p.add(makeNumberOfCheapMedsLabel());
-      p.add(makeNumberOfAntibioticsLabel());
-      p.add(makeRangerGearLabel());
-      p.add(makeFishingRodLabel());
+      p1.add(makeNumberOfTickTestsLabel());
+      p1.add(makeNumberOfCheapMedsLabel());
+      p1.add(makeNumberOfAntibioticsLabel());
+      p1.add(makeRangerGearLabel());
+      p1.add(makeFishingRodLabel());
+      p2.add(makeNumberOfTickLegsLabel());
+      p2.add(makeNumberOfEyesOfNewtLabel());
+      p2.add(makeNumberOfFishingPotionsLabel());
+      p2.add(makeNumberOfRangerPotionsLabel());
+      p2.add(makeNumberOfFusionPotionsLabel());
+      p.add(p1);
+      p.add(p2);
       return p;
     }
 
@@ -348,6 +363,65 @@ public class SimpleViewer extends JFrame implements IView {
       return p;
     }
 
+    /**
+     * Makes a panel for tracking the player's tick legs
+     * @return the number of tick legs panel
+     */
+    private JPanel makeNumberOfTickLegsLabel() {
+      JPanel p = new JPanel(new FlowLayout());
+      p.add(new JLabel("Tick legs: "));
+      numberOfTickLegsLabel = new JLabel("");
+      p.add(numberOfTickLegsLabel);
+      return p;
+    }
+
+    /**
+     * Makes a panel for tracking the player's Eyes of Newt
+     * @return the number of eyes of newt panel
+     */
+    private JPanel makeNumberOfEyesOfNewtLabel() {
+      JPanel p = new JPanel(new FlowLayout());
+      p.add(new JLabel("Number of Eyes of Newt: "));
+      numberOfEyesOfNewtLabel = new JLabel("");
+      p.add(numberOfEyesOfNewtLabel);
+      return p;
+    }
+
+    /**
+     * Makes a panel for tracking the player's fishing potions
+     * @return the number of fishing potions panel
+     */
+    private JPanel makeNumberOfFishingPotionsLabel() {
+      JPanel p = new JPanel(new FlowLayout());
+      p.add(new JLabel("Number of Fishing Potions: "));
+      numberOfFishingPotionsLabel = new JLabel("");
+      p.add(numberOfFishingPotionsLabel);
+      return p;
+    }
+
+    /**
+     * Makes a panel for tracking the player's ranger potions
+     * @return the number of ranger potions panel
+     */
+    private JPanel makeNumberOfRangerPotionsLabel() {
+      JPanel p = new JPanel(new FlowLayout());
+      p.add(new JLabel("Number of Ranger Potions: "));
+      numberOfRangerPotionsLabel = new JLabel("");
+      p.add(numberOfRangerPotionsLabel);
+      return p;
+    }
+
+    /**
+     * Makes a panel for tracking the player's fusion potions
+     * @return the number of fusion potions panel
+     */
+    private JPanel makeNumberOfFusionPotionsLabel() {
+      JPanel p = new JPanel(new FlowLayout());
+      p.add(new JLabel("Number of Fusion Potions: "));
+      numberOfFusionPotionsLabel = new JLabel("");
+      p.add(numberOfFusionPotionsLabel);
+      return p;
+    }
 
     /**
      * Sets up the action listeners for each of the buttons
@@ -404,6 +478,17 @@ public class SimpleViewer extends JFrame implements IView {
     }
 
     /**
+     * Sets up the action listener for the brew potion button
+     */
+    protected void connectBrewPotionEvent() {
+      brewPotionButton.addActionListener(new ActionListener(){
+        public void actionPerformed(ActionEvent ev) {
+          myController.process("Brew Potion");
+        }
+      });
+    }
+
+    /**
      * Updates the view based on the information stored in the player
      * @param playerInfo - the player reference used to get the information to update
      */
@@ -413,9 +498,14 @@ public class SimpleViewer extends JFrame implements IView {
       updateHealth(playerInfo.getHealth());
       updateInfectionStage(playerInfo.getInfectionStage());
       updateTimeToCompleteTask(playerInfo.getTimeToCompleteTask());
-      updateNumberOfTickTests(playerInfo.getNumTickTests());
-      updateNumberofCheapMeds(playerInfo.getNumCheapMeds());
-      updateNumberOfAntibiotics(playerInfo.getNumAntibiotics());
+      updateNumberOfTickTests(playerInfo.getItemNum("Tick Test"));
+      updateNumberofCheapMeds(playerInfo.getItemNum("Cheap Meds"));
+      updateNumberOfAntibiotics(playerInfo.getItemNum("Antibiotics"));
+      updateNumberOfTickLegs(playerInfo.getItemNum("Tick Legs"));
+      updateNumberOfEyesOfNewt(playerInfo.getItemNum("Eye of Newt"));
+      updateNumberOfFishingPotions(playerInfo.getItemNum("Fishing Potion"));
+      updateNumberOfRangerPotions(playerInfo.getItemNum("Ranger Potion"));
+      updateNumberOfFusionPotions(playerInfo.getItemNum("Fusion Potion"));
       updateFishingRod(playerInfo.getBestRod());
       updateRangerGear(playerInfo.getBestGear());
     }

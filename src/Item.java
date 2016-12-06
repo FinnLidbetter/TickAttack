@@ -28,7 +28,7 @@ public class Item {
 	 * @param fishingSkillGain how much this item increases the player's fishingSkill by.
 	 * @param healthGain how the health the player gains by using this item.
 	 */
-	public Item(String name, String infoString, boolean unlocked,
+	public Item(String name, String infoString, String successMessage, String failMessage, boolean unlocked,
 			long streetCredCost, int workCredCost, int rangerSkillGain,
 			int fishingSkillGain, int healthGain) {
 
@@ -109,14 +109,14 @@ public class Item {
 	}
 
 	/**
-	 * Gets the ID of the item.  The default ID is 0, if no ID has 
+	 * Gets the ID of the item.  The default ID is 0, if no ID has
 	 * been set with the setID() method.
 	 * @return the Item's ID.
 	 */
 	public int getID() {
 		return id;
 	}
-	
+
 	/**
 	 * Sets the ID of this item to be the indicated value.
 	 * @param newID the new ID of this item.
@@ -124,11 +124,11 @@ public class Item {
 	public void setID(int newID) {
 		id = newID;
 	}
-	
+
 	public String getSuccessMessage(){
 		return successMessage;
 	}
-	
+
 	public String getFailMessage(){
 		return failMessage;
 	}
