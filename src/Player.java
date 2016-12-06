@@ -17,6 +17,7 @@ public class Player {
   private FishingSkill fishingSkill;
   private RangerSkill rangerSkill;
   ArrayList<Item> inventory;
+  //test
   private double streetCredGainRate; // streetCred gained per second
   private ArrayList<Tick> ticks;
   private double infectionStage;

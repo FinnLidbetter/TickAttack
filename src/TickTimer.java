@@ -89,7 +89,7 @@ public class TickTimer {
 		if (task != null){
 			if (task instanceof TickSearch){
 				TickSearch action = (TickSearch)task;
-				action.attemptRemovingTicks(player.getTicks(), player.useTickTest());
+				action.attemptRemovingTicks(player.getTicks(), player.removeItem("Tick Test", 1));
 			}
 			else {
 				Quest action = (Quest)task;
