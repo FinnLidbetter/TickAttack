@@ -14,6 +14,8 @@ public class Item {
 
 	private String name;
 	private String infoString;
+	private String successMessage;
+	private String failMessage;
 	private int id;
 	/**
 	 * Constructor.
@@ -121,5 +123,13 @@ public class Item {
 	 */
 	public void setID(int newID) {
 		id = newID;
+	}
+	
+	public String getSuccessMessage(){
+		return successMessage;
+	}
+	
+	public String getFailMessage(){
+		return failMessage;
 	}
 }
