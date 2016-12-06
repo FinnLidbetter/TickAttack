@@ -599,6 +599,27 @@ public class SimpleViewer extends JFrame implements IView {
       numberOfAntibioticsLabel.setText(""+numAntibiotics);
     }
 
+
+    private void updateNumberOfTickLegs(int numTickLegs) {
+      numberOfTickLegsLabel.setText(""+numTickLegs);
+    }
+
+    private void updateNumberOfEyesOfNewt(int numEyesOfNewt) {
+      numberOfEyesOfNewtLabel.setText(""+numEyesOfNewt);
+    }
+
+    private void updateNumberOfFishingPotions(int numFishingPotions) {
+      numberOfFishingPotionsLabel.setText(""+numFishingPotions);
+    }
+
+    private void updateNumberOfRangerPotions(int numRangerPotions) {
+      numberOfFishingPotionsLabel.setText(""+numRangerPotions);
+    }
+
+    private void updateNumberOfFusionPotions(int numFusionPotions) {
+      numberOfFishingPotionsLabel.setText(""+numFusionPotions);
+    }
+
     /**
      * Changes the displayed ranger gear
      * @param newRangerGear - new ranger gear to display
@@ -620,6 +641,7 @@ public class SimpleViewer extends JFrame implements IView {
       else
         fishingRodLabel.setText("None");
     }
+
 
     /**
      * Displays a message in the view
