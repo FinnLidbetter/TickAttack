@@ -73,7 +73,8 @@ public class Controller extends AbstractController implements IController {
       } else if (instruction.equals("Tick Search")) {
         attemptTickSearch();
       } else if (instruction.length()>=5 && instruction.substring(0,4).equals("Brew")) {
-        attemptBrewPotion(instruction.substring(5,instruction.length()));
+        String potionName = instruction.substring(5, instruction.length());
+        attemptBrewPotion(potionName);
       } else {
         attemptUseItem(instruction);
       }
@@ -154,7 +155,7 @@ public class Controller extends AbstractController implements IController {
 	  if (used) {
 		  update(theItem.getSuccessMessage());
 	  } else {
-		  if (gamePlayer.getItemNum(theItem.getName()) == 0){
+		  if (gamePlayer.getItemNum(itemName) == 0){
 			  showViewsError("You don't have \"" + itemName + "\" in your inventory");
 		  }else{
 			  showViewsError(theItem.getFailMessage());
@@ -177,11 +178,23 @@ public class Controller extends AbstractController implements IController {
 
   private void attemptBrewPotion(String potionName) {
     if (gamePlayer.getTimeToCompleteTask()==0) {
-      // Do something
-      int a = 1;
-
+      PotionType type = PotionType.stringToPotionMap.get(potionName);
+      String[] ingredientNames = type.getIngredientNames();
+      int[] ingredientMultiplicities = type.getIngredientMultiplicities();
+      if (gamePlayer.hasAllItems(ingredientNames, ingredientMultiplicities)) {
+        addAllIngredients(ingredientNames, ingredientMultiplicities);
+        BrewPotion brewPotion = new BrewPotion(potionName);
+        gamePlayer.setCurrentTask(brewPotion);
+        update(gamePlayer.getCurrentTask().getInfoString());
+      }
     } else {
       showViewsError("You are still performing a task");
+    }
+  }
+
+  private void addAllIngredients(String[] ingredients, int[] counts) {
+    for (int i=0; i<ingredients.length; i++) {
+      gamePlayer.removeItem(ingredients[i],counts[i]);
     }
   }
 

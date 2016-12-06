@@ -91,8 +91,9 @@ public class TickTimer {
 				TickSearch action = (TickSearch)task;
 				action.attemptRemovingTicks(player.getTicks(), player.removeItem("Tick Test", 1));
 			} else if (task instanceof BrewPotion) {
-				// Do something
-				int a = 1;
+				BrewPotion action = (BrewPotion)task;
+				Item potionForPlayer = action.getBrewedPotion();
+				player.addItem(potionForPlayer);
 			} else {
 				Quest action = (Quest)task;
 				action.generateRandomEvents();

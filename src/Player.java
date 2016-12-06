@@ -72,7 +72,7 @@ public class Player {
   public int getRangerSkill() {
     return rangerSkill.getRangerSkill();
   }
-  
+
   public double getStreetCredGainRate() {
     return streetCredGainRate;
   }
@@ -142,9 +142,13 @@ public class Player {
    * remove a number of a certain item from the player's inventory.
    * @param itemName The name of the item we want removed
    * @param num The amount of the item we want to remove.
-   * @return 
+   * @return
    */
-  
+
+  public void addItem(Item theItem){
+	  inventory.add(theItem);
+  }
+
   public boolean removeItem(String itemName, int num){
 	  if(num <= 0){
 		  return true;
@@ -163,8 +167,8 @@ public class Player {
 	  }
 	  return false;
   }
-  
-  
+
+
   public int getItemNum(String itemName){
 	  int numItems = 0;
 	  for(int i = 0; i < inventory.size(); i++){
@@ -174,7 +178,18 @@ public class Player {
 	  }
 	  return numItems;
   }
-  
+
+  public boolean hasAllItems(String[] itemNames, int[] itemCounts) {
+    if (itemNames.length!= itemCounts.length)
+      return false;
+    for (int i=0; i<itemNames.length; i++) {
+      if (getItemNum(itemNames[i])<itemCounts[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   public boolean useItem(String itemName){
 	  for(int i = 0; i < inventory.size(); i++){
 		  if(inventory.get(i).getName().equals(itemName)){
@@ -187,30 +202,30 @@ public class Player {
 				  return false;
 			  }
 			  if(theItem.getFishingSkillGain() > 0){
-				  
+
 			  }
 			  if(theItem.getRangerSkillGain() > 0){
-				  
+
 			  }
 			  if(theItem.getHealthGain() > 0){
 				  adjustHealth(theItem.getHealthGain());
 				  return inventory.remove(theItem);
 			  }
-			  
+
 		  }
 	  }
 	  return false;
   }
-  
+
   public Item getItem(String itemName){
 	  for(int i = 0; i < inventory.size(); i++){
-		  if(inventory.get(i).getName().equals("itemName")){
+		  if(inventory.get(i).getName().equals(itemName)){
 			  return inventory.get(i);
 		  }
 	  }
 	  return null;
   }
-  
+
   /* END NEW METHODS */
 
   public boolean useAntibiotics(){
@@ -264,9 +279,6 @@ public class Player {
     //fishingSkill += fishingSkillIncrease;
   //}
 
-  public void addItem(Item theItem){
-	  inventory.add(theItem);
-  }
 
   /**
    * Increments the streetcred gain rate

@@ -16,7 +16,7 @@ public enum PotionType {
   String[] ingredientNames;
   int[] ingredientMultiplicities;
 
-  static final Map<String, PotionType> stringToRodMap = Collections.unmodifiableMap(initializeMapping());
+  static final Map<String, PotionType> stringToPotionMap = Collections.unmodifiableMap(initializeMapping());
 
   /**
    * Initialiser for a FishingRod Enum type
@@ -39,14 +39,18 @@ public enum PotionType {
     return ingredientNames;
   }
 
+  public int[] getIngredientMultiplicities() {
+    return ingredientMultiplicities;
+  }
+
   /**
-   * Initialises the map from rod names to rods
-   * @return the initial rod name to fishing rod mapping
+   * Initialises the map from potion names to potions
+   * @return the initial potion name to potion type mapping
    */
   private static Map<String, PotionType> initializeMapping() {
     Map<String, PotionType> stringToPotionMap = new HashMap<>();
     for (PotionType potion:PotionType.values()) {
-      stringToRodMap.put(potion.getName(),potion);
+      stringToPotionMap.put(potion.getName(),potion);
     }
     return stringToPotionMap;
   }
