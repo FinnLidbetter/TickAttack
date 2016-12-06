@@ -34,7 +34,7 @@ public class TickSearch implements Task{
 
 	/**
 	 * Attempts removing all the ticks in the ticks Collection.  If usingTickTest
-	 * is true, sets all ticks to Visisble and the probability of removing them increases.
+	 * is true, sets all ticks to Visible and the probability of removing them increases.
 	 * @param ticks
 	 * @param usingTickTest
 	 */

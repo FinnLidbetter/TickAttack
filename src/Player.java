@@ -16,9 +16,8 @@ public class Player {
   private double health;
   private FishingSkill fishingSkill;
   private RangerSkill rangerSkill;
-  private int numTickTests;
-  private int numAntibiotics;
-  private int numCheapMeds;
+  ArrayList<Item> inventory;
+  //test
   private double streetCredGainRate; // streetCred gained per second
   private ArrayList<Tick> ticks;
   private double infectionStage;
@@ -38,10 +37,6 @@ public class Player {
     fishingSkill = new BaseFishingSkill();
     rangerSkill = new BaseRangerSkill();
 
-    numTickTests = 0;
-    numAntibiotics = 0;
-    numCheapMeds = 0;
-
     infectionStage = 0;
     streetCredGainRate = INITIAL_STREET_CRED_GAIN_RATE;
 
@@ -51,6 +46,7 @@ public class Player {
     timeToCompleteTask = 0;
     currentStore = null;
     ticks = new ArrayList<Tick>();
+    
   }
 
 
@@ -77,15 +73,7 @@ public class Player {
   public int getRangerSkill() {
     return rangerSkill.getRangerSkill();
   }
-  public int getNumTickTests() {
-    return numTickTests;
-  }
-  public int getNumAntibiotics() {
-    return numAntibiotics;
-  }
-  public int getNumCheapMeds() {
-    return numCheapMeds;
-  }
+  
   public double getStreetCredGainRate() {
     return streetCredGainRate;
   }
@@ -150,18 +138,92 @@ public class Player {
   public void setRangerSkill(RangerSkill skill) {
     rangerSkill = skill;
   }
-
+  /* NEW METHODS HERE */
   /**
-   * Attempts to use a tick test
-   * @return true if a TickTest is used
+   * remove a number of a certain item from the player's inventory.
+   * @param itemName The name of the item we want removed
+   * @param num The amount of the item we want to remove.
+   * @return 
    */
-  public boolean useTickTest(){
-	  if (numTickTests == 0)
-		  return false;
-	  numTickTests--;
-	  return true;
+  
+  public boolean removeItem(String itemName, int num){
+	  if(num <= 0){
+		  return true;
+	  }
+	  ArrayList<Integer> listOfIndices = new ArrayList<Integer>();
+	  for(int i = 0; i < inventory.size(); i++){
+		  if(inventory.get(i).getName().equals(itemName)){
+			  listOfIndices.add(i);
+			  if(listOfIndices.size() == num){
+				  for(int j = 0; j < listOfIndices.size(); j++){
+					  inventory.remove(listOfIndices.get(j) - j);
+				  }
+				  return true;
+			  }
+		  }
+	  }
+	  return false;
   }
+  
+  
+  public int getItemNum(String itemName){
+	  int numItems = 0;
+	  for(int i = 0; i < inventory.size(); i++){
+		  if(inventory.get(i).getName().equals(itemName)){
+			  numItems++;
+		  }
+	  }
+	  return numItems;
+  }
+  
+  public boolean useItem(String itemName){
+	  for(int i = 0; i < inventory.size(); i++){
+		  if(inventory.get(i).getName().equals(itemName)){
+			  Item theItem = inventory.get(i);
+			  if(itemName.equals("Antibiotics")){
+				  if(useAntibiotics()){
+					  inventory.remove(itemName);
+					  return true;
+				  }
+				  return false;
+			  }
+			  if(theItem.getFishingSkillGain() > 0){
+				  
+			  }
+			  if(theItem.getRangerSkillGain() > 0){
+				  
+			  }
+			  if(theItem.getHealthGain() > 0){
+				  adjustHealth(theItem.getHealthGain());
+				  return inventory.remove(theItem);
+			  }
+			  
+		  }
+	  }
+	  return false;
+  }
+  
+  public Item getItem(String itemName){
+	  for(int i = 0; i < inventory.size(); i++){
+		  if(inventory.get(i).getName().equals("itemName")){
+			  return inventory.get(i);
+		  }
+	  }
+	  return null;
+  }
+  
+  /* END NEW METHODS */
 
+  public boolean useAntibiotics(){
+	  if (infectionStage!=0) {
+	        infectionStage -= 0.1;
+	        if (infectionStage<=0) {
+	          infectionStage = INFECTIONSTAGE_INCREMENT;
+	        }
+	        return true;
+	  }
+	  return false;
+  }
   /**
    * Increments the development of Lyme Disease
    */
@@ -203,28 +265,8 @@ public class Player {
     //fishingSkill += fishingSkillIncrease;
   //}
 
-  /**
-   * Updates the number of antibiotics
-   * @param numExtraAntibiotics - amount to increase the number of extra antibiotics by
-   */
-  public void incrementNumAntibiotics(int numExtraAntibiotics) {
-    numAntibiotics += numExtraAntibiotics;
-  }
-
-  /**
-   * Updates the number of tick tests
-   * @param numExtraTickTests - amount to increase the number of extra tick tests by
-   */
-  public void incrementNumTickTests(int numExtraTickTests) {
-    numTickTests += numExtraTickTests;
-  }
-
-  /**
-   * Updates the number of cheap meds
-   * @param numExtraCheapMeds - amount to increase the number of extra cheap meds by
-   */
-  public void incrementNumCheapMeds(int numExtraCheapMeds) {
-    numCheapMeds += numExtraCheapMeds;
+  public void addItem(Item theItem){
+	  inventory.add(theItem);
   }
 
   /**
@@ -318,18 +360,6 @@ public class Player {
   }
 
   /**
-   * Attempts to use cheapmeds
-   * @return true if the cheap meds were successfully used, false otherwise
-   */
-  public boolean useCheapMeds() {
-    if (health==100 || numCheapMeds==0)
-      return false;
-    adjustHealth(10);
-    numCheapMeds--;
-    return true;
-  }
-
-  /**
    * Sets the currentStore to the destinationStore
    * @param destinationStore - store to go to
    */
@@ -342,22 +372,6 @@ public class Player {
    */
   public void leaveStore() {
     currentStore = null;
-  }
-
-  /**
-   * Method to use the antibiotics
-   * @return true if the antibiotics were used successfully false otherwise
-   */
-  public boolean useAntibiotics() {
-    if (numAntibiotics>0 && infectionStage!=0) {
-      infectionStage -= 0.1;
-      if (infectionStage<=0) {
-        infectionStage = INFECTIONSTAGE_INCREMENT;
-      }
-      numAntibiotics--;
-      return true;
-    }
-    return false;
   }
 
   /**
