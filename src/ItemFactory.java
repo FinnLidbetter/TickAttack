@@ -29,6 +29,19 @@ public class ItemFactory {
 
   private static int POTIONBOOK_STREETCRED_COST = 1000;
   private static int POTIONBOOK_WORKCRED_COST = 1000;
+  
+  private static int NEWTTICK_STREETCRED_COST = 1000;
+  private static int NEWTTICK_WORKCRED_COST = 500;
+  
+  private static int SUPERTICKCHECK_STREETCRED_COST = 1000;
+  private static int SUPERTICKCHECK_WORKCRED_COST = 500;
+  private static int SUPERTICKCHECK__HEALTH_GAIN = 0;
+  
+  private static int ULTRATICKCHECK_STREETCRED_COST = 1500;
+  private static int ULTRATICKCHECK_WORKCRED_COST = 500;
+  private static int ULTRATICKCHECK__HEALTH_GAIN = 0;
+  
+  
   /**
    * Initialises a FishingRod Enum type as an Item object
    * @param unlocked - boolean value indicating whether this item is available for purchase or not
@@ -234,5 +247,23 @@ public class ItemFactory {
     Item potionBook = new Item("Book of Potions", "This might tell me the secrets of brewing potions!", unlocked, POTIONBOOK_STREETCRED_COST,
     POTIONBOOK_WORKCRED_COST, 0, 0, 0);
     return potionBook;
+  }
+  
+  public static Item createNewtTick(boolean unlocked){
+	  Item newtTick = new Item("Newt Tick", "A guardian Newt-Tick hybrid that will protect you from the terrors of ticks for an adventure", unlocked, 
+			  NEWTTICK_STREETCRED_COST, NEWTTICK_WORKCRED_COST, 0, 0, 0);
+	  return newtTick;
+  }
+  
+  public static Item superTickCheck(boolean unlocked){
+	  Item superTickCheck = new Item("Super Tick Check", "This tick check appears to be particularly good!", unlocked, 
+			  SUPERTICKCHECK_STREETCRED_COST, SUPERTICKCHECK_WORKCRED_COST, 0, 0, 0);
+	  return superTickCheck;
+  }
+  
+  public static Item perfectTickCheck(boolean unlocked){
+	  Item ultraTickCheck = new Item("Ultra Tick Check", "This tick check appears to be particularly good!", unlocked, 
+			  ULTRATICKCHECK_STREETCRED_COST, ULTRATICKCHECK_WORKCRED_COST, 0, 0, 0);
+	  return ultraTickCheck;
   }
 }

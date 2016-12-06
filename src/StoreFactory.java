@@ -58,7 +58,7 @@ public class StoreFactory {
 
   /**
    * Method to create the Witch's Hut
-   * @return the initialised Witch's Hut
+   * @return the initialized Witch's Hut
    */
   public static Store createWitchHut() {
     ArrayList<Item> storeItems = new ArrayList<Item>();
