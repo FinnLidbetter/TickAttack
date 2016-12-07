@@ -138,17 +138,23 @@ public class Player {
     rangerSkill = skill;
   }
   /* NEW METHODS HERE */
-  /**
-   * remove a number of a certain item from the player's inventory.
-   * @param itemName The name of the item we want removed
-   * @param num The amount of the item we want to remove.
-   * @return
-   */
 
+  /**
+   * Adds the given item to the player's inventory.
+   * @param theItem The item to be added.
+   */
   public void addItem(Item theItem){
 	  inventory.add(theItem);
   }
 
+  /**
+   * Removes a number of a given item name from the player's inventory. If the user specifies an amount of items
+   * greater than the player has, then NO items will be removed.
+   * @param itemName The name of the item we want removed
+   * @param num The amount of the item we want to remove.
+   * @return True if num of items with itemName were successfully removed, false if failed due to inventory not having enough of the item.
+   */
+  
   public boolean removeItem(String itemName, int num){
 	  if(num <= 0){
 		  return true;
@@ -168,7 +174,13 @@ public class Player {
 	  return false;
   }
 
-
+  /**
+   * This method will return the amount of items with the given name the player has stored in 
+   * their inventory.
+   * @param itemName The name of the item to be counted
+   * @return The amount of items with the given item name in the player's inventory.
+   */
+  
   public int getItemNum(String itemName){
 	  int numItems = 0;
 	  for(int i = 0; i < inventory.size(); i++){
@@ -178,7 +190,16 @@ public class Player {
 	  }
 	  return numItems;
   }
-
+  
+  /**
+   * A helper method to check whether a player has all the items in the itemNames array, with the correct amount
+   * of them, as shown in the itemCounts array. The index of the itemName will be the same index to access the amount
+   * the player must have, as stored in itemCounts.
+   * @param itemNames The list of itemNames the player must have
+   * @param itemCounts The list of itemCounts, which are integers telling the player how much of the corresponding item
+   * they must have
+   * @return Whether has the correct amount of the needed items.
+   */
   public boolean hasAllItems(String[] itemNames, int[] itemCounts) {
     if (itemNames.length!= itemCounts.length)
       return false;
@@ -190,6 +211,17 @@ public class Player {
     return true;
   }
 
+  
+  /**
+   * A helper method created to replace the numerous old "useItem" methods. 
+   * This method will take in an item name, and perform an action based on the item's benefits.
+   * This essentially allows an item to have multiple positive benefits, and will provide special cases for
+   * the special items, such as book of potions (which should return true), antibiotics (which reduce infection level)
+   * and the ranger skill gain and fishing skill gain, which implement a decorator.
+   * 
+   * @param itemName The name of the item we would like to use.
+   * @return True if the item was owned and used successfully, false otherwise.
+   */
   public boolean useItem(String itemName){
     if (itemName.equals("Book of Potions"))
       return true;
@@ -216,7 +248,12 @@ public class Player {
 	  }
 	  return false;
   }
-
+  
+  /**
+   * A method to get an item from the inventory.
+   * @param itemName The name of the item we would like to retrieve.
+   * @return The item if available, null if the player does not own it.
+   */
   public Item getItem(String itemName){
 	  for(int i = 0; i < inventory.size(); i++){
 		  if(inventory.get(i).getName().equals(itemName)){
@@ -228,6 +265,14 @@ public class Player {
 
   /* END NEW METHODS */
 
+  /**
+   * A helper method to take some unrelated code out of the use item method. This is called when 
+   * the user wants to use antibiotics, and reduces the infectionStage by 0.1. If it drops below zero, 
+   * it resets it to the default increment, and it the user was already at 0, return false.
+   * 
+   * @return True if the user has non-zero infection stage (I.E, there is use in using the antibiotics)
+   * and false in the even that the user is not infected.
+   */
   public boolean useAntibiotics(){
 	  if (infectionStage!=0) {
 	        infectionStage -= 0.1;

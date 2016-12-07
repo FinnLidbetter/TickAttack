@@ -3,6 +3,11 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * 
+ * @author Patrick Coyle & Finn Lidbetter
+ *
+ */
 
 public class PlayerTest {
 	Player p1;
